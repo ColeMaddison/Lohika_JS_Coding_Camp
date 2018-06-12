@@ -7,6 +7,11 @@ app.get('/first-task', (req, res) => {
     res.send({serverMessage: "Hello, World from SERVER"});
 });
 
+// test route can be done via sever and via client ports - COOL (might be a vulnerability?)
+app.post('/first-task', (req, res) => {
+    res.send('Success!');
+});
+
 // make sure nothing is on port PORT, because will be fetching data via react through that port
 let PORT = process.env.PORT || 3334;
 
