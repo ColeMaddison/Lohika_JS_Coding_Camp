@@ -1,19 +1,28 @@
 {
   "name": "lohika_js_coding_camp",
   "version": "1.0.0",
-  "description": "social network for lohica js coding camp",
-  "main": "app.js",
+  "description": "Lohika coding camp social network",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js",
+    "client": "cd lohica-js-network && npm start"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ColeMaddison/Lohika_JS_Coding_Camp.git"
   },
-  "author": "Dmitry K",
+  "author": "Dmitry K.",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ColeMaddison/Lohika_JS_Coding_Camp/issues"
   },
-  "homepage": "https://github.com/ColeMaddison/Lohika_JS_Coding_Camp#readme"
+  "homepage": "https://github.com/ColeMaddison/Lohika_JS_Coding_Camp#readme",
+  "dependencies": {
+    "create-react-app": "^1.5.2",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
 }
