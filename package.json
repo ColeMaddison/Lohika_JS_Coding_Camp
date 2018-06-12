@@ -1,0 +1,19 @@
+{
+  "name": "lohika_js_coding_camp",
+  "version": "1.0.0",
+  "description": "social network for lohica js coding camp",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColeMaddison/Lohika_JS_Coding_Camp.git"
+  },
+  "author": "Dmitry K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ColeMaddison/Lohika_JS_Coding_Camp/issues"
+  },
+  "homepage": "https://github.com/ColeMaddison/Lohika_JS_Coding_Camp#readme"
+}
