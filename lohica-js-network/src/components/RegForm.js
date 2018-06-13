@@ -1,5 +1,6 @@
 import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid, Button, Radio} from 'react-bootstrap'
+import RegistrationInput from './RegFormInput';
 
 class RegistrationForm extends  React.Component {
 
@@ -48,92 +49,61 @@ class RegistrationForm extends  React.Component {
         for(let i =1; i<=99; i++){
             Options.push(`${i}`);
         }   
+
+        let label = 'label';
         return (
         <Form horizontal>
             <Grid>
                 <Row>
-                    <FormGroup 
-                        bsSize= "small"
-                        controlId ="formControlName"
-                        validationState={this.formFieldValidation('name')}
-                        >
-                        <Col md={4}>
-                            <Col mdOffset={10}>
-                                <ControlLabel>Name</ControlLabel>
-                            </Col>
-                        </Col>
-                        <Col md={4}>
-                            <FormControl
-                                type="text"
-                                name='name'
-                                value={ this.state.name }
-                                placeholder="Enter name"
-                                onChange={ this.handleChange }
-                            />
-                        </Col>
-                    </FormGroup>
-                
-                    <FormGroup 
-                        bsSize= "small"
-                        name="surname"
-                        controlId="formControlSurname"
-                        validationState={this.formFieldValidation('surname')}
-                        >
-                        <Col md={4}>
-                            <Col mdOffset={10}>
-                                <ControlLabel>Surname</ControlLabel>
-                            </Col>
-                        </Col>
-                        <Col md={4}>
-                            <FormControl
-                                type="text"
-                                name='surname'
-                                value={ this.state.surname }
-                                placeholder="Enter surname"
-                                onChange={ this.handleChange }
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup 
-                        bsSize= "small"
-                        controlId="formControlMidName"
-                        validationState={this.formFieldValidation('midName')}
-                        >
-                        <Col md={4}>
-                            <Col mdOffset={9}>
-                                <ControlLabel>Middle Name</ControlLabel>
-                            </Col>
-                        </Col>
-                        <Col md={4}>
-                            <FormControl
-                                type="text"
-                                name='midName'
-                                value={ this.state.midName }
-                                placeholder="Enter middle name"
-                                onChange={ this.handleChange }
-                            />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup 
-                        bsSize= "small"
-                        controlId="formControlEmail"
-                        validationState={this.formFieldValidation('email')}
-                        >
-                        <Col md={4}>
-                            <Col mdOffset={10}>
-                                <ControlLabel>Email</ControlLabel>
-                            </Col>
-                        </Col>
-                        <Col md={4}>
-                            <FormControl
-                                type="text"
-                                name='email'
-                                value={ this.state.email }
-                                placeholder="Enter email"
-                                onChange={ this.handleChange }
-                            />
-                        </Col>
-                    </FormGroup>
+
+                    <RegistrationInput 
+                        size = "small"
+                        id = 'formControlName'
+                        valid = {this.formFieldValidation('name')}
+                        label = "Name"
+                        type = "text"
+                        name = "name"
+                        value={ this.state.name }
+                        placeholder="Enter name"
+                        onChange={ this.handleChange } 
+                    />
+
+                    <RegistrationInput 
+                        size = "small"
+                        id = 'formControlSurname'
+                        valid = {this.formFieldValidation('surname')}
+                        label = "Surname"
+                        type = "text"
+                        name = "surname"
+                        value={ this.state.surname }
+                        placeholder="Enter surname"
+                        onChange={ this.handleChange } 
+                    />
+
+                    <RegistrationInput 
+                        size = "small"
+                        id = 'formControlMidName'
+                        valid = {this.formFieldValidation('midName')}
+                        label = "Middle Name"
+                        type = "text"
+                        name = "midName"
+                        value={ this.state.midName }
+                        placeholder="Enter midName"
+                        onChange={ this.handleChange } 
+                    />
+
+                    <RegistrationInput 
+                        size = "small"
+                        id = 'formControlEmail'
+                        valid = {this.formFieldValidation('email')}
+                        label = "Middle Name"
+                        type = "text"
+                        name = "email"
+                        value={ this.state.email }
+                        placeholder="Enter email"
+                        onChange={ this.handleChange } 
+                    />
+                    
                     <FormGroup controlId="gender">
                         <Col md={4}>
                             <Col mdOffset={10}>

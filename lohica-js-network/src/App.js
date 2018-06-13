@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-// import HelloWorld from './components/Button';
+import { Provider } from 'react-redux';
 import RegistrationForm from './components/RegForm';
 
-class App extends Component {
+import store from './Store.js';
 
-  state = {
-    response: ''
-  };
+class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      response: ''
+    };
+  }
   
 
   componentDidMount(){
@@ -31,15 +35,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App"> 
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header> */}
-          <h3>{ this.state.response }</h3> 
-            {/* <HelloWorld /> */}
-            <RegistrationForm />
-      </div>
+      // <Provider store={store}>
+        <div className="App"> 
+          {/* <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Welcome to React</h1>
+          </header> */}
+            <h3>{ this.state.response }</h3> 
+              {/* <HelloWorld /> */}
+              <RegistrationForm />
+        </div>
+      // </Provider>
     );
   }
 }
