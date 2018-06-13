@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 app.get('/first-task', (req, res) => {
-    res.send({serverMessage: "Hello, World from SERVER"});
+    res.send({serverMessage: "Please proceed to registration"});
 });
 
 // test route can be done via sever and via client ports - COOL (might be a vulnerability?)

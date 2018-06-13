@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid} from 'react-bootstrap'
+import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid, Button, Radio} from 'react-bootstrap'
 
 class RegistrationForm extends  React.Component {
 
@@ -21,13 +21,12 @@ class RegistrationForm extends  React.Component {
 
     }
 
-    formFieldValidation (key) {
-        console.log(key);
-        let charNum = this.state[key].length;
+    formFieldValidation (field) {
+        console.log(this.state);
+        let charNum = this.state[field].length;
         if(charNum > 10) {
             return 'success';
         } else if(charNum > 5) {
-            console.log('here');
             return 'warning';
         } else if(charNum > 0) {
             return 'error';
@@ -39,14 +38,12 @@ class RegistrationForm extends  React.Component {
     handleChange(e) {
         let key = e.target.name;
         let val = e.target.value;
-        this.setState({[key]: val}, () => {
-            this.formFieldValidation(key);
-        });
+        this.setState({[key]: val});
     }
 
     render() {
 
-        // age 
+        // age options
         let Options = [];
         for(let i =1; i<=99; i++){
             Options.push(`${i}`);
@@ -56,8 +53,9 @@ class RegistrationForm extends  React.Component {
             <Grid>
                 <Row>
                     <FormGroup 
+                        bsSize= "small"
                         controlId ="formControlName"
-                        // validationState= { this.formFieldValidation() }
+                        validationState={this.formFieldValidation('name')}
                         >
                         <Col md={4}>
                             <Col mdOffset={10}>
@@ -71,14 +69,15 @@ class RegistrationForm extends  React.Component {
                                 value={ this.state.name }
                                 placeholder="Enter name"
                                 onChange={ this.handleChange }
-                                // validationState={this.formFieldValidation()}
                             />
                         </Col>
                     </FormGroup>
                 
                     <FormGroup 
+                        bsSize= "small"
                         name="surname"
                         controlId="formControlSurname"
+                        validationState={this.formFieldValidation('surname')}
                         >
                         <Col md={4}>
                             <Col mdOffset={10}>
@@ -89,15 +88,16 @@ class RegistrationForm extends  React.Component {
                             <FormControl
                                 type="text"
                                 name='surname'
-                                value={ this.state.surname.value }
+                                value={ this.state.surname }
                                 placeholder="Enter surname"
                                 onChange={ this.handleChange }
-                                // validationState={this.formFieldValidation()}
                             />
                         </Col>
                     </FormGroup>
                     <FormGroup 
+                        bsSize= "small"
                         controlId="formControlMidName"
+                        validationState={this.formFieldValidation('midName')}
                         >
                         <Col md={4}>
                             <Col mdOffset={9}>
@@ -108,15 +108,16 @@ class RegistrationForm extends  React.Component {
                             <FormControl
                                 type="text"
                                 name='midName'
-                                value={ this.state.midName.value }
+                                value={ this.state.midName }
                                 placeholder="Enter middle name"
                                 onChange={ this.handleChange }
-                                // validationState={this.formFieldValidation()}
                             />
                         </Col>
                     </FormGroup>
                     <FormGroup 
+                        bsSize= "small"
                         controlId="formControlEmail"
+                        validationState={this.formFieldValidation('email')}
                         >
                         <Col md={4}>
                             <Col mdOffset={10}>
@@ -127,14 +128,25 @@ class RegistrationForm extends  React.Component {
                             <FormControl
                                 type="text"
                                 name='email'
-                                value={ this.state.email.value }
+                                value={ this.state.email }
                                 placeholder="Enter email"
                                 onChange={ this.handleChange }
-                                // validationState={this.formFieldValidation()}
                             />
                         </Col>
                     </FormGroup>
+                    <FormGroup controlId="gender">
+                        <Col md={4}>
+                            <Col mdOffset={10}>
+                                <ControlLabel>Gender</ControlLabel>
+                            </Col>
+                        </Col>
+                        <Col md={4}>
+                            <Radio name="radioGroup" value="male" inline>Male</Radio>
+                            <Radio name="radioGroup" value="female" inline>Female</Radio>
+                        </Col>
+                    </FormGroup>
                     <FormGroup 
+                        bsSize= "small"
                         controlId="formControlAge"
                         >
                         <Col md={4}>
@@ -148,7 +160,7 @@ class RegistrationForm extends  React.Component {
                                 componentClass="select" 
                                 placeholder="---select age---"
                                 onChange={this.handleChange}
-                                value={this.state.age.value}
+                                value={this.state.age}
                                 // validationState={this.formFieldValidation()}
                                 >
                                     <option value="">---select age---</option>
@@ -158,6 +170,19 @@ class RegistrationForm extends  React.Component {
                             </FormControl>
                         </Col>
                     </FormGroup>
+                    <FormGroup 
+                        bsSize= "small"
+                        controlId='formControlsFile'>
+                        <Col md={4}>
+                            <Col mdOffset={9}>
+                                <ControlLabel>Your photo</ControlLabel>
+                            </Col>
+                        </Col>
+                        <Col md={6}>
+                            <FormControl type="file"/>
+                        </Col>
+                    </FormGroup>
+                    <Button bsStyle="success">Success</Button>
                 </Row>
             </Grid>
         </Form> );
