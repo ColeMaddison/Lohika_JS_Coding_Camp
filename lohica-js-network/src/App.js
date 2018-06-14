@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { Provider } from 'react-redux';
 import RegistrationForm from './components/RegForm';
 
-import store from './Store.js';
 
 class App extends Component {
   constructor(){
@@ -35,7 +33,6 @@ class App extends Component {
 
   render() {
     return (
-      // <Provider store={store}>
         <div className="App"> 
           {/* <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -43,9 +40,8 @@ class App extends Component {
           </header> */}
             <h3>{ this.state.response }</h3> 
               {/* <HelloWorld /> */}
-              <RegistrationForm />
+            <RegistrationForm />
         </div>
-      // </Provider>
     );
   }
 }

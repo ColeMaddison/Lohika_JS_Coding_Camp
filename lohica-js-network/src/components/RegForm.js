@@ -1,6 +1,9 @@
 import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid, Button, Radio} from 'react-bootstrap'
-import RegistrationInput from './RegFormInput';
+// import RegistrationInput from './RegFormInput';
+import NameInput from './inputComponents/NameInput';
+import EmailInput from './inputComponents/EmailInput';
+ 
 
 class RegistrationForm extends  React.Component {
 
@@ -12,6 +15,7 @@ class RegistrationForm extends  React.Component {
             midName: '',
             email: '',
             age: '', 
+            gender:'',
             nameValid: null,
             surnameValid: null,
             midNameValid: null,
@@ -47,6 +51,7 @@ class RegistrationForm extends  React.Component {
         let val = e.target.value;   
         await this.setState({[key]: val});
         this.formFieldValidation(key);
+        console.log(this.state);
     }
 
     render() {  
@@ -61,7 +66,7 @@ class RegistrationForm extends  React.Component {
             <Grid>
                 <Row>
 
-                    <RegistrationInput 
+                    <NameInput 
                         size = 'small'
                         id = 'formControlName'
                         valid = {this.state.nameValid}
@@ -72,7 +77,7 @@ class RegistrationForm extends  React.Component {
                         onChange={ this.handleChange } 
                     />
 
-                    <RegistrationInput 
+                    <NameInput 
                         size = 'small'
                         id = 'formControlSurname'
                         valid = {this.state.surnameValid}
@@ -83,7 +88,7 @@ class RegistrationForm extends  React.Component {
                         onChange={ this.handleChange } 
                     />
 
-                    <RegistrationInput 
+                    <NameInput 
                         size = 'small'
                         id = 'formControlMidName'
                         valid = {this.state.midNameValid}
@@ -94,11 +99,11 @@ class RegistrationForm extends  React.Component {
                         onChange={ this.handleChange } 
                     />
 
-                    <RegistrationInput 
+                    <EmailInput 
                         size = 'small'
                         id = 'formControlEmail'
                         valid = {this.state.emailValid}
-                        label = 'Middle Name'
+                        label = 'email'
                         name = 'email'
                         value={ this.state.email }
                         placeholder='Enter email'
@@ -132,7 +137,6 @@ class RegistrationForm extends  React.Component {
                                 placeholder="---select age---"
                                 onChange={this.handleChange}
                                 value={this.state.age}
-                                // validationState={this.formFieldValidation()}
                                 >
                                     <option value="">---select age---</option>
                                     {Options.map(num => {
