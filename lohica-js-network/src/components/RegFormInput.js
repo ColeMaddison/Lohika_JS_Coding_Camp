@@ -15,7 +15,7 @@ const RegistrationInput = (...label) => (
     </Col>
     <Col md={4}>
         <FormControl
-            type={label[0].type}
+            type='text'
             name={label[0].name}
             value={label[0].value}
             placeholder={label[0].placeholder}

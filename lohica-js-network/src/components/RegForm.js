@@ -4,14 +4,18 @@ import RegistrationInput from './RegFormInput';
 
 class RegistrationForm extends  React.Component {
 
-    constructor(props, context){
+    constructor(props){
         super(props);
         this.state = {
             name: '',
             surname: '',
             midName: '',
             email: '',
-            age: '' 
+            age: '', 
+            nameValid: null,
+            surnameValid: null,
+            midNameValid: null,
+            emailValid: null
         }
 
 
@@ -22,85 +26,82 @@ class RegistrationForm extends  React.Component {
 
     }
 
-    formFieldValidation (field) {
-        console.log(this.state);
-        let charNum = this.state[field].length;
+    formFieldValidation (key) {
+        let charNum = this.state[key].length;
         if(charNum > 10) {
-            return 'success';
+            this.setState({[`${key}Valid`]: 'success'});
+            return;
         } else if(charNum > 5) {
-            return 'warning';
+            this.setState({[`${key}Valid`]: 'warning'});
+            return;
         } else if(charNum > 0) {
-            return 'error';
+            this.setState({[`${key}Valid`]: 'error'});
+            return;
         }
         return null;
     }
 
     // set state is async - to see value - use callback or async await
-    handleChange(e) {
+    async handleChange(e) {
         let key = e.target.name;
-        let val = e.target.value;
-        this.setState({[key]: val});
+        let val = e.target.value;   
+        await this.setState({[key]: val});
+        this.formFieldValidation(key);
     }
 
-    render() {
+    render() {  
 
         // age options
         let Options = [];
         for(let i =1; i<=99; i++){
             Options.push(`${i}`);
-        }   
-
-        let label = 'label';
+        }
         return (
         <Form horizontal>
             <Grid>
                 <Row>
 
                     <RegistrationInput 
-                        size = "small"
+                        size = 'small'
                         id = 'formControlName'
-                        valid = {this.formFieldValidation('name')}
-                        label = "Name"
-                        type = "text"
-                        name = "name"
+                        valid = {this.state.nameValid}
+                        label = 'Name'
+                        name = 'name'
                         value={ this.state.name }
-                        placeholder="Enter name"
+                        placeholder='Enter name'
                         onChange={ this.handleChange } 
                     />
 
                     <RegistrationInput 
-                        size = "small"
+                        size = 'small'
                         id = 'formControlSurname'
-                        valid = {this.formFieldValidation('surname')}
-                        label = "Surname"
-                        type = "text"
-                        name = "surname"
+                        valid = {this.state.surnameValid}
+                        label = 'Surname'
+                        name = 'surname'
                         value={ this.state.surname }
-                        placeholder="Enter surname"
+                        placeholder='Enter surname'
                         onChange={ this.handleChange } 
                     />
 
                     <RegistrationInput 
-                        size = "small"
+                        size = 'small'
                         id = 'formControlMidName'
-                        valid = {this.formFieldValidation('midName')}
-                        label = "Middle Name"
-                        type = "text"
-                        name = "midName"
+                        valid = {this.state.midNameValid}
+                        label = 'Middle Name'
+                        name = 'midName'
                         value={ this.state.midName }
-                        placeholder="Enter midName"
+                        placeholder='Enter midName'
                         onChange={ this.handleChange } 
                     />
 
                     <RegistrationInput 
-                        size = "small"
+                        size = 'small'
                         id = 'formControlEmail'
-                        valid = {this.formFieldValidation('email')}
-                        label = "Middle Name"
-                        type = "text"
-                        name = "email"
+                        valid = {this.state.emailValid}
+                        label = 'Middle Name'
+                        name = 'email'
                         value={ this.state.email }
-                        placeholder="Enter email"
+                        placeholder='Enter email'
                         onChange={ this.handleChange } 
                     />
                     
@@ -111,8 +112,8 @@ class RegistrationForm extends  React.Component {
                             </Col>
                         </Col>
                         <Col md={4}>
-                            <Radio name="radioGroup" value="male" inline>Male</Radio>
-                            <Radio name="radioGroup" value="female" inline>Female</Radio>
+                            <Radio name='radioGroup' value='male' inline>Male</Radio>
+                            <Radio name='radioGroup' value='female' inline>Female</Radio>
                         </Col>
                     </FormGroup>
                     <FormGroup 
