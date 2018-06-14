@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import RegistrationForm from './components/RegForm';
+import { createStore } from 'redux';
+import allReducers from './reducers/rootReducer';
+import {Provider} from 'react-redux';
 
+const store = createStore (allReducers);
 
 class App extends Component {
   constructor(){
     super();
-    this.state = {
+    this.state = {  
       response: ''
     };
   }
@@ -33,15 +37,12 @@ class App extends Component {
 
   render() {
     return (
+      <Provider store={store}>
         <div className="App"> 
-          {/* <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header> */}
             <h3>{ this.state.response }</h3> 
-              {/* <HelloWorld /> */}
             <RegistrationForm />
         </div>
+      </Provider>
     );
   }
 }

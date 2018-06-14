@@ -51,7 +51,7 @@ class RegistrationForm extends  React.Component {
         let val = e.target.value;   
         await this.setState({[key]: val});
         this.formFieldValidation(key);
-        console.log(this.state);
+        console.log(this.name);
     }
 
     render() {  
@@ -107,7 +107,7 @@ class RegistrationForm extends  React.Component {
                         name = 'email'
                         value={ this.state.email }
                         placeholder='Enter email'
-                        onChange={ this.handleChange } 
+                        // onChange={ this.handleChange } 
                     />
                     
                     <FormGroup controlId="gender">

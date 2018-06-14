@@ -1,8 +1,23 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Col} from 'react-bootstrap'
+import {FormControl, FormGroup, ControlLabel, Col} from 'react-bootstrap';
+// import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {validate} from '../../actions/inputAction'
 
 
 class EmailInput extends React.Component {
+    constructor(props){
+        super(props);
+        this.sendValid = this.sendValid.bind(this);
+    }
+
+    async sendValid(e) {
+        console.log(this.props);
+        let key = e.target.name;
+        let val = e.target.value;  
+        this.props.validate(key);
+    }
+
     render(){
         return(
             <FormGroup 
@@ -21,7 +36,7 @@ class EmailInput extends React.Component {
                         name={this.props.name}
                         value={this.props.value}
                         placeholder={this.props.placeholder}
-                        onChange={this.props.onChange}
+                        onChange={this.sendValid}
                         />
                 </Col>
             </FormGroup>
@@ -29,4 +44,14 @@ class EmailInput extends React.Component {
     }
 }
 
-export default EmailInput;
+const  mapStateToProps =  (state) => {
+    return {
+        inputs: state.inputs
+    }
+}
+
+const  matchDispatchToProps = (dispatch) => {
+    return {validate: validate, dispatch}
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(EmailInput);
