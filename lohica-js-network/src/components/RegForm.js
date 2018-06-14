@@ -105,7 +105,7 @@ class RegistrationForm extends  React.Component {
                         valid = {this.state.emailValid}
                         label = 'email'
                         name = 'email'
-                        value={ this.state.email }
+                        // value={ this.state.email }
                         placeholder='Enter email'
                         // onChange={ this.handleChange } 
                     />

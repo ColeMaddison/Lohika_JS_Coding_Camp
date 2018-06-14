@@ -11,10 +11,10 @@ class EmailInput extends React.Component {
         this.sendValid = this.sendValid.bind(this);
     }
 
-    async sendValid(e) {
+    sendValid(e) {
         console.log(this.props);
+        console.log(this.state);
         let key = e.target.name;
-        let val = e.target.value;  
         this.props.validate(key);
     }
 

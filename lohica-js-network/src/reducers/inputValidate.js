@@ -12,7 +12,6 @@ const initState = {
 };
 
 const inputValidate = (state=initState, action) => {
-    console.log(action);
     switch(action.type){
         case 'VALIDATE_NAME':
             return action.payload;
