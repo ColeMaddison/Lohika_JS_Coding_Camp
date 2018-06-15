@@ -28,8 +28,15 @@ export const validateMidName = (value) => {
 
 export const validateGender = (value) => {
     // console.log(value);
-    return{
+    return {
         type:"VALIDATE_GENDER",
+        payload: value
+    }
+};
+
+export const validateAge = (value) => {
+    return {
+        type:"VALIDATE_AGE",
         payload: value
     }
 }

@@ -12,18 +12,20 @@ class GenderRadio extends React.Component {
     }
 
     radioHandler(e) {
-        console.log(this.props.inputState);
         if(e.target.value){
             return this.store.dispatch(validateGender({
                 value:e.target.value,
                 status: null
             }));
-        } else {
-            return this.store.dispatch(validateGender({
-                value:'',
-                status: 'error'
-            }));
-        }
+        } 
+        
+        // add this later for the submit button validation 
+        // else {
+        //     return this.store.dispatch(validateGender({
+        //         value:'',
+        //         status: 'error'
+        //     }));
+        // }
     }
 
     render() {

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid, Button} from
 import NameInput from './inputComponents/NameInput';
 import EmailInput from './inputComponents/EmailInput';
 import GenderRadio from './inputComponents/GenderRadio';
+import AgeInput from './inputComponents/AgeInput'
  
 
 class RegistrationForm extends  React.Component {
@@ -72,22 +73,11 @@ class RegistrationForm extends  React.Component {
                     <GenderRadio store={this.props.store}
                         id="gender"
                     />
-                    
-                    {/* <FormGroup 
-                        controlId="gender"
-                        >
-                        <Col md={4}>
-                            <Col mdOffset={10}>
-                                <ControlLabel>Gender</ControlLabel>
-                            </Col>
-                        </Col>
-                        <Col md={4}>
-                            <Radio name='radioGroup' value='male' inline>Male</Radio>
-                            <Radio name='radioGroup' value='female' inline>Female</Radio>
-                        </Col>
-                    </FormGroup> */}
 
-                    <FormGroup 
+                    <AgeInput store={this.props.store}
+                        id="formControlAge" />
+
+                    {/* <FormGroup 
                         bsSize= "small"
                         controlId="formControlAge"
                         >
@@ -104,13 +94,14 @@ class RegistrationForm extends  React.Component {
                                 onChange={this.handleChange}
                                 value={this.state.age}
                                 >
-                                    <option value="">---select age---</option>
+                                    <option>---select age---</option>
                                     {Options.map(num => {
                                         return <option key={num} value={num}>{num}</option>
                                     })} 
                             </FormControl>
                         </Col>
-                    </FormGroup>
+                    </FormGroup> */}
+
                     <FormGroup 
                         bsSize= "small"
                         controlId='formControlsFile'>

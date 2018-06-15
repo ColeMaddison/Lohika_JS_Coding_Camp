@@ -5,6 +5,7 @@ const initState = {
     email: '',
     age: '', 
     gender:'',
+    ageValid:'',
     nameValid: null,
     surnameValid: null,
     midNameValid: null,
@@ -44,6 +45,13 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 gender: action.payload.value,
                 genderValid: action.payload.status
+            }
+
+        case 'VALIDATE_AGE':
+            return {
+                ...state,
+                age: action.payload.value,
+                ageValid: action.payload.status
             }
         default:
             return state;
