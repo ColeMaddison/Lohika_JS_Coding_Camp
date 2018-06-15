@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Col} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { validateEmail, validateMidName, validateName, validateSurname } from '../../actions/inputAction'
+import { validateMidName, validateName, validateSurname } from '../../actions/inputAction'
 
 
 class EmailInput extends React.Component {
@@ -10,30 +10,43 @@ class EmailInput extends React.Component {
 
         this.store = this.props.store;
 
-        this.sendValid = this.sendValid.bind(this);
+        this.dispatchEmitter = this.dispatchEmitter.bind(this);
     }
 
-
-
-    sendValid(e) {
-        console.log(this.props);
-        console.log(this.state);
-        let key = e.target.name;
-        this.props.validate(key);
+    dispatchEmitter = (charNum) => {
+        if(charNum > 10) {
+            return "success";
+        } else if(charNum > 5) {
+            return "warning";
+        } else if(charNum > 0) {
+            return "error";
+        }
+        return null;
     }
 
     handleValidateInput = (e) => {
         let inputId = e.target.id;
+        let inputVal = e.target.value;  
+        let charNum = inputVal.length;
 
         switch(inputId){
             case 'formControlName':
-                this.store.dispatch(validateName(e.target.value));
+                this.store.dispatch(validateName({
+                    value:inputVal, 
+                    status: this.dispatchEmitter(charNum)
+                }));
                 break;
             case 'formControlSurname':
-                this.store.dispatch(validateSurname(e.target.value));
+                this.store.dispatch(validateSurname({
+                    value:inputVal, 
+                    status: this.dispatchEmitter(charNum)
+                }));
                 break;
             case 'formControlMidName':
-                this.store.dispatch(validateMidName(e.target.value));
+                this.store.dispatch(validateMidName({
+                    value:inputVal, 
+                    status: this.dispatchEmitter(charNum)
+                }));
                 break;
             default:
                 break;
@@ -41,11 +54,25 @@ class EmailInput extends React.Component {
     }
 
     render(){
+        let color = '';
+        switch(this.props.id){
+            case 'formControlName':
+                color = this.props.inputState.nameValid;
+                break;
+            case 'formControlSurname':
+                color = this.props.inputState.surnameValid;
+                break;
+            case 'formControlMidName':
+                color = this.props.inputState.midNameValid;
+                break;
+            default:
+                break;
+        }
         return(
             <FormGroup 
                 bsSize= {this.props.size}
                 controlId ={this.props.id}
-                validationState={this.props.valid}
+                validationState={ color }                
                 >
                 <Col md={4}>
                     <Col mdOffset={10}>
@@ -66,14 +93,14 @@ class EmailInput extends React.Component {
     }
 }
 
-const  mapStateToProps =  (state) => {
+const  mapStateToProps =  (initState) => {
     return {
-        inputs: state.store
+        inputState: initState.formInput
     }
 }
 
 const  matchDispatchToProps = (dispatch) => {
-    return {validateEmail, validateMidName, validateSurname, dispatch}
+    return {validateMidName, validateSurname, dispatch}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(EmailInput);
