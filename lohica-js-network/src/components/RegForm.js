@@ -1,8 +1,9 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid, Button, Radio} from 'react-bootstrap'
+import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid, Button} from 'react-bootstrap'
 // import RegistrationInput from './RegFormInput';
 import NameInput from './inputComponents/NameInput';
 import EmailInput from './inputComponents/EmailInput';
+import GenderRadio from './inputComponents/GenderRadio';
  
 
 class RegistrationForm extends  React.Component {
@@ -22,36 +23,6 @@ class RegistrationForm extends  React.Component {
             emailValid: null
         }
 
-
-        // bind this to the class method
-        this.handleChange = this.handleChange.bind(this);
-
-        this.formFieldValidation = this.formFieldValidation.bind(this);
-
-    }
-
-    formFieldValidation (key) {
-        let charNum = this.state[key].length;
-        if(charNum > 10) {
-            this.setState({[`${key}Valid`]: 'success'});
-            return;
-        } else if(charNum > 5) {
-            this.setState({[`${key}Valid`]: 'warning'});
-            return;
-        } else if(charNum > 0) {
-            this.setState({[`${key}Valid`]: 'error'});
-            return;
-        }
-        return null;
-    }
-
-    // set state is async - to see value - use callback or async await
-    async handleChange(e) {
-        let key = e.target.name;
-        let val = e.target.value;   
-        await this.setState({[key]: val});
-        this.formFieldValidation(key);
-        console.log(this.name);
     }
 
     render() {  
@@ -69,48 +40,42 @@ class RegistrationForm extends  React.Component {
                     <NameInput store={this.props.store}
                         size = 'small'
                         id = 'formControlName'
-                        valid = {this.state.nameValid}
                         label = 'Name'
                         name = 'name'
-                        // value={ this.state.name }
                         placeholder='Enter name'
-                        // onChange={ this.handleChange } 
                     />
 
                     <NameInput store={this.props.store}
                         size = 'small'
                         id = 'formControlSurname'
-                        valid = {this.state.surnameValid}
                         label = 'Surname'
                         name = 'surname'
-                        // value={ this.state.surname }
                         placeholder='Enter surname'
-                        // onChange={ this.handleChange } 
                     />
 
                     <NameInput store={this.props.store}
                         size = 'small'
                         id = 'formControlMidName'
-                        valid = {this.state.midNameValid}
                         label = 'Middle Name'
                         name = 'midName'
-                        // value={ this.state.midName }
                         placeholder='Enter midName'
-                        // onChange={ this.handleChange } 
                     />
 
                     <EmailInput store={this.props.store}
                         size = 'small'
                         id = 'formControlEmail'
-                        valid = {this.state.emailValid}
                         label = 'email'
                         name = 'email'
-                        // value={ this.state.email }
                         placeholder='Enter email'
-                        // onChange={ this.handleChange } 
+                    />
+
+                    <GenderRadio store={this.props.store}
+                        id="gender"
                     />
                     
-                    <FormGroup controlId="gender">
+                    {/* <FormGroup 
+                        controlId="gender"
+                        >
                         <Col md={4}>
                             <Col mdOffset={10}>
                                 <ControlLabel>Gender</ControlLabel>
@@ -120,7 +85,8 @@ class RegistrationForm extends  React.Component {
                             <Radio name='radioGroup' value='male' inline>Male</Radio>
                             <Radio name='radioGroup' value='female' inline>Female</Radio>
                         </Col>
-                    </FormGroup>
+                    </FormGroup> */}
+
                     <FormGroup 
                         bsSize= "small"
                         controlId="formControlAge"

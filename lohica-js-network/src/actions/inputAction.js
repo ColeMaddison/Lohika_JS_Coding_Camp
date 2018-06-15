@@ -1,5 +1,4 @@
 export const validateName = (value) => {
-    // console.log(value);
     return {
         type:"VALIDATE_NAME",
         payload: value
@@ -7,7 +6,6 @@ export const validateName = (value) => {
 };
 
 export const validateSurname = (value) => {
-    // console.log(value);
     return {
         type:"VALIDATE_SURNAME",
         payload: value,
@@ -15,7 +13,6 @@ export const validateSurname = (value) => {
 };
 
 export const validateEmail = (value) => {
-    // console.log(value);
     return {
         type:"VALIDATE_EMAIL",
         payload: value
@@ -23,9 +20,16 @@ export const validateEmail = (value) => {
 };
 
 export const validateMidName = (value) => {
-    // console.log(value);
     return {
         type:"VALIDATE_MIDNAME",
         payload: value
     }
 };
+
+export const validateGender = (value) => {
+    // console.log(value);
+    return{
+        type:"VALIDATE_GENDER",
+        payload: value
+    }
+}

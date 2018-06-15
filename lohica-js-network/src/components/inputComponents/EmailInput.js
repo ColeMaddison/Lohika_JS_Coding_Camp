@@ -9,7 +9,6 @@ class EmailInput extends React.Component {
         super(props);
 
         this.store = this.props.store;
-        this.valid = this.store.getState().formInput.emailValid;
     }
 
     // validation via redux 

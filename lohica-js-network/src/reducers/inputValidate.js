@@ -8,7 +8,8 @@ const initState = {
     nameValid: null,
     surnameValid: null,
     midNameValid: null,
-    emailValid: null
+    emailValid: null,
+    genderValid: null
 };
 
 const inputValidate = (state=initState, action) => {
@@ -37,6 +38,13 @@ const inputValidate = (state=initState, action) => {
                 email: action.payload.value, 
                 emailValid: action.payload.status
             };
+
+        case 'VALIDATE_GENDER':
+            return {
+                ...state,
+                gender: action.payload.value,
+                genderValid: action.payload.status
+            }
         default:
             return state;
     }
