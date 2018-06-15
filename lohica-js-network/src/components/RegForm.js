@@ -1,10 +1,11 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Form, Col, Row, Grid, Button} from 'react-bootstrap'
+import {Form, Row, Grid, Button} from 'react-bootstrap'
 // import RegistrationInput from './RegFormInput';
 import NameInput from './inputComponents/NameInput';
 import EmailInput from './inputComponents/EmailInput';
 import GenderRadio from './inputComponents/GenderRadio';
 import AgeInput from './inputComponents/AgeInput'
+import ImageInput from './inputComponents/ImageInput';
  
 
 class RegistrationForm extends  React.Component {
@@ -71,38 +72,18 @@ class RegistrationForm extends  React.Component {
                     />
 
                     <GenderRadio store={this.props.store}
-                        id="gender"
+                        id="formControlGender"
                     />
 
                     <AgeInput store={this.props.store}
-                        id="formControlAge" />
+                        id="formControlAge" 
+                    />
+
+                    <ImageInput store={this.props.store} 
+                        id="formControlFile"
+                    />
 
                     {/* <FormGroup 
-                        bsSize= "small"
-                        controlId="formControlAge"
-                        >
-                        <Col md={4}>
-                            <Col mdOffset={10}>
-                                <ControlLabel>Age</ControlLabel>
-                            </Col>
-                        </Col>
-                        <Col md={4}>
-                            <FormControl 
-                                name='age'
-                                componentClass="select" 
-                                placeholder="---select age---"
-                                onChange={this.handleChange}
-                                value={this.state.age}
-                                >
-                                    <option>---select age---</option>
-                                    {Options.map(num => {
-                                        return <option key={num} value={num}>{num}</option>
-                                    })} 
-                            </FormControl>
-                        </Col>
-                    </FormGroup> */}
-
-                    <FormGroup 
                         bsSize= "small"
                         controlId='formControlsFile'>
                         <Col md={4}>
@@ -113,7 +94,7 @@ class RegistrationForm extends  React.Component {
                         <Col md={6}>
                             <FormControl type="file"/>
                         </Col>
-                    </FormGroup>
+                    </FormGroup> */}
                     <Button bsStyle="success">Success</Button>
                 </Row>
             </Grid>

@@ -40,3 +40,10 @@ export const validateAge = (value) => {
         payload: value
     }
 }
+
+export const validateImage = (value) => {
+    return {
+        type:"VALIDATE_IMAGE",
+        payload: value
+    }
+}

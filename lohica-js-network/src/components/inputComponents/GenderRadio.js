@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormGroup, ControlLabel, Col, Radio} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { validateGender } from '../../actions/inputAction'
+import { validateGender } from '../../actions/inputAction';
 
 class GenderRadio extends React.Component {
     constructor(props){
