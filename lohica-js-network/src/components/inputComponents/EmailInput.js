@@ -10,43 +10,33 @@ class EmailInput extends React.Component {
 
         this.store = this.props.store;
         this.valid = this.store.getState().formInput.emailValid;
-
-        // this.sendValid = this.sendValid.bind(this);
     }
 
-
-
-    formFieldValidation (key) {
-        let charNum = this.state[key].length;
-        if(charNum > 10) {
-            this.setState({[`${key}Valid`]: 'success'});
-            return;
-        } else if(charNum > 5) {
-            this.setState({[`${key}Valid`]: 'warning'});
-            return;
-        } else if(charNum > 0) {
-            this.setState({[`${key}Valid`]: 'error'});
-            return;
-        }
-        return null;
-    }
-
-    // set state is async - to see value - use callback or async await
-    async handleChange(e) {
-        let key = e.target.name;
-        let val = e.target.value;   
-        await this.setState({[key]: val});
-        this.formFieldValidation(key);
-        console.log(this.name);
-    }
-
+    // validation via redux 
     handleValidateInput = (e) => {
-        // let inputValidateState = '';
+        let emailInputVal = e.target.value;  
+        let charNum = emailInputVal.length;
+        if(charNum > 10) {
+            return this.store.dispatch(validateEmail({
+                value:emailInputVal, 
+                status: "success"
+            }));
+        } else if(charNum > 5) {
+            return this.store.dispatch(validateEmail({
+                value:emailInputVal, 
+                status: "warning"
+            }));
+        } else if(charNum > 0) {
+            return this.store.dispatch(validateEmail({
+                value:emailInputVal, 
+                status: "error"
+            }));
+        }
+        return this.store.dispatch(validateEmail({
+            value:emailInputVal, 
+            status: null
+        }));
 
-        let key = e.target.name;
-        let val = e.target.value;  
-        this.store.dispatch(validateEmail({value:e.target.value, status: "warning"}));
-        // console.log(this.store.getState().valid);
     }
 
     render(){
@@ -54,7 +44,7 @@ class EmailInput extends React.Component {
             <FormGroup 
                 bsSize= {this.props.size}
                 controlId ={this.props.id}
-                validationState="warning"
+                validationState={this.props.inputState.emailValid}
                 >
                 <Col md={4}>
                     <Col mdOffset={10}>
@@ -75,9 +65,10 @@ class EmailInput extends React.Component {
     }
 }
 
-const  mapStateToProps =  (state) => {
+// use to connect state (store) with props, to be able to change dynamic the fields
+const  mapStateToProps =  (initState) => {
     return {
-        inputs: state.store
+        inputState: initState.formInput
     }
 }
 

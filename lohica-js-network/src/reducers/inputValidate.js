@@ -12,23 +12,31 @@ const initState = {
 };
 
 const inputValidate = (state=initState, action) => {
-    // console.log(action);
     switch(action.type){
         case 'VALIDATE_NAME':
-            return  Object.assign({}, state, {
-                nameValid: action,
-                name: action.payload.payload
-            });
+            return  {
+                ...state, 
+                name: action.payload.value, 
+                nameValid: action.payload.status
+            };
         case 'VALIDATE_SURNAME':
-            return  Object.assign({}, state, {
-                surnameValid: action.payload
-            });
+            return  {
+                ...state, 
+                surname: action.payload.value, 
+                surnameValid: action.payload.status
+            };
         case 'VALIDATE_MIDNAME':
-            return  Object.assign({}, state, {
-                midNameValid: action.payload
-            });
+            return  {
+                ...state, 
+                midName: action.payload.value, 
+                midNameValid: action.payload.status
+            };
         case 'VALIDATE_EMAIL':
-            return  {...state, email: action.payload.value, emailValid: action.payload.status};
+            return  {
+                ...state, 
+                email: action.payload.value, 
+                emailValid: action.payload.status
+            };
         default:
             return state;
     }
