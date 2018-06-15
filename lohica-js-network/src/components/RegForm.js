@@ -66,40 +66,40 @@ class RegistrationForm extends  React.Component {
             <Grid>
                 <Row>
 
-                    <NameInput 
+                    <NameInput store={this.props.store}
                         size = 'small'
                         id = 'formControlName'
                         valid = {this.state.nameValid}
                         label = 'Name'
                         name = 'name'
-                        value={ this.state.name }
+                        // value={ this.state.name }
                         placeholder='Enter name'
-                        onChange={ this.handleChange } 
+                        // onChange={ this.handleChange } 
                     />
 
-                    <NameInput 
+                    <NameInput store={this.props.store}
                         size = 'small'
                         id = 'formControlSurname'
                         valid = {this.state.surnameValid}
                         label = 'Surname'
                         name = 'surname'
-                        value={ this.state.surname }
+                        // value={ this.state.surname }
                         placeholder='Enter surname'
-                        onChange={ this.handleChange } 
+                        // onChange={ this.handleChange } 
                     />
 
-                    <NameInput 
+                    <NameInput store={this.props.store}
                         size = 'small'
                         id = 'formControlMidName'
                         valid = {this.state.midNameValid}
                         label = 'Middle Name'
                         name = 'midName'
-                        value={ this.state.midName }
+                        // value={ this.state.midName }
                         placeholder='Enter midName'
-                        onChange={ this.handleChange } 
+                        // onChange={ this.handleChange } 
                     />
 
-                    <EmailInput 
+                    <EmailInput store={this.props.store}
                         size = 'small'
                         id = 'formControlEmail'
                         valid = {this.state.emailValid}

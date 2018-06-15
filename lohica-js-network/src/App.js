@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import RegistrationForm from './components/RegForm';
-import { createStore } from 'redux';
-import allReducers from './reducers/rootReducer';
-import {Provider} from 'react-redux';
 
-const store = createStore (allReducers);
+
 
 class App extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {  
       response: ''
     };
@@ -37,12 +34,10 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={store}>
         <div className="App"> 
             <h3>{ this.state.response }</h3> 
-            <RegistrationForm />
+            <RegistrationForm store={this.props.store} />
         </div>
-      </Provider>
     );
   }
 }
