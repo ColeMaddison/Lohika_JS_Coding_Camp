@@ -25,7 +25,7 @@ class ImageInput extends React.Component {
     }
 
     imageUpload (e) {
-        console.log(e.target.files[0]);
+        console.log(e.target);
         let imgData = e.target.files[0];
         
         let imageExt = imgData.type;
