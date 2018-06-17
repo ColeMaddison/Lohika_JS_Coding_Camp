@@ -13,17 +13,21 @@ class EmailInput extends React.Component {
         this.dispatchEmitter = this.dispatchEmitter.bind(this);
     }
 
-    dispatchEmitter = (charNum) => {
-        if(charNum > 10) {
-            return "success";
-        } else if(charNum > 5) {
-            return "warning";
-        } else if(charNum > 0) {
-            return "error";
+    dispatchEmitter = (charNum, val) => {
+        console.log(val);
+        let testRe = /^([a-zA-Z]+)$/;
+        if(charNum > 32){
+            return {mes:"error", status: false};
+        } else if (charNum < 1) {
+            return {mes:null, status: false};
+        } else if(testRe.test(val)) {
+            return {mes:"success", status:true};
+        } else if(!testRe.test(val)){
+            return {mes:"error", status: false};
         }
-        return null;
+        return {mes:null, status: false};
     }
-
+    
     handleValidateInput = (e) => {
         let inputId = e.target.id;
         let inputVal = e.target.value;  
@@ -31,9 +35,11 @@ class EmailInput extends React.Component {
 
         switch(inputId){
             case 'formControlName':
+                let disEm = this.dispatchEmitter(charNum, inputVal);
                 this.store.dispatch(validateName({
                     value:inputVal, 
-                    status: this.dispatchEmitter(charNum)
+                    status: disEm.status,
+                    message: disEm.mes
                 }));
                 break;
             case 'formControlSurname':
@@ -57,7 +63,7 @@ class EmailInput extends React.Component {
         let color = '';
         switch(this.props.id){
             case 'formControlName':
-                color = this.props.inputState.nameValid;
+                color = this.props.inputState.nameValidMessage;
                 break;
             case 'formControlSurname':
                 color = this.props.inputState.surnameValid;

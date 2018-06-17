@@ -20,12 +20,12 @@ class GenderRadio extends React.Component {
         } 
         
         // add this later for the submit button validation 
-        // else {
-        //     return this.store.dispatch(validateGender({
-        //         value:'',
-        //         status: 'error'
-        //     }));
-        // }
+        else {
+            return this.store.dispatch(validateGender({
+                value:'',
+                status: 'error'
+            }));
+        }
     }
 
     render() {

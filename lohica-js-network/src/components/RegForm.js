@@ -12,19 +12,15 @@ class RegistrationForm extends  React.Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            name: '',
-            surname: '',
-            midName: '',
-            email: '',
-            age: '', 
-            gender:'',
-            nameValid: null,
-            surnameValid: null,
-            midNameValid: null,
-            emailValid: null
-        }
 
+        this.state = this.props.store;
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        console.log(this.state.getState());
     }
 
     render() {  
@@ -82,20 +78,11 @@ class RegistrationForm extends  React.Component {
                     <ImageInput store={this.props.store} 
                         id="formControlFile"
                     />
-
-                    {/* <FormGroup 
-                        bsSize= "small"
-                        controlId='formControlsFile'>
-                        <Col md={4}>
-                            <Col mdOffset={9}>
-                                <ControlLabel>Your photo</ControlLabel>
-                            </Col>
-                        </Col>
-                        <Col md={6}>
-                            <FormControl type="file"/>
-                        </Col>
-                    </FormGroup> */}
-                    <Button bsStyle="success">Success</Button>
+                    <Button 
+                        bsStyle="success" 
+                        disabled={false}
+                        onClick = {this.handleSubmit}
+                        >Submit</Button>
                 </Row>
             </Grid>
         </Form> );

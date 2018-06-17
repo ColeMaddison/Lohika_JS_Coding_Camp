@@ -7,7 +7,8 @@ const initState = {
     gender:'',
     ageValid:'',
     imageStatus: null,
-    nameValid: null,
+    nameValid: false,
+    nameValidMessage: null,
     surnameValid: null,
     midNameValid: null,
     emailValid: null,
@@ -21,7 +22,8 @@ const inputValidate = (state=initState, action) => {
             return  {
                 ...state, 
                 name: action.payload.value, 
-                nameValid: action.payload.status
+                nameValid: action.payload.status,
+                nameValidMessage: action.payload.message
             };
         case 'VALIDATE_SURNAME':
             return  {

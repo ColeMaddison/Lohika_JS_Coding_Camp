@@ -16,18 +16,12 @@ class EmailInput extends React.Component {
         let emailInputVal = e.target.value;  
         let charNum = emailInputVal.length;
 
-        // var re = /^[\w]+\@[\w]+\.[a-zA-z]+$/i;
-        // return re.test(name);
-        if(/^[\w]+\@[\w]+\.[a-zA-z]{2,}$/i.test(emailInputVal)) {
+        // validate email
+        if(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(emailInputVal)) {
             return this.store.dispatch(validateEmail({
                 value:emailInputVal, 
                 status: "success"
             }));
-        // } else if(charNum > 5) {
-        //     return this.store.dispatch(validateEmail({
-        //         value:emailInputVal, 
-        //         status: "warning"
-        //     }));
         } else if(charNum > 0) {
             return this.store.dispatch(validateEmail({
                 value:emailInputVal, 
