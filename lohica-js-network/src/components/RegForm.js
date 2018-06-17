@@ -19,8 +19,12 @@ class RegistrationForm extends  React.Component {
     }
 
     handleSubmit(e){
+        let inputFieldsData = this.state.getState().formInput;
         e.preventDefault();
-        console.log(this.state.getState());
+        console.log(inputFieldsData.emailValid, inputFieldsData.imageValid, inputFieldsData.surnameValid, inputFieldsData.midNameValid, inputFieldsData.nameValid);
+        if(inputFieldsData.emailValid && inputFieldsData.imageValid && inputFieldsData.nameValid && inputFieldsData.surnameValid && inputFieldsData.midNameValid) {
+            console.log('yes');
+        }
     }
 
     render() {  

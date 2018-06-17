@@ -9,9 +9,12 @@ const initState = {
     imageStatus: null,
     nameValid: false,
     nameValidMessage: null,
-    surnameValid: null,
-    midNameValid: null,
-    emailValid: null,
+    surnameValid: false,
+    surnameValidMessage: null,
+    midNameValid: false,
+    midNameValidMessage: null,
+    emailValid: false,
+    emailValidMessage: null,
     genderValid: null,
     imageValid: false
 };
@@ -29,19 +32,22 @@ const inputValidate = (state=initState, action) => {
             return  {
                 ...state, 
                 surname: action.payload.value, 
-                surnameValid: action.payload.status
+                surnameValid: action.payload.status,
+                surnameValidMessage: action.payload.message
             };
         case 'VALIDATE_MIDNAME':
             return  {
                 ...state, 
                 midName: action.payload.value, 
-                midNameValid: action.payload.status
+                midNameValid: action.payload.status,
+                midNameValidMessage: action.payload.message
             };
         case 'VALIDATE_EMAIL':
             return  {
                 ...state, 
                 email: action.payload.value, 
-                emailValid: action.payload.status
+                emailValid: action.payload.status,
+                emailValidMessage: action.payload.message
             };
 
         case 'VALIDATE_GENDER':

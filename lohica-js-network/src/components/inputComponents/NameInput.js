@@ -14,7 +14,6 @@ class EmailInput extends React.Component {
     }
 
     dispatchEmitter = (charNum, val) => {
-        console.log(val);
         let testRe = /^([a-zA-Z]+)$/;
         if(charNum > 32){
             return {mes:"error", status: false};
@@ -32,10 +31,10 @@ class EmailInput extends React.Component {
         let inputId = e.target.id;
         let inputVal = e.target.value;  
         let charNum = inputVal.length;
+        let disEm = this.dispatchEmitter(charNum, inputVal);
 
         switch(inputId){
             case 'formControlName':
-                let disEm = this.dispatchEmitter(charNum, inputVal);
                 this.store.dispatch(validateName({
                     value:inputVal, 
                     status: disEm.status,
@@ -45,13 +44,15 @@ class EmailInput extends React.Component {
             case 'formControlSurname':
                 this.store.dispatch(validateSurname({
                     value:inputVal, 
-                    status: this.dispatchEmitter(charNum)
+                    status: disEm.status,
+                    message: disEm.mes
                 }));
                 break;
             case 'formControlMidName':
                 this.store.dispatch(validateMidName({
                     value:inputVal, 
-                    status: this.dispatchEmitter(charNum)
+                    status: disEm.status,
+                    message: disEm.mes
                 }));
                 break;
             default:
@@ -66,10 +67,10 @@ class EmailInput extends React.Component {
                 color = this.props.inputState.nameValidMessage;
                 break;
             case 'formControlSurname':
-                color = this.props.inputState.surnameValid;
+                color = this.props.inputState.surnameValidMessage;
                 break;
             case 'formControlMidName':
-                color = this.props.inputState.midNameValid;
+                color = this.props.inputState.midNameValidMessage;
                 break;
             default:
                 break;

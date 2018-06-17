@@ -20,17 +20,20 @@ class EmailInput extends React.Component {
         if(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(emailInputVal)) {
             return this.store.dispatch(validateEmail({
                 value:emailInputVal, 
-                status: "success"
+                status: true,
+                message: "success"
             }));
         } else if(charNum > 0) {
             return this.store.dispatch(validateEmail({
                 value:emailInputVal, 
-                status: "error"
+                status: false,
+                message: "error"
             }));
         }
         return this.store.dispatch(validateEmail({
             value:emailInputVal, 
-            status: null
+            status: false,
+            message: null
         }));
 
     }
@@ -40,7 +43,7 @@ class EmailInput extends React.Component {
             <FormGroup 
                 bsSize= {this.props.size}
                 controlId ={this.props.id}
-                validationState={this.props.inputState.emailValid}
+                validationState={this.props.inputState.emailValidMessage}
                 >
                 <Col md={4}>
                     <Col mdOffset={10}>
