@@ -53,6 +53,8 @@ class EmailInput extends React.Component {
                     message: disEm.mes
                 }));
                 break;
+            default:
+                break;
         }
     }
 

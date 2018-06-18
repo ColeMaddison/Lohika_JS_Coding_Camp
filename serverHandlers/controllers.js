@@ -20,6 +20,22 @@ exports.signup = (req, res) => {
                 length: 11,
                 numbers: true
             });
+
+            // make it async to save hash in db, not plain text!!!!!!!!
+            bcrypt.genSalt(10, (err, salt) => {
+                if(err){
+                    console.error(err);
+                    res.end(JSON.stringify({message: "Unknown error occured"}));
+                } 
+                bcrypt.hash(userPass, salt, (err, hash) =>{
+                    if(err) {
+                        res.end(JSON.stringify({message: "Unknown error occured"}));
+                    }
+                    console.log(hash);
+                    userPass = hash;
+                })
+            });
+            console.log(userPass);
         
             let user = new UserModel({
                 userName: userData.name,
@@ -35,10 +51,6 @@ exports.signup = (req, res) => {
             user.save(err => {
                 console.error(err)
             });
-        
-            // console.log(userPass);
-            // console.log(req.file);
-            // console.log(req.body);
             res.send(JSON.stringify({message:'Success!', userPass}));
         }
     })

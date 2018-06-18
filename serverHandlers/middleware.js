@@ -9,6 +9,7 @@ const allowedImgExts = [
 
 exports.validateInputFields = (req, res, next) => {
     let userInfo = req.body;
+    console.log(userInfo);
 
     // validation check
     if(!(/^([a-zA-Z]{1,32})$/.test(userInfo.name))){

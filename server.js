@@ -27,7 +27,8 @@ app.get('/first-task', (req, res) => {
 });
 
 // sighn up route with form fields validation
-app.post('/signup', mdl.validateInputFields, upload.single('file'), (req, res) => {
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+app.post('/signup', upload.single('file'), mdl.validateInputFields, (req, res) => {
     ctrl.signup(req,res);
 });
 
