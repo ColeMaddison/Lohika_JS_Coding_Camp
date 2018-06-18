@@ -26,6 +26,7 @@ app.get('/first-task', (req, res) => {
     res.send({serverMessage: "Please proceed to registration"});
 });
 
+// sighn up route with form fields validation
 app.post('/signup', mdl.validateInputFields, upload.single('file'), (req, res) => {
     ctrl.signup(req,res);
 });
