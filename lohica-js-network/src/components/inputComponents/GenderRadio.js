@@ -6,22 +6,17 @@ import { validateGender } from '../../actions/inputAction';
 class GenderRadio extends React.Component {
     constructor(props){
         super(props);
-
-        this.store = this.props.store;
         this.radioHandler = this.radioHandler.bind(this);
     }
 
     radioHandler(e) {
         if(e.target.value){
-            return this.store.dispatch(validateGender({
+            return this.props.dispatch(validateGender({
                 value:e.target.value,
                 status: null
             }));
-        } 
-        
-        // add this later for the submit button validation 
-        else {
-            return this.store.dispatch(validateGender({
+        } else {
+            return this.props.dispatch(validateGender({
                 value:'',
                 status: 'error'
             }));

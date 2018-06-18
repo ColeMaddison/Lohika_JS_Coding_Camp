@@ -1,10 +1,10 @@
 import React from 'react';
-import {Form, Row, Grid, Button} from 'react-bootstrap'
-// import RegistrationInput from './RegFormInput';
+import {Form, Row, Grid, Button} from 'react-bootstrap';
+import {connect} from 'react-redux';
 import NameInput from './inputComponents/NameInput';
 import EmailInput from './inputComponents/EmailInput';
 import GenderRadio from './inputComponents/GenderRadio';
-import AgeInput from './inputComponents/AgeInput'
+import AgeInput from './inputComponents/AgeInput';
 import ImageInput from './inputComponents/ImageInput';
  
 
@@ -13,13 +13,11 @@ class RegistrationForm extends  React.Component {
     constructor(props){
         super(props);
 
-        this.state = this.props.store;
-
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(e){
-        let inputFieldsData = this.state.getState().formInput;
+        let inputFieldsData = this.props.store.getState().formInput;
         e.preventDefault();
         console.log(inputFieldsData.emailValid, inputFieldsData.imageValid, inputFieldsData.surnameValid, inputFieldsData.midNameValid, inputFieldsData.nameValid);
         if(inputFieldsData.emailValid && inputFieldsData.imageValid && inputFieldsData.nameValid && inputFieldsData.surnameValid && inputFieldsData.midNameValid) {
@@ -28,6 +26,7 @@ class RegistrationForm extends  React.Component {
     }
 
     render() {  
+        // console.log(this.props);
 
         // age options
         let Options = [];
@@ -39,7 +38,7 @@ class RegistrationForm extends  React.Component {
             <Grid>
                 <Row>
 
-                    <NameInput store={this.props.store}
+                    <NameInput
                         size = 'small'
                         id = 'formControlName'
                         label = 'Name'
@@ -47,7 +46,7 @@ class RegistrationForm extends  React.Component {
                         placeholder='Enter name'
                     />
 
-                    <NameInput store={this.props.store}
+                    <NameInput
                         size = 'small'
                         id = 'formControlSurname'
                         label = 'Surname'
@@ -55,7 +54,7 @@ class RegistrationForm extends  React.Component {
                         placeholder='Enter surname'
                     />
 
-                    <NameInput store={this.props.store}
+                    <NameInput
                         size = 'small'
                         id = 'formControlMidName'
                         label = 'Middle Name'
@@ -63,7 +62,7 @@ class RegistrationForm extends  React.Component {
                         placeholder='Enter midName'
                     />
 
-                    <EmailInput store={this.props.store}
+                    <EmailInput
                         size = 'small'
                         id = 'formControlEmail'
                         label = 'email'
@@ -71,15 +70,15 @@ class RegistrationForm extends  React.Component {
                         placeholder='Enter email'
                     />
 
-                    <GenderRadio store={this.props.store}
+                    <GenderRadio
                         id="formControlGender"
                     />
 
-                    <AgeInput store={this.props.store}
+                    <AgeInput
                         id="formControlAge" 
                     />
 
-                    <ImageInput store={this.props.store} 
+                    <ImageInput
                         id="formControlFile"
                     />
                     <Button 
@@ -93,4 +92,10 @@ class RegistrationForm extends  React.Component {
     }
 }
 
-export default RegistrationForm;
+const mapStateToProps = (initState) => {
+    return {
+        inputState: initState.formInput
+    }
+}
+
+export default connect(mapStateToProps)(RegistrationForm);

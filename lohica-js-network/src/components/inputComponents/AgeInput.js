@@ -7,20 +7,19 @@ class AgeInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.store = this.props.store;
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(e) {
         if(e.target.value){
-            return this.store.dispatch(validateAge({
+            return this.props.dispatch(validateAge({
                 value: e.target.value,
                 status: null
             }));
         }
         // add this later for the submit button validation 
         else {
-            return this.store.dispatch(validateAge({
+            return this.props.dispatch(validateAge({
                 value:'',
                 status: 'error'
             }));
@@ -68,8 +67,8 @@ const mapStateToProps = (initState) => {
     }
 }
 
-const matchDispatchTpProps = (dispatch) => {
+const matchDispatchToProps = (dispatch) => {
     return {validateAge, dispatch}
 }
 
-export default connect(mapStateToProps, matchDispatchTpProps)(AgeInput);
+export default connect(mapStateToProps, matchDispatchToProps)(AgeInput);

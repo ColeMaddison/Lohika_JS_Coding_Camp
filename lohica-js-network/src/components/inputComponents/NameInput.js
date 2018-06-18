@@ -8,8 +8,6 @@ class EmailInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.store = this.props.store;
-
         this.dispatchEmitter = this.dispatchEmitter.bind(this);
     }
 
@@ -35,21 +33,21 @@ class EmailInput extends React.Component {
 
         switch(inputId){
             case 'formControlName':
-                this.store.dispatch(validateName({
+                this.props.dispatch(validateName({
                     value:inputVal, 
                     status: disEm.status,
                     message: disEm.mes
                 }));
                 break;
             case 'formControlSurname':
-                this.store.dispatch(validateSurname({
+                this.props.dispatch(validateSurname({
                     value:inputVal, 
                     status: disEm.status,
                     message: disEm.mes
                 }));
                 break;
             case 'formControlMidName':
-                this.store.dispatch(validateMidName({
+                this.props.dispatch(validateMidName({
                     value:inputVal, 
                     status: disEm.status,
                     message: disEm.mes
@@ -88,9 +86,8 @@ class EmailInput extends React.Component {
                 </Col>
                 <Col md={4}>
                     <FormControl
-                        type={this.props.type}
                         name={this.props.name}
-                        value={this.props.value}
+                        value={this.props.inputState.value}
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                         />
@@ -107,7 +104,7 @@ const  mapStateToProps =  (initState) => {
 }
 
 const  matchDispatchToProps = (dispatch) => {
-    return {validateMidName, validateSurname, dispatch}
+    return {validateMidName, validateSurname, validateName, dispatch}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(EmailInput);

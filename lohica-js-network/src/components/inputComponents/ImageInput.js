@@ -3,12 +3,12 @@ import {FormGroup, ControlLabel, Col, FormControl} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { validateImage } from '../../actions/inputAction';
 
+const MIN_SIZE = 100 * 1000;
+const MAX_SIZE = 5 * 1000 * 1000;
 
 class ImageInput extends React.Component {
     constructor(props){
         super(props);
-
-        this.store = this.props.store;
 
         this.imageUpload = this.imageUpload.bind(this);
         
@@ -19,9 +19,6 @@ class ImageInput extends React.Component {
             "image/png"
         ];
 
-        this.MIN_SIZE = 100 * 1000;
-        this.MAX_SIZE = 5 * 1000 * 1000;
-
     }
 
     imageUpload (e) {
@@ -30,13 +27,13 @@ class ImageInput extends React.Component {
         
         let imageExt = imgData.type;
         let imageSize = imgData.size;
-        if(!(this.allowedExts.includes(imageExt)) || !(imageSize>this.MIN_SIZE || imageSize<this.MAX_SIZE)){
-            return this.store.dispatch(validateImage({
+        if(!(this.allowedExts.includes(imageExt)) || !(imageSize>MIN_SIZE || imageSize<MAX_SIZE)){
+            return this.props.dispatch(validateImage({
                 status: "error",
                 imageValid: false
             }));
         } else {
-            return this.store.dispatch(validateImage({
+            return this.props.dispatch(validateImage({
                 status: null,
                 imageValid: true
             }));

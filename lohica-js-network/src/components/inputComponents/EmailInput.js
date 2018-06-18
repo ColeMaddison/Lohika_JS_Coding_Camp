@@ -8,7 +8,7 @@ class EmailInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.store = this.props.store;
+        this.handleValidateInput = this.handleValidateInput.bind(this);
     }
 
     // validation via redux 
@@ -18,19 +18,19 @@ class EmailInput extends React.Component {
 
         // validate email
         if(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(emailInputVal)) {
-            return this.store.dispatch(validateEmail({
+            return this.props.dispatch(validateEmail({
                 value:emailInputVal, 
                 status: true,
                 message: "success"
             }));
         } else if(charNum > 0) {
-            return this.store.dispatch(validateEmail({
+            return this.props.dispatch(validateEmail({
                 value:emailInputVal, 
                 status: false,
                 message: "error"
             }));
         }
-        return this.store.dispatch(validateEmail({
+        return this.props.dispatch(validateEmail({
             value:emailInputVal, 
             status: false,
             message: null
@@ -52,9 +52,8 @@ class EmailInput extends React.Component {
                 </Col>
                 <Col md={4}>
                     <FormControl
-                        type={this.props.type}
                         name={this.props.name}
-                        value={this.props.value}
+                        value={this.props.inputState.value}
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                         />
