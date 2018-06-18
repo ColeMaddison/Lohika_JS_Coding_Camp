@@ -3,9 +3,8 @@
 const express = require('express');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
-const UserModel = require('./Schemas/UserSchema');
-let generator = require('generate-password');
-let path = require('path');
+const ctrl = require('./serverHandlers/controllers');
+const mdl = require('./serverHandlers/middleware');
 
 const app = express();
 
@@ -27,41 +26,17 @@ app.get('/first-task', (req, res) => {
     res.send({serverMessage: "Please proceed to registration"});
 });
 
-// test route can be done via sever and via client ports - COOL (might be a vulnerability?)
-app.post('/signup', upload.single('file'), (req, res) => {
-    let userPass = generator.generate({
-        length: 11,
-        numbers: true
-    });
-
-    let userData = req.body;
-
-    let user = new UserModel({
-        userName: userData.name,
-        userPassword: userPass,
-        useSurname: userData.surname,
-        useMidName: userData.midname,
-        userEmail: userData.email,
-        userGender: userData.generate,
-        userAge: parseInt(userData.age),
-        userPhotoLink: path.join(__dirname, req.file.path) 
-    });
-
-    user.save(err => {
-        console.error(err)
-    });
-
-    // console.log(userPass);
-    console.log(req.file);
-    console.log(req.body);
-    res.send(JSON.stringify({message:'Success!', userPass}));
+app.post('/signup', mdl.validateInputFields, upload.single('file'), (req, res) => {
+    ctrl.signup(req,res);
 });
 
+// get all db data
 app.get('/db', (req, res) => {
-    UserModel.find(function (err, data) {
-        if (err) return console.error(err);
-        res.json(data);
-    })
+    ctrl.getDbData(req, res);
+});
+
+app.get('/dbdrop', (req, res) =>{
+    ctrl._dropDb(req,res);
 });
 
 // make sure nothing is on port PORT, because will be fetching data via react through that port
