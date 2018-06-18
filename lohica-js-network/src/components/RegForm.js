@@ -19,9 +19,31 @@ class RegistrationForm extends  React.Component {
     handleSubmit(e){
         let inputFieldsData = this.props.store.getState().formInput;
         e.preventDefault();
-        console.log(inputFieldsData.emailValid, inputFieldsData.imageValid, inputFieldsData.surnameValid, inputFieldsData.midNameValid, inputFieldsData.nameValid);
         if(inputFieldsData.emailValid && inputFieldsData.imageValid && inputFieldsData.nameValid && inputFieldsData.surnameValid && inputFieldsData.midNameValid) {
-            console.log('yes');
+            // user info
+            let userName = inputFieldsData.name;
+            let userSurname = inputFieldsData.surname;
+            let userMidName = inputFieldsData.midName;
+            let userEmail = inputFieldsData.email;
+            let userGender = inputFieldsData.gender;
+            let userAge = inputFieldsData.age;
+
+            let data = new FormData();
+
+            data.append('file', this.props.inputState.imageData);
+            data.append('name', userName);
+            data.append('surname', userSurname);
+            data.append('midname', userMidName);
+            data.append('email', userEmail);
+            data.append('gender', userGender);
+            data.append('age', userAge);
+
+            fetch('/signup',{
+                method: 'POST',
+                body: data
+            }).then((data) => data.json())
+                .then(data => data.message)
+                .catch(err => console.log(err));
         }
     }
 

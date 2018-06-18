@@ -16,7 +16,8 @@ const initState = {
     emailValid: false,
     emailValidMessage: null,
     genderValid: null,
-    imageValid: false
+    imageValid: false,
+    imageData: ''
 };
 
 const inputValidate = (state=initState, action) => {
@@ -66,6 +67,7 @@ const inputValidate = (state=initState, action) => {
         case 'VALIDATE_IMAGE':
             return {
                 ...state,
+                imageData: action.payload.imgData,
                 imageStatus: action.payload.status,
                 imageValid: action.payload.imageValid
             }

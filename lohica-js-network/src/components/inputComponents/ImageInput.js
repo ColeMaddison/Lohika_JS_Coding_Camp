@@ -22,9 +22,7 @@ class ImageInput extends React.Component {
     }
 
     imageUpload (e) {
-        console.log(e.target);
         let imgData = e.target.files[0];
-        
         let imageExt = imgData.type;
         let imageSize = imgData.size;
         if(!(this.allowedExts.includes(imageExt)) || !(imageSize>MIN_SIZE || imageSize<MAX_SIZE)){
@@ -34,6 +32,7 @@ class ImageInput extends React.Component {
             }));
         } else {
             return this.props.dispatch(validateImage({
+                imgData,
                 status: null,
                 imageValid: true
             }));
@@ -47,6 +46,7 @@ class ImageInput extends React.Component {
                 bsSize= "small"
                 controlId={this.props.id}
                 validationState={this.props.inputState.imageStatus}
+                name="file"
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>
