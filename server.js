@@ -32,6 +32,13 @@ app.post('/signup', upload.single('file'), (req, res) => {
     res.send(JSON.stringify({message:'Success!'}));
 });
 
+app.get('/db', (req, res) => {
+    UserModel.find(function (err, data) {
+        if (err) return console.error(err);
+        res.json(data);
+    })
+});
+
 // make sure nothing is on port PORT, because will be fetching data via react through that port
 let PORT = process.env.PORT || 3334;
 
