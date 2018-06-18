@@ -4,6 +4,8 @@ const express = require('express');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 const UserModel = require('./Schemas/UserSchema');
+let generator = require('generate-password');
+let path = require('path');
 
 const app = express();
 
@@ -27,9 +29,32 @@ app.get('/first-task', (req, res) => {
 
 // test route can be done via sever and via client ports - COOL (might be a vulnerability?)
 app.post('/signup', upload.single('file'), (req, res) => {
+    let userPass = generator.generate({
+        length: 11,
+        numbers: true
+    });
+
+    let userData = req.body;
+
+    let user = new UserModel({
+        userName: userData.name,
+        userPassword: userPass,
+        useSurname: userData.surname,
+        useMidName: userData.midname,
+        userEmail: userData.email,
+        userGender: userData.generate,
+        userAge: parseInt(userData.age),
+        userPhotoLink: path.join(__dirname, req.file.path) 
+    });
+
+    user.save(err => {
+        console.error(err)
+    });
+
+    // console.log(userPass);
     console.log(req.file);
     console.log(req.body);
-    res.send(JSON.stringify({message:'Success!'}));
+    res.send(JSON.stringify({message:'Success!', userPass}));
 });
 
 app.get('/db', (req, res) => {

@@ -41,8 +41,8 @@ class RegistrationForm extends  React.Component {
             fetch('/signup',{
                 method: 'POST',
                 body: data
-            }).then((data) => data.json())
-                .then(data => data.message)
+            }).then((mes) => mes.json())
+                .then(data => console.log(data))
                 .catch(err => console.log(err));
         }
     }
