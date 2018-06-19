@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import './App.css';
 import RegistrationForm from './components/RegForm';
 
-
-
 class App extends Component {
 
   render() {

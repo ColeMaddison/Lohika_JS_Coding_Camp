@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Grid, Button} from 'react-bootstrap';
+import {Form, Row, Grid, Button, Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import NameInput from './inputComponents/NameInput';
 import EmailInput from './inputComponents/EmailInput';
@@ -56,61 +56,60 @@ class RegistrationForm extends  React.Component {
             Options.push(`${i}`);
         }
         return (
-        <Form horizontal>
-            <Grid>
-                <Row>
+            <Well>
+                <Form horizontal>
+                    <Grid>
+                        <Row>
 
-                    <NameInput
-                        size = 'small'
-                        id = 'formControlName'
-                        label = 'Name'
-                        name = 'name'
-                        placeholder='Enter name'
-                    />
+                            <NameInput
+                                id = 'formControlName'
+                                label = 'Name'
+                                name = 'name'
+                                placeholder='Enter name'
+                            />
 
-                    <NameInput
-                        size = 'small'
-                        id = 'formControlSurname'
-                        label = 'Surname'
-                        name = 'surname'
-                        placeholder='Enter surname'
-                    />
+                            <NameInput
+                                id = 'formControlSurname'
+                                label = 'Surname'
+                                name = 'surname'
+                                placeholder='Enter surname'
+                            />
 
-                    <NameInput
-                        size = 'small'
-                        id = 'formControlMidName'
-                        label = 'Middle Name'
-                        name = 'midName'
-                        placeholder='Enter midName'
-                    />
+                            <NameInput
+                                id = 'formControlMidName'
+                                label = 'Middle Name'
+                                name = 'midName'
+                                placeholder='Enter midName'
+                            />
 
-                    <EmailInput
-                        size = 'small'
-                        id = 'formControlEmail'
-                        label = 'email'
-                        name = 'email'
-                        placeholder='Enter email'
-                    />
+                            <EmailInput
+                                id = 'formControlEmail'
+                                label = 'email'
+                                name = 'email'
+                                placeholder='Enter email'
+                            />
 
-                    <GenderRadio
-                        id="formControlGender"
-                    />
+                            <GenderRadio
+                                id="formControlGender"
+                            />
 
-                    <AgeInput
-                        id="formControlAge" 
-                    />
+                            <AgeInput
+                                id="formControlAge" 
+                            />
 
-                    <ImageInput
-                        id="formControlFile"
-                    />
-                    <Button 
-                        bsStyle="success" 
-                        disabled={false}
-                        onClick = {this.handleSubmit}
-                        >Submit</Button>
-                </Row>
-            </Grid>
-        </Form> );
+                            <ImageInput
+                                id="formControlFile"
+                            />
+                            <Button 
+                                bsStyle="success" 
+                                disabled={false}
+                                onClick = {this.handleSubmit}
+                                >Submit</Button>
+                        </Row>
+                    </Grid>
+                </Form> 
+            </Well>
+        );
     }
 }
 

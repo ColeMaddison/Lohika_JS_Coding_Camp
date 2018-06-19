@@ -26,11 +26,12 @@ class GenderRadio extends React.Component {
     render() {
         return (
             <FormGroup 
+                bsSize= "small"
                 controlId={this.props.id}
                 validationState={this.props.inputState.genderValid}
                 >
                 <Col md={4}>
-                    <Col mdOffset={10}>
+                    <Col mdOffset={9}>
                         <ControlLabel>Gender</ControlLabel>
                     </Col>
                 </Col>

@@ -38,7 +38,7 @@ class AgeInput extends React.Component {
                 controlId={this.props.id}
                 >
                 <Col md={4}>
-                    <Col mdOffset={10}>
+                    <Col mdOffset={9}>
                         <ControlLabel>Age</ControlLabel>
                     </Col>
                 </Col>

@@ -41,12 +41,12 @@ class EmailInput extends React.Component {
     render(){
         return(
             <FormGroup 
-                bsSize= {this.props.size}
+                bsSize= "small"
                 controlId ={this.props.id}
                 validationState={this.props.inputState.emailValidMessage}
                 >
                 <Col md={4}>
-                    <Col mdOffset={10}>
+                    <Col mdOffset={9}>
                         <ControlLabel>{this.props.label}</ControlLabel>
                     </Col>
                 </Col>
