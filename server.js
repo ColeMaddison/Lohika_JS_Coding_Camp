@@ -3,9 +3,10 @@
 const express = require('express');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
-const bodyParser = require('body-parser');
 const ctrl = require('./serverHandlers/controllers');
 const mdl = require('./serverHandlers/middleware');
+const bodyParser = require('body-parser');
+const auth = require('./serverHandlers/authHandler');
 
 const app = express();
 
@@ -21,17 +22,23 @@ db.on('open', () => {
     console.log('Connection established!');
 });
 
-
-// do not need body parser now - have multer adding explicit content type, maybe will need for later links
-
 app.get('/first-task', (req, res) => {
     res.send({serverMessage: "Please proceed to registration"});
 });
 
 // sighn up route with form fields validation
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 app.post('/signup', upload.single('file'), mdl.validateInputFields, (req, res) => {
     ctrl.signup(req,res);
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.post('/authenticate', (req, res) => {
+    console.log(req.body);
+    auth(req.body)
+        .then(user => user ? res.status(200).json({message: "Login Successful", user: user}) : res.status(400).json({message: "Username or password incorrect!"}))
+        .catch(err => console.error(err));
 });
 
 // get all db data

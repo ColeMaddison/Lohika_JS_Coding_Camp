@@ -28,10 +28,9 @@ exports.signup = (req, res) => {
                     res.end(JSON.stringify({message: "Unknown error occured"}));
                 } 
                 bcrypt.hash(userPass, salt).then(hash => {
-                    userPass = hash;
                     let user = new UserModel({
                         userName: userData.name,
-                        userPassword: userPass,
+                        userPassword: hash,
                         useSurname: userData.surname,
                         useMidName: userData.midname,
                         userEmail: userData.email,
@@ -54,12 +53,12 @@ exports.signup = (req, res) => {
 exports.getDbData = (req, res) => {
     UserModel.find(function (err, data) {
         if (err) return console.error(err);
-        res.json(data);
+        res.status(200).json(data);
     })
 }
 
 // only for dev purpose
 exports._dropDb = (req,res) => {
     UserModel.find().remove().exec();
-    res.json({message: "Data as been remnoved"});
+    res.status(200).json({message: "Data as been remnoved"});
 }
