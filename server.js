@@ -3,6 +3,7 @@
 const express = require('express');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
+const bodyParser = require('body-parser');
 const ctrl = require('./serverHandlers/controllers');
 const mdl = require('./serverHandlers/middleware');
 
@@ -19,6 +20,7 @@ db.on('error', console.error.bind(console, 'We have a db error:'));
 db.on('open', () => {
     console.log('Connection established!');
 });
+
 
 // do not need body parser now - have multer adding explicit content type, maybe will need for later links
 
@@ -39,6 +41,10 @@ app.get('/db', (req, res) => {
 
 app.get('/dbdrop', (req, res) =>{
     ctrl._dropDb(req,res);
+});
+
+app.get('/*', (req, res) => {
+    res.status(404).end({message: "Page does not exist!"});
 });
 
 // make sure nothing is on port PORT, because will be fetching data via react through that port

@@ -27,31 +27,25 @@ exports.signup = (req, res) => {
                     console.error(err);
                     res.end(JSON.stringify({message: "Unknown error occured"}));
                 } 
-                bcrypt.hash(userPass, salt, (err, hash) =>{
-                    if(err) {
-                        res.end(JSON.stringify({message: "Unknown error occured"}));
-                    }
-                    console.log(hash);
+                bcrypt.hash(userPass, salt).then(hash => {
                     userPass = hash;
-                })
+                    let user = new UserModel({
+                        userName: userData.name,
+                        userPassword: userPass,
+                        useSurname: userData.surname,
+                        useMidName: userData.midname,
+                        userEmail: userData.email,
+                        userGender: userData.gender,
+                        userAge: parseInt(userData.age),
+                        userPhotoLink: path.join(__dirname, req.file.path) 
+                    });
+                
+                    user.save(err => {
+                        console.error(err)
+                    });
+                    res.send(JSON.stringify({message:'Success!', userPass}));
+                });
             });
-            console.log(userPass);
-        
-            let user = new UserModel({
-                userName: userData.name,
-                userPassword: userPass,
-                useSurname: userData.surname,
-                useMidName: userData.midname,
-                userEmail: userData.email,
-                userGender: userData.generate,
-                userAge: parseInt(userData.age),
-                userPhotoLink: path.join(__dirname, req.file.path) 
-            });
-        
-            user.save(err => {
-                console.error(err)
-            });
-            res.send(JSON.stringify({message:'Success!', userPass}));
         }
     })
 }
