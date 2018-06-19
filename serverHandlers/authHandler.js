@@ -6,11 +6,11 @@ const bcrypt = require('bcrypt');
 const UserModel = require('../Schemas/UserSchema');
 
 
-async function authenticate({userEmail, password}) {
-    const user = await UserModel.findOne({ userEmail });
+async function authenticate({email, password}) {
+    const user = await UserModel.findOne({ email: email });
 
-    if(user && bcrypt.compareSync(password, user.userPassword)) {
-        const { userPassword, ...restInfo } = user.toObject();
+    if(user && bcrypt.compareSync(password, user.password)) {
+        const { password, ...restInfo } = user.toObject();
         const token = jwt.sign({sub: user._id}, config.secret);
         return {
             ...restInfo,

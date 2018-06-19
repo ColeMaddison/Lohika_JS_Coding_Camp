@@ -56,7 +56,9 @@ class RegistrationForm extends  React.Component {
             Options.push(`${i}`);
         }
         return (
+             
         <Form horizontal>
+            <h3>Registration</h3> 
             <Grid>
                 <Row>
 
