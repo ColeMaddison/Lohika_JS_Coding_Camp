@@ -36,6 +36,7 @@ class AgeInput extends React.Component {
             <FormGroup 
                 bsSize= "small"
                 controlId={this.props.id}
+                validationState={this.props.inputState.ageValid}
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>

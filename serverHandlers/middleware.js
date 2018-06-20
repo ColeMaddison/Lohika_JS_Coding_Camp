@@ -37,7 +37,7 @@ exports.validateInputFields = async (req, res, next) => {
         res.status(400).json({message: "Surname is not valid"});
     } else if(!(/^([a-zA-Z]{1,32})$/.test(userInfo.midname))){
         imgRemove(imgPath);
-        res.status(400).json({message: "Miname is not valid"});
+        res.status(400).json({message: "Midname is not valid"});
     } else if(!(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(userInfo.email))){
         imgRemove(imgPath);
         res.status(400).json({message: "Email is not valid"});

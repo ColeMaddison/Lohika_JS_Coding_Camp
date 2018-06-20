@@ -47,3 +47,10 @@ export const validateImage = (value) => {
         payload: value
     }
 }
+
+export const validateForm = (value) => {
+    return {
+        type:"VALIDATE_FORM_INVALID",
+        payload: value
+    }
+}

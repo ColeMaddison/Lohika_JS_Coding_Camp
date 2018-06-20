@@ -6,6 +6,7 @@ const initState = {
     age: '', 
     gender:'',
     ageValid:'',
+    ageValid: null,
     imageStatus: null,
     nameValid: false,
     nameValidMessage: null,
@@ -70,6 +71,18 @@ const inputValidate = (state=initState, action) => {
                 imageData: action.payload.imgData,
                 imageStatus: action.payload.status,
                 imageValid: action.payload.imageValid
+            }
+        case 'VALIDATE_FORM_INVALID':
+            return {
+                ...state,
+                imageStatus: action.payload.status,
+                nameValidMessage: action.payload.status,
+                surnameValidMessage: action.payload.status,
+                midNameValidMessage: action.payload.status,
+                emailValidMessage: action.payload.status,
+                genderValid: action.payload.status,
+                imageValid: action.payload.status,
+                ageValid: action.payload.status
             }
         default:
             return state;

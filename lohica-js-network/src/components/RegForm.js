@@ -6,6 +6,7 @@ import EmailInput from './inputComponents/EmailInput';
 import GenderRadio from './inputComponents/GenderRadio';
 import AgeInput from './inputComponents/AgeInput';
 import ImageInput from './inputComponents/ImageInput';
+import { validateForm } from '../actions/inputAction';
  
 
 class RegistrationForm extends  React.Component {
@@ -19,7 +20,7 @@ class RegistrationForm extends  React.Component {
     handleSubmit(e){
         let inputFieldsData = this.props.store.getState().formInput;
         e.preventDefault();
-        if(inputFieldsData.emailValid && inputFieldsData.imageValid && inputFieldsData.nameValid && inputFieldsData.surnameValid && inputFieldsData.midNameValid) {
+        if(inputFieldsData.emailValid && inputFieldsData.imageValid && inputFieldsData.nameValid && inputFieldsData.surnameValid && inputFieldsData.ageValid) {
             // user info
             let userName = inputFieldsData.name;
             let userSurname = inputFieldsData.surname;
@@ -44,7 +45,11 @@ class RegistrationForm extends  React.Component {
             }).then((mes) => mes.json())
                 .then(data => console.log(data))
                 .catch(err => console.log(err));
-        }
+        } else {
+            return this.props.dispatch(validateForm({
+            status: "error",
+            fields: null
+        }))}
     }
 
     render() {  
@@ -119,4 +124,8 @@ const mapStateToProps = (initState) => {
     }
 }
 
-export default connect(mapStateToProps)(RegistrationForm);
+const matchDispatchToProps = (dispatch) => {
+    return {validateForm, dispatch}
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(RegistrationForm);

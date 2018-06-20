@@ -8,7 +8,7 @@ let UserSchema = new Schema({
     userName: {type: String, required: true},
     userPassword: {type: String, required: true}, //hash
     useSurname: {type: String, required: true},
-    useMidName: {type: String},
+    useMidName: {type: String, required: false},
     userEmail: {type: String, required: true, unique: true},
     userGender: {type: String, required: true},
     userAge: {type: Number, required: true},
