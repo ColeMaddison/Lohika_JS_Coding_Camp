@@ -15,7 +15,7 @@ exports.signup = (req, res) => {
     UserModel.find({email: checkEmail}, (err, data) => {
         console.log(userData);
         if(data.length){
-            res.end(JSON.stringify({message: "User already exists!"}));
+            res.end(JSON.stringify({message: "User already exists!", statusCode: 409}));
         } else {
             let userPass = generator.generate({
                 length: 11,
@@ -43,7 +43,7 @@ exports.signup = (req, res) => {
                     user.save(err => {
                         console.error(err)
                     });
-                    res.send(JSON.stringify({message:'Success!', userPass}));
+                    res.send(JSON.stringify({message:'Success!', userPass, statusCode: 200}));
                 });
             });
         }

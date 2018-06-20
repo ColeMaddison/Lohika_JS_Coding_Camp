@@ -66,7 +66,7 @@ class NameInput extends React.Component {
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                     />
-                {this.state.show ? elem : null}
+                {this.state.show || this.props.show ? elem : null}
                 </Col>
             </FormGroup>
         );

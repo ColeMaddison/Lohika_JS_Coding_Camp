@@ -17,23 +17,23 @@ exports.validateInputFields = async (req, res, next) => {
 
     UserModel.find({email: checkEmail}, (err, data) => {
         if(data.length){
-            sendResponse("User already exists!");
+            sendResponse("User already exists!", 409);
         } else {
             // validation check
             if(!(/^([a-zA-Z]{1,32})$/.test(userInfo.name))){
-                sendResponse("Name is not valid.");
+                sendResponse("Name is not valid.", 403);
             } else if(!(/^([a-zA-Z]{1,32})$/.test(userInfo.surname))){
-                sendResponse("Surname is not valid");
+                sendResponse("Surname is not valid", 403);
             } else if(!(/^$|^([a-zA-Z]{1,32})$/.test(userInfo.midname))){
-                sendResponse("Midname is not valid");
+                sendResponse("Midname is not valid", 403);
             } else if(!(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(userInfo.email))){
-                sendResponse("Email is not valid");
+                sendResponse("Email is not valid", 403);
             } else if(!userInfo.gender){
-                sendResponse("Gender is not specified");
+                sendResponse("Gender is not specified", 403);
             } else if(!userInfo.age){
-                sendResponse("Age is not specified");
+                sendResponse("Age is not specified", 403);
             } else if(!allowedImgExts.includes(req.file.mimetype) || 1000 > req.file.size > 5000000){
-                sendResponse("File is not valid (unsupported ext. or wrong size)");
+                sendResponse("File is not valid (unsupported ext. or wrong size)", 403);
             } else {
                 next();
             }
@@ -41,8 +41,8 @@ exports.validateInputFields = async (req, res, next) => {
     });
     
 
-    let sendResponse = (message) => {
+    let sendResponse = (message, statusCode) => {
         fs.unlinkSync(path.join(__dirname, '..', imgPath));
-        res.status(400).json({message: message});
+        res.status(400).json({message: message, statusCode});
     }
 };

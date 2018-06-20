@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Grid, Button} from 'react-bootstrap';
+import {Form, Row, Grid, Button, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import EmailInput from './inputComponents/EmailInput';
 import GenderRadio from './inputComponents/GenderRadio';
@@ -15,7 +15,15 @@ class RegistrationForm extends  React.Component {
     constructor(props){
         super(props);
 
+        this.state = {
+            alertStyle: null,
+            show: false,
+            password: '',
+            message: ''
+        }
+
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleSubmit(e){
@@ -37,13 +45,44 @@ class RegistrationForm extends  React.Component {
                 method: 'POST',
                 body: data
             }).then((mes) => mes.json())
-                // .then(data => console.log(data))
+                .then(data => {
+                    // show success or warning alert depending on user got registered or not
+                    switch(data.statusCode){
+                        case 200:
+                            this.setState({
+                                password: data.userPass,
+                                message: "You have successfully registered, here's your password: ",
+                                show: true,
+                                alertStyle: "success"
+                            });
+                            break;
+                        case 409:
+                            this.setState({
+                                password: "",
+                                message: "User with that email already exists",
+                                show: true,
+                                alertStyle: "danger"
+                            });
+                            break;
+                            // --------------------------- continue here
+                        case 400: 
+                            break;
+                            
+                    }
+                    
+                })
                 .catch(err => console.log(err));
         }
     }
 
     render() {  
-        // console.log(this.props);
+
+        let alert = <Alert bsStyle={this.state.alertStyle}>
+                    <h3>
+                        {this.state.message}<strong>{this.state.password}</strong>
+                    </h3>
+                </Alert>;
+
 
         // age options
         let Options = [];
@@ -53,11 +92,13 @@ class RegistrationForm extends  React.Component {
         return (
              
         <Form horizontal>
+            {this.state.show ? alert : null}
             <h3>Registration</h3> 
             <Grid>
                 <Row>
 
                     <NameInput
+                        show='true'
                         size = 'small'
                         id = 'formControlName'
                         label = 'Name'
