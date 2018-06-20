@@ -1,11 +1,13 @@
 import React from 'react';
 import {Form, Row, Grid, Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import NameInput from './inputComponents/NameInput';
 import EmailInput from './inputComponents/EmailInput';
 import GenderRadio from './inputComponents/GenderRadio';
 import AgeInput from './inputComponents/AgeInput';
 import ImageInput from './inputComponents/ImageInput';
+import NameInput from './inputComponents/NameInput'
+import SurnameInput from './inputComponents/SurnameInput';
+import MidnameInput from './inputComponents/MidnameInput';
  
 
 class RegistrationForm extends  React.Component {
@@ -17,32 +19,25 @@ class RegistrationForm extends  React.Component {
     }
 
     handleSubmit(e){
-        let inputFieldsData = this.props.store.getState().formInput;
+        let {emailValid, imageValid, nameValid, surnameValid, name, surname, midName, email, gender, age} = this.props.store.getState().formInput;
         e.preventDefault();
-        if(inputFieldsData.emailValid && inputFieldsData.imageValid && inputFieldsData.nameValid && inputFieldsData.surnameValid && inputFieldsData.midNameValid) {
-            // user info
-            let userName = inputFieldsData.name;
-            let userSurname = inputFieldsData.surname;
-            let userMidName = inputFieldsData.midName;
-            let userEmail = inputFieldsData.email;
-            let userGender = inputFieldsData.gender;
-            let userAge = inputFieldsData.age;
+        if(emailValid && imageValid && nameValid && surnameValid) {
 
             let data = new FormData();
 
             data.append('file', this.props.inputState.imageData);
-            data.append('name', userName);
-            data.append('surname', userSurname);
-            data.append('midname', userMidName);
-            data.append('email', userEmail);
-            data.append('gender', userGender);
-            data.append('age', userAge);
+            data.append('name', name);
+            data.append('surname', surname);
+            data.append('midname', midName);
+            data.append('email', email);
+            data.append('gender', gender);
+            data.append('age', age);
 
             fetch('/signup',{
                 method: 'POST',
                 body: data
             }).then((mes) => mes.json())
-                .then(data => console.log(data))
+                // .then(data => console.log(data))
                 .catch(err => console.log(err));
         }
     }
@@ -70,7 +65,7 @@ class RegistrationForm extends  React.Component {
                         placeholder='Enter name'
                     />
 
-                    <NameInput
+                    <SurnameInput
                         size = 'small'
                         id = 'formControlSurname'
                         label = 'Surname'
@@ -78,12 +73,12 @@ class RegistrationForm extends  React.Component {
                         placeholder='Enter surname'
                     />
 
-                    <NameInput
+                    <MidnameInput
                         size = 'small'
                         id = 'formControlMidName'
                         label = 'Middle Name'
                         name = 'midName'
-                        placeholder='Enter midName'
+                        placeholder='Enter midname'
                     />
 
                     <EmailInput

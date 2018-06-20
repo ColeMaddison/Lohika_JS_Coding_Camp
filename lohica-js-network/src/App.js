@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-            <RegistrationForm />
+            <RegistrationForm store={this.props.store} />
         </div>
     );
   }

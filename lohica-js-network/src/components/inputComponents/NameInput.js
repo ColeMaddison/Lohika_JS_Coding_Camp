@@ -1,83 +1,58 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Col} from 'react-bootstrap';
+import {FormControl, FormGroup, ControlLabel, Col,  Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { validateMidName, validateName, validateSurname } from '../../actions/inputAction'
+import { validateName } from '../../actions/inputAction'
 
+const elem = <Alert bsStyle="warning">
+                <strong>Warning</strong> Name should be max 32 letters
+            </Alert>;
 
-class EmailInput extends React.Component {
+class NameInput extends React.Component {
     constructor(props){
         super(props);
 
+        this.state = {
+            show: false
+        };
+
         this.dispatchEmitter = this.dispatchEmitter.bind(this);
+        this.handleValidateInput = this.handleValidateInput.bind(this);
     }
 
-    dispatchEmitter = (charNum, val) => {
-        let testRe = /^([a-zA-Z]+)$/;
-        if(charNum > 32){
-            return {mes:"error", status: false};
-        } else if (charNum < 1) {
+
+    dispatchEmitter = (val) => {
+        let testRe = /^([a-zA-Z]{1,32})$/;
+        if(val.length<1){
+            this.setState({show: false});
             return {mes:null, status: false};
         } else if(testRe.test(val)) {
+            this.setState({show: false});
             return {mes:"success", status:true};
         } else if(!testRe.test(val)){
+            this.setState({show: true});
             return {mes:"error", status: false};
         }
-        return {mes:null, status: false};
     }
     
     handleValidateInput = (e) => {
-        let inputId = e.target.id;
-        let inputVal = e.target.value;  
-        let charNum = inputVal.length;
-        let disEm = this.dispatchEmitter(charNum, inputVal);
+        let inputVal = e.target.value;
 
-        switch(inputId){
-            case 'formControlName':
-                this.props.dispatch(validateName({
-                    value:inputVal, 
-                    status: disEm.status,
-                    message: disEm.mes
-                }));
-                break;
-            case 'formControlSurname':
-                this.props.dispatch(validateSurname({
-                    value:inputVal, 
-                    status: disEm.status,
-                    message: disEm.mes
-                }));
-                break;
-            case 'formControlMidName':
-                this.props.dispatch(validateMidName({
-                    value:inputVal, 
-                    status: disEm.status,
-                    message: disEm.mes
-                }));
-                break;
-            default:
-                break;
-        }
+        let disEm = this.dispatchEmitter(inputVal);
+
+            this.props.dispatch(validateName({
+            value:inputVal, 
+            status: disEm.status,
+            message: disEm.mes
+        }));
     }
 
     render(){
-        let color = '';
-        switch(this.props.id){
-            case 'formControlName':
-                color = this.props.inputState.nameValidMessage;
-                break;
-            case 'formControlSurname':
-                color = this.props.inputState.surnameValidMessage;
-                break;
-            case 'formControlMidName':
-                color = this.props.inputState.midNameValidMessage;
-                break;
-            default:
-                break;
-        }
+        
         return(
             <FormGroup 
                 bsSize= {this.props.size}
                 controlId ={this.props.id}
-                validationState={ color }                
+                validationState={ this.props.inputState.nameValidMessage }                
                 >
                 <Col md={4}>
                     <Col mdOffset={10}>
@@ -90,7 +65,8 @@ class EmailInput extends React.Component {
                         value={this.props.inputState.value}
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
-                        />
+                    />
+                {this.state.show ? elem : null}
                 </Col>
             </FormGroup>
         );
@@ -104,7 +80,7 @@ const  mapStateToProps =  (initState) => {
 }
 
 const  matchDispatchToProps = (dispatch) => {
-    return {validateMidName, validateSurname, validateName, dispatch}
+    return {validateName, dispatch}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(EmailInput);
+export default connect(mapStateToProps, matchDispatchToProps)(NameInput);

@@ -1,59 +1,59 @@
 import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { validateEmail } from '../../actions/inputAction'
+import { validateSurname } from '../../actions/inputAction'
 
 const elem = <Alert bsStyle="warning">
-                <strong>Warning</strong> Email should be valid (example@mail.com)
+                <strong>Warning</strong> Surname should be max 32 letters
             </Alert>;
 
-class EmailInput extends React.Component {
+
+class SurnameInput extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
             show: false
-        }
+        };
 
+        this.dispatchEmitter = this.dispatchEmitter.bind(this);
         this.handleValidateInput = this.handleValidateInput.bind(this);
+
     }
 
-    // validation via redux 
-    handleValidateInput = (e) => {
-        let emailInputVal = e.target.value;  
-        let charNum = emailInputVal.length;
 
-        // validate email
-        if(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(emailInputVal)) {
+    dispatchEmitter = (val) => {
+        let testRe = /^([a-zA-Z]{1,32})$/;
+        if(val.length<1){
             this.setState({show: false});
-            return this.props.dispatch(validateEmail({
-                value:emailInputVal, 
-                status: true,
-                message: "success"
-            }));
-        } else if(charNum > 0) {
+            return {mes:null, status: false};
+        } else if(testRe.test(val)) {
+            this.setState({show: false});
+            return {mes:"success", status:true};
+        } else if(!testRe.test(val)){
             this.setState({show: true});
-            return this.props.dispatch(validateEmail({
-                value:emailInputVal, 
-                status: false,
-                message: "error"
-            }));
+            return {mes:"error", status: false};
         }
-        this.setState({show: false});
-        return this.props.dispatch(validateEmail({
-            value:emailInputVal, 
-            status: false,
-            message: null
-        }));
+    }
+    
+    handleValidateInput = (e) => {
+        let inputVal = e.target.value;
 
+        let disEm = this.dispatchEmitter(inputVal);
+        this.props.dispatch(validateSurname({
+            value:inputVal, 
+            status: disEm.status,
+            message: disEm.mes
+        }));
     }
 
     render(){
+
         return(
             <FormGroup 
                 bsSize= {this.props.size}
                 controlId ={this.props.id}
-                validationState={this.props.inputState.emailValidMessage}
+                validationState={ this.props.inputState.surnameValidMessage }                
                 >
                 <Col md={4}>
                     <Col mdOffset={10}>
@@ -66,15 +66,14 @@ class EmailInput extends React.Component {
                         value={this.props.inputState.value}
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
-                        />
-                        {this.state.show ? elem : null}
+                    />
+                    {this.state.show ? elem : null}
                 </Col>
             </FormGroup>
         );
     }
 }
 
-// use to connect state (store) with props, to be able to change dynamic the fields
 const  mapStateToProps =  (initState) => {
     return {
         inputState: initState.formInput
@@ -82,7 +81,7 @@ const  mapStateToProps =  (initState) => {
 }
 
 const  matchDispatchToProps = (dispatch) => {
-    return {validateEmail, dispatch}
+    return {validateSurname, dispatch}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(EmailInput);
+export default connect(mapStateToProps, matchDispatchToProps)(SurnameInput);
