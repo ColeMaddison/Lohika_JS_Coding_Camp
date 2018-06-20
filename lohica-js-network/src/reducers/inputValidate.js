@@ -5,7 +5,6 @@ const initState = {
     email: '',
     age: '', 
     gender:'',
-    ageValid:'',
     ageValid: null,
     imageStatus: null,
     nameValid: false,
