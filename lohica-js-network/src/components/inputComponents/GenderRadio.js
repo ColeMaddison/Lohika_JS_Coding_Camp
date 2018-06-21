@@ -13,12 +13,14 @@ class GenderRadio extends React.Component {
         if(e.target.value){
             return this.props.dispatch(validateGender({
                 value:e.target.value,
-                status: null
+                status: null,
+                stat: true
             }));
         } else {
             return this.props.dispatch(validateGender({
                 value:'',
-                status: 'error'
+                status: 'error',
+                stat: false
             }));
         }
     }
@@ -28,7 +30,7 @@ class GenderRadio extends React.Component {
             <FormGroup 
                 bsSize= "small"
                 controlId={this.props.id}
-                validationState={this.props.inputState.genderValid}
+                validationState={this.props.inputState.regForm.genderValid}
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>

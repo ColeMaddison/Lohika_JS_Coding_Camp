@@ -5,14 +5,14 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
-    userName: {type: String, required: true},
-    userPassword: {type: String, required: true}, //hash
-    useSurname: {type: String, required: true},
-    useMidName: {type: String, required: false},
-    userEmail: {type: String, required: true, unique: true},
-    userGender: {type: String, required: true},
-    userAge: {type: Number, required: true},
-    userPhotoLink: {type: String, required: true},
+    name: {type: String, required: true},
+    password: {type: String, required: true}, //hash
+    surname: {type: String, required: true},
+    midName: {type: String},
+    email: {type: String, required: true, unique: true},
+    gender: {type: String, required: true},
+    age: {type: Number, required: true},
+    photoLink: {type: String, required: true},
 });
 
 

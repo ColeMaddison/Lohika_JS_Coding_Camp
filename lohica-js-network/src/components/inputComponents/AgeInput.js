@@ -49,7 +49,7 @@ class AgeInput extends React.Component {
                         componentClass="select" 
                         placeholder="---select age---"
                         onChange={this.handleChange}
-                        value={this.props.inputState.validateAge}
+                        value={this.props.inputState.regForm.validateAge}
                         >
                             <option>---select age---</option>
                             {Options.map(num => {

@@ -1,12 +1,14 @@
 import React from 'react';
-import {Form, Row, Grid, Button, Well} from 'react-bootstrap';
+import {Form, Row, Grid, Button, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import NameInput from './inputComponents/NameInput';
-import EmailInput from './inputComponents/EmailInput';
-import GenderRadio from './inputComponents/GenderRadio';
-import AgeInput from './inputComponents/AgeInput';
-import ImageInput from './inputComponents/ImageInput';
-import { validateForm } from '../actions/inputAction';
+
+import {EmailInput} from './index';
+import {GenderRadio} from './index';
+import {AgeInput} from './index';
+import {ImageInput} from './index';
+import {NameInput} from './index';
+import {SurnameInput} from './index';
+import {MidnameInput} from './index';
  
 
 class RegistrationForm extends  React.Component {
@@ -14,46 +16,90 @@ class RegistrationForm extends  React.Component {
     constructor(props){
         super(props);
 
+        this.state = {
+            alertStyle: null,
+            showWarning: false,
+            show: false,
+            password: '',
+            message: ''
+        }
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(e){
-        let inputFieldsData = this.props.store.getState().formInput;
+        let {emailValid, imageValid, nameValid, surnameValid, genderValidStat, name, surname, midName, email, gender, age} = this.props.store.formInput.regForm;
         e.preventDefault();
-        if(inputFieldsData.emailValid && inputFieldsData.imageValid && inputFieldsData.nameValid && inputFieldsData.surnameValid && inputFieldsData.ageValid) {
-            // user info
-            let userName = inputFieldsData.name;
-            let userSurname = inputFieldsData.surname;
-            let userMidName = inputFieldsData.midName;
-            let userEmail = inputFieldsData.email;
-            let userGender = inputFieldsData.gender;
-            let userAge = inputFieldsData.age;
+        if(emailValid && imageValid && nameValid && surnameValid && genderValidStat) {
 
             let data = new FormData();
 
-            data.append('file', this.props.inputState.imageData);
-            data.append('name', userName);
-            data.append('surname', userSurname);
-            data.append('midname', userMidName);
-            data.append('email', userEmail);
-            data.append('gender', userGender);
-            data.append('age', userAge);
+            data.append('file', this.props.inputState.regForm.imageData);
+            data.append('name', name);
+            data.append('surname', surname);
+            data.append('midname', midName);
+            data.append('email', email);
+            data.append('gender', gender);
+            data.append('age', age);
 
             fetch('/signup',{
                 method: 'POST',
                 body: data
             }).then((mes) => mes.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data);
+                    // show success or warning alert depending on user got registered or not
+                    switch(data.statusCode){
+                        case 200:
+                            this.setState({
+                                password: data.userPass,
+                                message: "You have successfully registered, here's your password: ",
+                                show: true,
+                                alertStyle: "success"
+                            });
+                            break;
+                        case 409:
+                            this.setState({
+                                password: "",
+                                message: "User with that email already exists",
+                                show: true,
+                                alertStyle: "danger"
+                            });
+                            break;
+                        case 400: 
+                            this.setState({
+                                password: "",
+                                message: data.message,
+                                show: true,
+                                alertStyle: "warning"
+                            });
+                            break;
+                        default:
+                            break
+                            
+                    }  
+                    
+                    this.setState({showWarning: false});                  
+                })
                 .catch(err => console.log(err));
         } else {
-            return this.props.dispatch(validateForm({
-            status: "error",
-            fields: null
-        }))}
+            this.setState({showWarning: true, show: false});
+        }
     }
 
-    render() {  
-        // console.log(this.props);
+    render() { 
+
+        let alert = <Alert bsStyle={this.state.alertStyle}>
+                    <h3>
+                        {this.state.message}<strong>{this.state.password}</strong>
+                    </h3>
+                </Alert>;
+
+        let alertAllFields = <Alert bsStyle="warning">
+                    <h4>
+                        Please fill in all the fileds marked with '*'
+                    </h4>
+                </Alert>;
 
         // age options
         let Options = [];
@@ -61,71 +107,73 @@ class RegistrationForm extends  React.Component {
             Options.push(`${i}`);
         }
         return (
-            <Well>
-                <Form horizontal>
-                    <Grid>
-                        <Row>
+             
+        <Form horizontal>
+            {this.state.show ? alert : null}
+            <h3>Registration</h3> 
+            <Grid>
+                <Row>
 
-                            <NameInput
-                                id = 'formControlName'
-                                label = 'Name'
-                                name = 'name'
-                                placeholder='Enter name'
-                            />
+                    <NameInput
+                        size='small'
+                        id='formControlName'
+                        label='Name*'
+                        name='name'
+                        placeholder='Enter name'
+                    />
 
-                            <NameInput
-                                id = 'formControlSurname'
-                                label = 'Surname'
-                                name = 'surname'
-                                placeholder='Enter surname'
-                            />
+                    <SurnameInput
+                        size='small'
+                        id='formControlSurname'
+                        label='Surname*'
+                        name='surname'
+                        placeholder='Enter surname'
+                    />
 
-                            <NameInput
-                                id = 'formControlMidName'
-                                label = 'Middle Name'
-                                name = 'midName'
-                                placeholder='Enter midName'
-                            />
+                    <MidnameInput
+                        size='small'
+                        id='formControlMidName'
+                        label='Middle Name'
+                        name='midName'
+                        placeholder='Enter midname'
+                    />
 
-                            <EmailInput
-                                id = 'formControlEmail'
-                                label = 'email'
-                                name = 'email'
-                                placeholder='Enter email'
-                            />
+                    <EmailInput
+                        size='small'
+                        id='formControlEmail'
+                        label='Email*'
+                        name='email'
+                        placeholder='Enter email'
+                    />
 
-                            <GenderRadio
-                                id="formControlGender"
-                            />
+                    <GenderRadio
+                        id="formControlGender*"
+                    />
 
-                            <AgeInput
-                                id="formControlAge" 
-                            />
+                    <AgeInput
+                        id="formControlAge*" 
+                    />
 
-                            <ImageInput
-                                id="formControlFile"
-                            />
-                            <Button 
-                                bsStyle="success" 
-                                disabled={false}
-                                onClick = {this.handleSubmit}
-                                >Submit</Button>
-                        </Row>
-                    </Grid>
-                </Form> 
-            </Well>
-        );
+                    <ImageInput
+                        id="formControlFile*"
+                    />
+                    {this.state.showWarning ? alertAllFields : null}
+                    <Button 
+                        bsStyle="success" 
+                        disabled={false}
+                        onClick={this.handleSubmit}
+                        >Submit</Button>
+                </Row>
+            </Grid>
+        </Form> );
     }
 }
 
 const mapStateToProps = (initState) => {
     return {
-        inputState: initState.formInput
+        inputState: initState.formInput,
+        store: initState
     }
 }
 
-const matchDispatchToProps = (dispatch) => {
-    return {validateForm, dispatch}
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(RegistrationForm);
+export default connect(mapStateToProps)(RegistrationForm);

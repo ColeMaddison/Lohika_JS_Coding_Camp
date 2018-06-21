@@ -6,7 +6,6 @@ import { createStore } from 'redux';
 import allReducers from './reducers/rootReducer';
 import { Provider } from 'react-redux';
 import NavigationBar from './components/navBar/NavigationBar'
-import registerServiceWorker from './registerServiceWorker';
 import FooterComponent from './components/footer/FooterComponent';
 
 const store = createStore (allReducers);
@@ -15,15 +14,12 @@ function render () {
         <Provider store = {store}>
             <div>
                 <NavigationBar />
-                <App store = {store}/>
+                <App />
                 <FooterComponent />
             </div>
         </Provider>,
         document.getElementById('root')
     );
 }
-registerServiceWorker();
-
-store.subscribe(render);
 
 render();

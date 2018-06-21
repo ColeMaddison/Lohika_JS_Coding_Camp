@@ -12,9 +12,10 @@ exports.signup = (req, res) => {
 
     let checkEmail = userData.email;
 
-    UserModel.find({userEmail: checkEmail}, (err, data) => {
+    UserModel.find({email: checkEmail}, (err, data) => {
+        console.log(userData);
         if(data.length){
-            res.end(JSON.stringify({message: "User already exists!"}));
+            res.end(JSON.stringify({message: "User already exists!", statusCode: 409}));
         } else {
             let userPass = generator.generate({
                 length: 11,
@@ -29,20 +30,20 @@ exports.signup = (req, res) => {
                 } 
                 bcrypt.hash(userPass, salt).then(hash => {
                     let user = new UserModel({
-                        userName: userData.name,
-                        userPassword: hash,
-                        useSurname: userData.surname,
-                        useMidName: userData.midname,
-                        userEmail: userData.email,
-                        userGender: userData.gender,
-                        userAge: parseInt(userData.age),
-                        userPhotoLink: path.join(__dirname, req.file.path) 
+                        name: userData.name,
+                        password: hash,
+                        surname: userData.surname,
+                        midName: userData.midname,
+                        email: userData.email,
+                        gender: userData.gender,
+                        age: parseInt(userData.age),
+                        photoLink: path.join(__dirname, req.file.path) 
                     });
                 
                     user.save(err => {
                         console.error(err)
                     });
-                    res.send(JSON.stringify({message:'Success!', userPass}));
+                    res.send(JSON.stringify({message:'Success!', userPass, statusCode: 200}));
                 });
             });
         }
