@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Row, Grid, Button, Alert} from 'react-bootstrap';
+import {Form, Row, Grid, Button, Alert, Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 import {EmailInput} from './index';
@@ -113,56 +113,58 @@ class RegistrationForm extends  React.Component {
             <h3>Registration</h3> 
             <Grid>
                 <Row>
+                    <Well>
 
-                    <NameInput
-                        size='small'
-                        id='formControlName'
-                        label='Name*'
-                        name='name'
-                        placeholder='Enter name'
-                    />
+                        <NameInput
+                            size='small'
+                            id='formControlName'
+                            label='Name*'
+                            name='name'
+                            placeholder='Enter name'
+                        />
 
-                    <SurnameInput
-                        size='small'
-                        id='formControlSurname'
-                        label='Surname*'
-                        name='surname'
-                        placeholder='Enter surname'
-                    />
+                        <SurnameInput
+                            size='small'
+                            id='formControlSurname'
+                            label='Surname*'
+                            name='surname'
+                            placeholder='Enter surname'
+                        />
 
-                    <MidnameInput
-                        size='small'
-                        id='formControlMidName'
-                        label='Middle Name'
-                        name='midName'
-                        placeholder='Enter midname'
-                    />
+                        <MidnameInput
+                            size='small'
+                            id='formControlMidName'
+                            label='Middle Name'
+                            name='midName'
+                            placeholder='Enter midname'
+                        />
 
-                    <EmailInput
-                        size='small'
-                        id='formControlEmail'
-                        label='Email*'
-                        name='email'
-                        placeholder='Enter email'
-                    />
+                        <EmailInput
+                            size='small'
+                            id='formControlEmail'
+                            label='Email*'
+                            name='email'
+                            placeholder='Enter email'
+                        />
 
-                    <GenderRadio
-                        id="formControlGender*"
-                    />
+                        <GenderRadio
+                            id="formControlGender*"
+                        />
 
-                    <AgeInput
-                        id="formControlAge*" 
-                    />
+                        <AgeInput
+                            id="formControlAge*" 
+                        />
 
-                    <ImageInput
-                        id="formControlFile*"
-                    />
-                    {this.state.showWarning ? alertAllFields : null}
-                    <Button 
-                        bsStyle="success" 
-                        disabled={false}
-                        onClick={this.handleSubmit}
-                        >Submit</Button>
+                        <ImageInput
+                            id="formControlFile*"
+                        />
+                        {this.state.showWarning ? alertAllFields : null}
+                        <Button 
+                            bsStyle="success" 
+                            disabled={false}
+                            onClick={this.handleSubmit}
+                            >Submit</Button>
+                    </Well>
                 </Row>
             </Grid>
         </Form> );

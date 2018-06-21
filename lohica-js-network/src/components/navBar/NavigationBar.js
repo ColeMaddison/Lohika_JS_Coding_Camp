@@ -1,5 +1,7 @@
 import React from 'react';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 
 class NavigationBar extends React.Component {
     render() {
@@ -12,12 +14,9 @@ class NavigationBar extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <NavItem eventKey={1} href="#">
-                            Link Right
-                        </NavItem>
-                        <NavItem eventKey={2} href="#">
-                            Link Right
-                        </NavItem>
+                        <LinkContainer to='/login'>
+                            <NavItem eventKey={1}>Login</NavItem>
+                        </LinkContainer>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

@@ -56,7 +56,7 @@ class SurnameInput extends React.Component {
                 validationState={ this.props.inputState.regForm.surnameValidMessage }                
                 >
                 <Col md={4}>
-                    <Col mdOffset={10}>
+                    <Col mdOffset={9}>
                         <ControlLabel>{this.props.label}</ControlLabel>
                     </Col>
                 </Col>
