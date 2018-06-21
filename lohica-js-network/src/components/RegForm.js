@@ -17,19 +17,19 @@ class RegistrationForm extends  React.Component {
 
         this.state = {
             alertStyle: null,
+            showWarning: false,
             show: false,
             password: '',
             message: ''
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     handleSubmit(e){
-        let {emailValid, imageValid, nameValid, surnameValid, name, surname, midName, email, gender, age} = this.props.store.getState().formInput;
+        let {emailValid, imageValid, nameValid, surnameValid, genderValidStat, name, surname, midName, email, gender, age} = this.props.store.getState().formInput;
         e.preventDefault();
-        if(emailValid && imageValid && nameValid && surnameValid) {
+        if(emailValid && imageValid && nameValid && surnameValid && genderValidStat) {
 
             let data = new FormData();
 
@@ -64,18 +64,28 @@ class RegistrationForm extends  React.Component {
                                 alertStyle: "danger"
                             });
                             break;
-                            // --------------------------- continue here
                         case 400: 
+                            this.setState({
+                                password: "",
+                                message: data.message,
+                                show: true,
+                                alertStyle: "warning"
+                            });
                             break;
+                        default:
+                            break
                             
-                    }
+                    }  
                     
+                    this.setState({showWarning: false});                  
                 })
                 .catch(err => console.log(err));
+        } else {
+            this.setState({showWarning: true});
         }
     }
 
-    render() {  
+    render() { 
 
         let alert = <Alert bsStyle={this.state.alertStyle}>
                     <h3>
@@ -83,6 +93,11 @@ class RegistrationForm extends  React.Component {
                     </h3>
                 </Alert>;
 
+        let alertAllFields = <Alert bsStyle="warning">
+                    <h4>
+                        Please fill in all the fileds marked with '*'
+                    </h4>
+                </Alert>;
 
         // age options
         let Options = [];
@@ -98,53 +113,53 @@ class RegistrationForm extends  React.Component {
                 <Row>
 
                     <NameInput
-                        show='true'
-                        size = 'small'
-                        id = 'formControlName'
-                        label = 'Name'
-                        name = 'name'
+                        size='small'
+                        id='formControlName'
+                        label='Name*'
+                        name='name'
                         placeholder='Enter name'
                     />
 
                     <SurnameInput
-                        size = 'small'
-                        id = 'formControlSurname'
-                        label = 'Surname'
-                        name = 'surname'
+                        size='small'
+                        id='formControlSurname'
+                        label='Surname*'
+                        name='surname'
                         placeholder='Enter surname'
                     />
 
                     <MidnameInput
-                        size = 'small'
-                        id = 'formControlMidName'
-                        label = 'Middle Name'
-                        name = 'midName'
+                        size='small'
+                        id='formControlMidName'
+                        label='Middle Name'
+                        name='midName'
                         placeholder='Enter midname'
                     />
 
                     <EmailInput
-                        size = 'small'
-                        id = 'formControlEmail'
-                        label = 'email'
-                        name = 'email'
+                        size='small'
+                        id='formControlEmail'
+                        label='Email*'
+                        name='email'
                         placeholder='Enter email'
                     />
 
                     <GenderRadio
-                        id="formControlGender"
+                        id="formControlGender*"
                     />
 
                     <AgeInput
-                        id="formControlAge" 
+                        id="formControlAge*" 
                     />
 
                     <ImageInput
-                        id="formControlFile"
+                        id="formControlFile*"
                     />
+                    {this.state.showWarning ? alertAllFields : null}
                     <Button 
                         bsStyle="success" 
                         disabled={false}
-                        onClick = {this.handleSubmit}
+                        onClick={this.handleSubmit}
                         >Submit</Button>
                 </Row>
             </Grid>

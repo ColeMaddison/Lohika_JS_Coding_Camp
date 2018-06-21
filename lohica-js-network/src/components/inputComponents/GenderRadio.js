@@ -13,12 +13,14 @@ class GenderRadio extends React.Component {
         if(e.target.value){
             return this.props.dispatch(validateGender({
                 value:e.target.value,
-                status: null
+                status: null,
+                stat: true
             }));
         } else {
             return this.props.dispatch(validateGender({
                 value:'',
-                status: 'error'
+                status: 'error',
+                stat: false
             }));
         }
     }

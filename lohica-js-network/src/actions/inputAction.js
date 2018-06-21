@@ -27,7 +27,6 @@ export const validateMidName = (value) => {
 };
 
 export const validateGender = (value) => {
-    // console.log(value);
     return {
         type:"VALIDATE_GENDER",
         payload: value

@@ -16,6 +16,7 @@ const initState = {
     emailValid: false,
     emailValidMessage: null,
     genderValid: null,
+    genderValidStat: false,
     imageValid: false,
     imageData: ''
 };
@@ -55,7 +56,8 @@ const inputValidate = (state=initState, action) => {
             return {
                 ...state,
                 gender: action.payload.value,
-                genderValid: action.payload.status
+                genderValid: action.payload.status,
+                genderValidStat: action.payload.stat
             }
 
         case 'VALIDATE_AGE':

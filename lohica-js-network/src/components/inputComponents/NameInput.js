@@ -1,7 +1,7 @@
 import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Col,  Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import { validateName } from '../../actions/inputAction'
+import { validateName } from '../../actions/inputAction';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Name should be max 32 letters
@@ -18,7 +18,6 @@ class NameInput extends React.Component {
         this.dispatchEmitter = this.dispatchEmitter.bind(this);
         this.handleValidateInput = this.handleValidateInput.bind(this);
     }
-
 
     dispatchEmitter = (val) => {
         let testRe = /^([a-zA-Z]{1,32})$/;
@@ -66,7 +65,7 @@ class NameInput extends React.Component {
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                     />
-                {this.state.show || this.props.show ? elem : null}
+                    { this.state.show ? elem : null}
                 </Col>
             </FormGroup>
         );
