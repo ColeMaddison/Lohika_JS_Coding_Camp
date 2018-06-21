@@ -93,7 +93,7 @@ class TextInput extends React.Component {
                 <Col md={4}>
                     <FormControl
                         name={this.props.name}
-                        value={this.props.inputState.value}
+                        value={this.props.inputState.regForm.value}
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                     />

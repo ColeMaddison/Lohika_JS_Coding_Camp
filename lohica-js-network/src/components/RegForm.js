@@ -27,13 +27,14 @@ class RegistrationForm extends  React.Component {
     }
 
     handleSubmit(e){
-        let {emailValid, imageValid, nameValid, surnameValid, genderValidStat, name, surname, midName, email, gender, age} = this.props.store.getState().formInput;
+        let {emailValid, imageValid, nameValid, surnameValid, genderValidStat, name, surname, midName, email, gender, age} = this.props.store.getState().formInput.regForm;
+        console.log(this.props.store.getState().formInput.regForm);
         e.preventDefault();
         if(emailValid && imageValid && nameValid && surnameValid && genderValidStat) {
 
             let data = new FormData();
 
-            data.append('file', this.props.inputState.imageData);
+            data.append('file', this.props.inputState.regForm.imageData);
             data.append('name', name);
             data.append('surname', surname);
             data.append('midname', midName);
@@ -81,11 +82,13 @@ class RegistrationForm extends  React.Component {
                 })
                 .catch(err => console.log(err));
         } else {
-            this.setState({showWarning: true});
+            this.setState({showWarning: true, show: false});
         }
     }
 
     render() { 
+        
+        console.log(this.props);
 
         let alert = <Alert bsStyle={this.state.alertStyle}>
                     <h3>

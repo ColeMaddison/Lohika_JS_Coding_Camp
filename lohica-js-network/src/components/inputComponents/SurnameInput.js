@@ -53,7 +53,7 @@ class SurnameInput extends React.Component {
             <FormGroup 
                 bsSize= {this.props.size}
                 controlId ={this.props.id}
-                validationState={ this.props.inputState.surnameValidMessage }                
+                validationState={ this.props.inputState.regForm.surnameValidMessage }                
                 >
                 <Col md={4}>
                     <Col mdOffset={10}>
@@ -63,7 +63,7 @@ class SurnameInput extends React.Component {
                 <Col md={4}>
                     <FormControl
                         name={this.props.name}
-                        value={this.props.inputState.value}
+                        value={this.props.inputState.regForm.value}
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                     />

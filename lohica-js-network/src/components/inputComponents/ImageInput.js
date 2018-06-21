@@ -61,7 +61,7 @@ class ImageInput extends React.Component {
             <FormGroup 
                 bsSize= "small"
                 controlId={this.props.id}
-                validationState={this.props.inputState.imageStatus}
+                validationState={this.props.inputState.regForm.imageStatus}
                 name="file"
                 >
                 <Col md={4}>
