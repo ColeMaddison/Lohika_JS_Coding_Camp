@@ -1,13 +1,14 @@
 import React from 'react';
 import {Form, Row, Grid, Button, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import EmailInput from './inputComponents/EmailInput';
-import GenderRadio from './inputComponents/GenderRadio';
-import AgeInput from './inputComponents/AgeInput';
-import ImageInput from './inputComponents/ImageInput';
-import NameInput from './inputComponents/NameInput'
-import SurnameInput from './inputComponents/SurnameInput';
-import MidnameInput from './inputComponents/MidnameInput';
+
+import {EmailInput} from './index';
+import {GenderRadio} from './index';
+import {AgeInput} from './index';
+import {ImageInput} from './index';
+import {NameInput} from './index';
+import {SurnameInput} from './index';
+import {MidnameInput} from './index';
  
 
 class RegistrationForm extends  React.Component {
@@ -27,8 +28,7 @@ class RegistrationForm extends  React.Component {
     }
 
     handleSubmit(e){
-        let {emailValid, imageValid, nameValid, surnameValid, genderValidStat, name, surname, midName, email, gender, age} = this.props.store.getState().formInput.regForm;
-        console.log(this.props.store.getState().formInput.regForm);
+        let {emailValid, imageValid, nameValid, surnameValid, genderValidStat, name, surname, midName, email, gender, age} = this.props.store.formInput.regForm;
         e.preventDefault();
         if(emailValid && imageValid && nameValid && surnameValid && genderValidStat) {
 
@@ -87,8 +87,6 @@ class RegistrationForm extends  React.Component {
     }
 
     render() { 
-        
-        console.log(this.props);
 
         let alert = <Alert bsStyle={this.state.alertStyle}>
                     <h3>
@@ -172,7 +170,8 @@ class RegistrationForm extends  React.Component {
 
 const mapStateToProps = (initState) => {
     return {
-        inputState: initState.formInput
+        inputState: initState.formInput,
+        store: initState
     }
 }
 
