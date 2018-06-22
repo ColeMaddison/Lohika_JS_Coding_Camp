@@ -53,3 +53,17 @@ export const validateForm = (value) => {
         payload: value
     }
 }
+
+export const validateLoginEmail = (value) => {
+    return {
+        type: 'VALIDATE_LOGIN_EMAIL',
+        payload: value
+    }
+}
+
+export const setPassword = (value) => {
+    return {
+        type: 'SET_PASSWORD',
+        payload: value
+    }
+}

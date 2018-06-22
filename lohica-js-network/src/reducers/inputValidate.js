@@ -20,6 +20,12 @@ const initState = {
         genderValidStat: false,
         imageValid: false,
         imageData: ''
+    },
+    loginForm:{
+        email: '',
+        password: '',
+        emailValid: false,
+        emailValidMessage: null,
     }
 };
 
@@ -27,6 +33,7 @@ const inputValidate = (state=initState, action) => {
     switch(action.type){
         case 'VALIDATE_NAME':
             return  {
+                ...state,
                 regForm: {
                     ...state.regForm,
                     name: action.payload.value, 
@@ -36,6 +43,7 @@ const inputValidate = (state=initState, action) => {
             };
         case 'VALIDATE_SURNAME':
             return  {
+                ...state,
                 regForm: {
                     ...state.regForm,
                     surname: action.payload.value, 
@@ -45,6 +53,7 @@ const inputValidate = (state=initState, action) => {
             };
         case 'VALIDATE_MIDNAME':
             return  {
+                ...state,
                 regForm: {
                     ...state.regForm,
                     midName: action.payload.value, 
@@ -54,6 +63,7 @@ const inputValidate = (state=initState, action) => {
             };
         case 'VALIDATE_EMAIL':
             return  {
+                ...state,
                 regForm: {
                     ...state.regForm,
                     email: action.payload.value, 
@@ -64,6 +74,7 @@ const inputValidate = (state=initState, action) => {
 
         case 'VALIDATE_GENDER':
             return {
+                ...state,
                 regForm: {
                     ...state.regForm,
                     gender: action.payload.value,
@@ -74,6 +85,7 @@ const inputValidate = (state=initState, action) => {
 
         case 'VALIDATE_AGE':
             return {
+                ...state,
                 regForm: {
                     ...state.regForm,
                     age: action.payload.value,
@@ -82,6 +94,7 @@ const inputValidate = (state=initState, action) => {
             }
         case 'VALIDATE_IMAGE':
             return {
+                ...state,
                 regForm: {
                     ...state.regForm,
                     imageData: action.payload.imgData,
@@ -89,17 +102,36 @@ const inputValidate = (state=initState, action) => {
                     imageValid: action.payload.imageValid
                 }
             }
-        case 'VALIDATE_FORM_INVALID':
+        // case 'VALIDATE_FORM_INVALID':
+        //     return {
+        //         ...state,
+        //         imageStatus: action.payload.status,
+        //         nameValidMessage: action.payload.status,
+        //         surnameValidMessage: action.payload.status,
+        //         midNameValidMessage: action.payload.status,
+        //         emailValidMessage: action.payload.status,
+        //         genderValid: action.payload.status,
+        //         imageValid: action.payload.status,
+        //         ageValid: action.payload.status
+        //     }
+
+        case 'VALIDATE_LOGIN_EMAIL':
             return {
                 ...state,
-                imageStatus: action.payload.status,
-                nameValidMessage: action.payload.status,
-                surnameValidMessage: action.payload.status,
-                midNameValidMessage: action.payload.status,
-                emailValidMessage: action.payload.status,
-                genderValid: action.payload.status,
-                imageValid: action.payload.status,
-                ageValid: action.payload.status
+                loginForm: {
+                    ...state.loginForm,
+                    email: action.payload.value,
+                    emailValid: action.payload.status,
+                    emailValidMessage: action.payload.message
+                }
+            }
+        case 'SET_PASSWORD':
+            return {
+                ...state,
+                loginForm: {
+                    ...state.loginForm,
+                    password: action.payload.value,
+                }
             }
         default:
             return state;
