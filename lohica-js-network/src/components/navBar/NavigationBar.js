@@ -14,8 +14,8 @@ class NavigationBar extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <LinkContainer to='/login'>
-                            <NavItem eventKey={1}>Login</NavItem>
+                        <LinkContainer to='/signup'>
+                            <NavItem eventKey={1}>Signup</NavItem>
                         </LinkContainer>
                     </Nav>
                 </Navbar.Collapse>

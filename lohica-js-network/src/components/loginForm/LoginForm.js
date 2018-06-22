@@ -3,7 +3,7 @@ import { Form, Grid, Row, Button, Well } from 'react-bootstrap';
 import LoginEmailComponent from './LoginEmailComponent';
 import LoginPassComponent from './LoginPassComponent';
 import { connect } from 'react-redux';
-
+ 
 class LoginForm extends React.Component {
     constructor(props){
         super(props);
@@ -24,7 +24,17 @@ class LoginForm extends React.Component {
                 headers: {'Content-Type': 'application/json'}
             }).then(mes => mes.json())
                 .then(result => localStorage.setItem('tkn', result.userToken))
-                // .then(result => console.log(result.token));
+        } else {
+            localStorage.removeItem('tkn');
+        }
+        let token = localStorage.getItem('tkn');
+        
+        if(token) {
+            fetch('/checkToken', {
+                method: 'POST',
+                body: JSON.stringify({'token': token}),
+                headers: {'Content-Type': 'application/json'}
+            }).then(res => console.log(res))
         }
     }
     
