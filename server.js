@@ -35,11 +35,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.post('/login', (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     auth(req.body)
-        .then(user => user ? res.status(200).json({message: "Login Successful", user: user}) : res.status(400).json({message: "Username or password incorrect!"}))
-        // .then(user => res.send(user))
-        // .then(result => res.status(200).jsonp({message: result}))
+        .then(user => user ? res.status(200).json({message: "Login Successful", userToken: user.token}) : res.status(400).json({message: "Username or password incorrect!"}))
         .catch(err => console.error(err));
 });
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Grid, Row, Button, Well } from 'react-bootstrap';
 import LoginEmailComponent from './LoginEmailComponent';
 import LoginPassComponent from './LoginPassComponent';
+import { connect } from 'react-redux';
 
 class LoginForm extends React.Component {
     constructor(props){
@@ -11,10 +12,22 @@ class LoginForm extends React.Component {
     }
 
     handleSubmit(e){
+        let { emailValid, email, password } = this.props.store.formInput.loginForm;
+        if(emailValid && password){
 
+            fetch('/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    'email': email,
+                    'password': password
+                }),
+                headers: {'Content-Type': 'application/json'}
+            }).then(mes => mes.json())
+                .then(result => localStorage.setItem('tkn', result.userToken))
+                // .then(result => console.log(result.token));
+        }
     }
-
-
+    
     render(){
         return (
             <Form horizontal>
@@ -38,4 +51,10 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+const mapStateToProps = (initState) => {
+    return{
+        store: initState
+    }
+}
+
+export default connect(mapStateToProps)(LoginForm);

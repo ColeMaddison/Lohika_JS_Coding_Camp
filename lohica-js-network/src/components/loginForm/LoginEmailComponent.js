@@ -1,11 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap';
-import {validateLoginEmail} from '../../actions/inputAction'
+import { FormGroup, FormControl, Col, ControlLabel, Alert } from 'react-bootstrap';
+import {validateLoginEmail} from '../../actions/inputAction';
+
+const elem = <Alert bsStyle="warning">
+                <strong>Warning</strong> Email should be valid (example@mail.com)
+            </Alert>;
 
 class LoginEmailComponent extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            show: false
+        }
 
         this.handleValidateInput = this.handleValidateInput.bind(this);
     }
@@ -58,6 +66,7 @@ class LoginEmailComponent extends React.Component {
                         placeholder="Email"
                         onChange={this.handleValidateInput}
                         />
+                        {this.state.show ? elem : null}
                 </Col>
             </FormGroup>
         )
