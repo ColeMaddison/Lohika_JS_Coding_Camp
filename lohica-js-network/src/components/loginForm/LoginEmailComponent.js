@@ -47,7 +47,6 @@ class LoginEmailComponent extends React.Component {
     }
 
     render() {
-        console.log(this.props.inputState.loginForm );
         return(
             <FormGroup 
                 bsSize= "small"

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, Row, Grid, Button, Alert, Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import {regToLogin} from '../actions/inputAction'
 
 import {EmailInput} from './index';
 import {GenderRadio} from './index';
@@ -42,6 +43,8 @@ class RegistrationForm extends  React.Component {
             data.append('gender', gender);
             data.append('age', age);
 
+            // beginning of fetch
+
             fetch('/signup',{
                 method: 'POST',
                 body: data
@@ -51,12 +54,33 @@ class RegistrationForm extends  React.Component {
                     // show success or warning alert depending on user got registered or not
                     switch(data.statusCode){
                         case 200:
-                            this.setState({
+                            // this.setState({
+                            //     password: data.userPass,
+                            //     message: "You have successfully registered, here's your password: ",
+                            //     show: true,
+                            //     alertStyle: "success"
+                            // });
+                            this.props.dispatch(regToLogin({
                                 password: data.userPass,
                                 message: "You have successfully registered, here's your password: ",
                                 show: true,
                                 alertStyle: "success"
+                            }));      
+                            
+                            
+                            // continue here
+                            let {password, message, show, alertStyle} = this.props.store.formInput.regForm.regToLoginRedirect;
+                            this.props.history.push({
+                                pathname: '/login',
+                                state: {
+                                    password,
+                                    message,
+                                    show,
+                                    alertStyle
+                                }
                             });
+
+                            
                             break;
                         case 409:
                             this.setState({
@@ -82,10 +106,13 @@ class RegistrationForm extends  React.Component {
                     this.setState({showWarning: false});                  
                 })
                 .catch(err => console.log(err));
+
+
         } else {
             this.setState({showWarning: true, show: false});
         }
     }
+
 
     render() { 
 
@@ -178,4 +205,8 @@ const mapStateToProps = (initState) => {
     }
 }
 
-export default connect(mapStateToProps)(RegistrationForm);
+const  matchDispatchToProps = (dispatch) => {
+    return {regToLogin, dispatch}
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(RegistrationForm);

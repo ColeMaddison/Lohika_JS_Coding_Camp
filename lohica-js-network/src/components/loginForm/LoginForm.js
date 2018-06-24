@@ -12,6 +12,7 @@ class LoginForm extends React.Component {
     }
 
     handleSubmit(e){
+        console.log(this.props.history, this.state);
         let { emailValid, email, password } = this.props.store.formInput.loginForm;
         if(emailValid && password){
 
@@ -23,7 +24,7 @@ class LoginForm extends React.Component {
                 }),
                 headers: {'Content-Type': 'application/json'}
             }).then(mes => mes.json())
-                .then(result => localStorage.setItem('tkn', result.userToken))
+                .then(result => result.userToken ? localStorage.setItem('tkn', result.userToken) : console.log(result.message))
         } else {
             localStorage.removeItem('tkn');
         }

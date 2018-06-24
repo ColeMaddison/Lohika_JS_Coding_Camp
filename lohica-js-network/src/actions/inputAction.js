@@ -67,3 +67,10 @@ export const setPassword = (value) => {
         payload: value
     }
 }
+
+export const regToLogin = (value) => {
+    return {
+        type: 'REG_TO_LOGIN',
+        payload: value
+    }
+}

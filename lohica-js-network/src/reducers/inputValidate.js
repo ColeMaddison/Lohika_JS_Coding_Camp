@@ -19,7 +19,13 @@ const initState = {
         genderValid: null,
         genderValidStat: false,
         imageValid: false,
-        imageData: ''
+        imageData: '',
+        regToLoginRedirect: {
+            password: '',
+            message: '',
+            show: false,
+            alertStyle: ''
+        }
     },
     loginForm:{
         email: '',
@@ -132,6 +138,19 @@ const inputValidate = (state=initState, action) => {
                     ...state.loginForm,
                     password: action.payload.value,
                 }
+            }
+        case 'REG_TO_LOGIN':
+            return {
+                ...state,
+                    regForm:{
+                        ...state.regForm,
+                        regToLoginRedirect:{
+                            password: action.payload.password,
+                            message: action.payload.message,
+                            show: action.payload.show,
+                            alertStyle: action.payload.alertStyle
+                        }
+                    }
             }
         default:
             return state;
