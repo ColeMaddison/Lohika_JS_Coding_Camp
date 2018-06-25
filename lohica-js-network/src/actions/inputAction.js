@@ -74,3 +74,24 @@ export const regToLogin = (value) => {
         payload: value
     }
 }
+
+export const regValidHandle = (value) => {
+    return {
+        type: 'REG_VALID_HANDLE',
+        payload: value
+    }
+}
+
+export const regValidHideMes = (value) => {
+        return {
+            type: 'REG_VALID_REMOVE_ERRORMES',
+            payload: value
+        }
+}
+
+export const regValidShowMes = (value) => {
+    return {
+        type: 'REG_VALID_SHOW_ERRORMES',
+        payload: value
+    }
+}

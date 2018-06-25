@@ -2,6 +2,7 @@ import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { validateSurname } from '../../actions/inputAction'
+import {nameMidSurRegExp} from './handlers/regExpInputValid';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Surname should be max 32 letters
@@ -12,10 +13,6 @@ class SurnameInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show: false
-        };
-
         this.dispatchEmitter = this.dispatchEmitter.bind(this);
         this.handleValidateInput = this.handleValidateInput.bind(this);
 
@@ -23,16 +20,16 @@ class SurnameInput extends React.Component {
 
 
     dispatchEmitter = (val) => {
-        let testRe = /^([a-zA-Z]{1,32})$/;
+        let mes = null,
+            show = false,
+            status = false;
+
         if(val.length<1){
-            this.setState({show: false});
-            return {mes:null, status: false};
-        } else if(testRe.test(val)) {
-            this.setState({show: false});
-            return {mes:"success", status:true};
-        } else if(!testRe.test(val)){
-            this.setState({show: true});
-            return {mes:"error", status: false};
+            return {mes, status, show};
+        } else if(nameMidSurRegExp(val)) {
+            return {mes:"success", status:true, show};
+        } else if(!nameMidSurRegExp(val)){
+            return {mes:"error", status, show: true};
         }
     }
     
@@ -43,7 +40,8 @@ class SurnameInput extends React.Component {
         this.props.dispatch(validateSurname({
             value:inputVal, 
             status: disEm.status,
-            message: disEm.mes
+            message: disEm.mes,
+            show: disEm.show
         }));
     }
 
@@ -67,7 +65,7 @@ class SurnameInput extends React.Component {
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                     />
-                    {this.state.show ? elem : null}
+                    {this.props.inputState.regForm.surnameValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         );

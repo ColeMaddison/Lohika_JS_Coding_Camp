@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Row, Grid, Button, Alert, Well} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import {regToLogin} from '../actions/inputAction'
+import {regValidHandle, regValidHideMes, regValidShowMes} from '../actions/inputAction'
 
 import {EmailInput} from './index';
 import {GenderRadio} from './index';
@@ -17,18 +17,11 @@ class RegistrationForm extends  React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            alertStyle: null,
-            showWarning: false,
-            show: false,
-            password: '',
-            message: ''
-        }
-
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(e){
+        console.log(this.props.inputState.regForm.regValidateState);
         let {emailValid, imageValid, nameValid, surnameValid, genderValidStat, name, surname, midName, email, gender, age} = this.props.store.formInput.regForm;
         e.preventDefault();
         if(emailValid && imageValid && nameValid && surnameValid && genderValidStat) {
@@ -50,75 +43,54 @@ class RegistrationForm extends  React.Component {
                 body: data
             }).then((mes) => mes.json())
                 .then(data => {
-                    console.log(data);
                     // show success or warning alert depending on user got registered or not
                     switch(data.statusCode){
                         case 200:
-                            // this.setState({
-                            //     password: data.userPass,
-                            //     message: "You have successfully registered, here's your password: ",
-                            //     show: true,
-                            //     alertStyle: "success"
-                            // });
-                            this.props.dispatch(regToLogin({
+                            this.props.dispatch(regValidHandle({
                                 password: data.userPass,
                                 message: "You have successfully registered, here's your password: ",
                                 show: true,
                                 alertStyle: "success"
-                            }));      
-                            
-                            
-                            // continue here
-                            let {password, message, show, alertStyle} = this.props.store.formInput.regForm.regToLoginRedirect;
-                            this.props.history.push({
-                                pathname: '/login',
-                                state: {
-                                    password,
-                                    message,
-                                    show,
-                                    alertStyle
-                                }
-                            });
-
-                            
+                            }));                            
                             break;
                         case 409:
-                            this.setState({
+                            this.props.dispatch(regValidHandle({
                                 password: "",
                                 message: "User with that email already exists",
                                 show: true,
                                 alertStyle: "danger"
-                            });
+                            }));
                             break;
                         case 400: 
-                            this.setState({
+                            this.props.dispatch(regValidHandle({
                                 password: "",
                                 message: data.message,
                                 show: true,
                                 alertStyle: "warning"
-                            });
+                            }));
                             break;
                         default:
                             break
                             
                     }  
                     
-                    this.setState({showWarning: false});                  
+                    this.props.dispatch(regValidHideMes({showWarning: false}));                  
                 })
                 .catch(err => console.log(err));
 
 
         } else {
-            this.setState({showWarning: true, show: false});
+            this.props.dispatch(regValidShowMes({showWarning: true, show: false}));
         }
     }
 
 
     render() { 
+        let regValidStore = this.props.inputState.regForm.regValidateState;
 
-        let alert = <Alert bsStyle={this.state.alertStyle}>
+        let alert = <Alert bsStyle={regValidStore.alertStyle}>
                     <h3>
-                        {this.state.message}<strong>{this.state.password}</strong>
+                        {regValidStore.message}<strong>{this.props.inputState.regForm.regValidateState.password}</strong>
                     </h3>
                 </Alert>;
 
@@ -136,7 +108,7 @@ class RegistrationForm extends  React.Component {
         return (
              
         <Form horizontal>
-            {this.state.show ? alert : null}
+            {regValidStore.show ? alert : null}
             <h3>Registration</h3> 
             <Grid>
                 <Row>
@@ -185,10 +157,9 @@ class RegistrationForm extends  React.Component {
                         <ImageInput
                             id="formControlFile*"
                         />
-                        {this.state.showWarning ? alertAllFields : null}
+                        {regValidStore.showWarning ? alertAllFields : null}
                         <Button 
-                            bsStyle="success" 
-                            disabled={false}
+                            bsStyle="success"
                             onClick={this.handleSubmit}
                             >Submit</Button>
                     </Well>
@@ -206,7 +177,7 @@ const mapStateToProps = (initState) => {
 }
 
 const  matchDispatchToProps = (dispatch) => {
-    return {regToLogin, dispatch}
+    return {regValidHandle, dispatch}
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(RegistrationForm);

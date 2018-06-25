@@ -10,21 +10,33 @@ const initState = {
         imageStatus: null,
         nameValid: false,
         nameValidMessage: null,
+        nameValidMessageShow: false,
         surnameValid: false,
         surnameValidMessage: null,
+        surnameValidMessageShow: false,
         midNameValid: false,
         midNameValidMessage: null,
+        midNameValidMessageShow: false,
         emailValid: false,
         emailValidMessage: null,
+        emailValidMessageShow: false,
         genderValid: null,
         genderValidStat: false,
-        imageValid: false,
         imageData: '',
+        imageValid: false,
+        imageValidShow: false,
         regToLoginRedirect: {
             password: '',
             message: '',
             show: false,
             alertStyle: ''
+        },
+        regValidateState: {
+            alertStyle: null,
+            showWarning: false,
+            show: false,
+            password: '',
+            message: ''
         }
     },
     loginForm:{
@@ -32,19 +44,22 @@ const initState = {
         password: '',
         emailValid: false,
         emailValidMessage: null,
+        emailValidMessageShow: false
     }
 };
 
 const inputValidate = (state=initState, action) => {
+    let ap = action.payload;
     switch(action.type){
         case 'VALIDATE_NAME':
             return  {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                    name: action.payload.value, 
-                    nameValid: action.payload.status,
-                    nameValidMessage: action.payload.message
+                    name: ap.value, 
+                    nameValid: ap.status,
+                    nameValidMessage: ap.message,
+                    nameValidMessageShow: ap.show
                 }
             };
         case 'VALIDATE_SURNAME':
@@ -52,9 +67,10 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                    surname: action.payload.value, 
-                    surnameValid: action.payload.status,
-                    surnameValidMessage: action.payload.message
+                    surname: ap.value, 
+                    surnameValid: ap.status,
+                    surnameValidMessage: ap.message,
+                    surnameValidMessageShow: ap.show
                 }
             };
         case 'VALIDATE_MIDNAME':
@@ -62,9 +78,10 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                    midName: action.payload.value, 
-                    midNameValid: action.payload.status,
-                    midNameValidMessage: action.payload.message
+                    midName: ap.value, 
+                    midNameValid: ap.status,
+                    midNameValidMessage: ap.message,
+                    midNameValidMessageShow: ap.show
                 }
             };
         case 'VALIDATE_EMAIL':
@@ -72,9 +89,10 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                    email: action.payload.value, 
-                    emailValid: action.payload.status,
-                    emailValidMessage: action.payload.message
+                    email: ap.value, 
+                    emailValid: ap.status,
+                    emailValidMessage: ap.message,
+                    emailValidMessageShow: ap.show
                 }
             };
 
@@ -83,9 +101,9 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                    gender: action.payload.value,
-                    genderValid: action.payload.status,
-                    genderValidStat: action.payload.stat
+                    gender: ap.value,
+                    genderValid: ap.status,
+                    genderValidStat: ap.stat
                 }
             }
 
@@ -94,8 +112,8 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                    age: action.payload.value,
-                    ageValid: action.payload.status
+                    age: ap.value,
+                    ageValid: ap.status
                 }
             }
         case 'VALIDATE_IMAGE':
@@ -103,32 +121,21 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                    imageData: action.payload.imgData,
-                    imageStatus: action.payload.status,
-                    imageValid: action.payload.imageValid
+                    imageData: ap.imgData,
+                    imageStatus: ap.status,
+                    imageValid: ap.imageValid,
+                    imageValidShow: ap.show
                 }
             }
-        // case 'VALIDATE_FORM_INVALID':
-        //     return {
-        //         ...state,
-        //         imageStatus: action.payload.status,
-        //         nameValidMessage: action.payload.status,
-        //         surnameValidMessage: action.payload.status,
-        //         midNameValidMessage: action.payload.status,
-        //         emailValidMessage: action.payload.status,
-        //         genderValid: action.payload.status,
-        //         imageValid: action.payload.status,
-        //         ageValid: action.payload.status
-        //     }
-
         case 'VALIDATE_LOGIN_EMAIL':
             return {
                 ...state,
                 loginForm: {
                     ...state.loginForm,
-                    email: action.payload.value,
-                    emailValid: action.payload.status,
-                    emailValidMessage: action.payload.message
+                    email: ap.value,
+                    emailValid: ap.status,
+                    emailValidMessage: ap.message,
+                    emailValidMessageShow: ap.show
                 }
             }
         case 'SET_PASSWORD':
@@ -136,7 +143,7 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 loginForm: {
                     ...state.loginForm,
-                    password: action.payload.value,
+                    password: ap.value,
                 }
             }
         case 'REG_TO_LOGIN':
@@ -145,12 +152,49 @@ const inputValidate = (state=initState, action) => {
                     regForm:{
                         ...state.regForm,
                         regToLoginRedirect:{
-                            password: action.payload.password,
-                            message: action.payload.message,
-                            show: action.payload.show,
-                            alertStyle: action.payload.alertStyle
+                            password: ap.password,
+                            message: ap.message,
+                            show: ap.show,
+                            alertStyle: ap.alertStyle
                         }
                     }
+            }
+        case 'REG_VALID_HANDLE':
+            return {
+                ...state,
+                regForm: {
+                    ...state.regForm,
+                    regValidateState: {
+                        alertStyle: ap.alertStyle,
+                        showWarning: ap.showWarning,
+                        show: ap.show,
+                        password: ap.password,
+                        message: ap.message
+                    }
+                }
+            }
+        case 'REG_VALID_REMOVE_ERRORMES':
+            return {
+                ...state, 
+                regForm: {
+                    ...state.regForm,
+                    regValidateState: {
+                        ...state.regForm.regValidateState,
+                        showWarning: ap.showWarning
+                    }
+                }
+            }
+        case 'REG_VALID_SHOW_ERRORMES':
+            return {
+                ...state,
+                 regForm: {
+                     ...state.regForm,
+                     regValidateState: {
+                         ...state.regForm.regValidateState,
+                         showWarning: ap.showWarning,
+                         show: ap.show
+                     } 
+                 }
             }
         default:
             return state;

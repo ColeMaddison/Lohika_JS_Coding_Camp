@@ -13,10 +13,6 @@ class ImageInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show: false
-        };
-
         this.imageUpload = this.imageUpload.bind(this);
         
         this.allowedExts = [
@@ -30,27 +26,31 @@ class ImageInput extends React.Component {
 
     imageUpload (e) {
         let imgData = e.target.files[0];
-        if(!imgData){
-            this.setState({show: false});
-            return this.props.dispatch(validateImage({
-                status: null,
-                imageValid: false
-            }));
-        }
         let imageExt = imgData.type;
         let imageSize = imgData.size;
+
+        let status = null;
+        let imageValid = false;
+        let show = false;
+        if(!imgData){
+            return this.props.dispatch(validateImage({
+                status,
+                imageValid,
+                show
+            }));
+        }
         if(!(this.allowedExts.includes(imageExt)) || !(imageSize>MIN_SIZE || imageSize<MAX_SIZE)){
-            this.setState({show: true});
             return this.props.dispatch(validateImage({
                 status: "error",
-                imageValid: false
+                imageValid,
+                show: true
             }));
         } else {
-            this.setState({show: false});
             return this.props.dispatch(validateImage({
                 imgData,
-                status: null,
-                imageValid: true
+                status,
+                imageValid: true,
+                show
             }));
         }
 
@@ -69,12 +69,12 @@ class ImageInput extends React.Component {
                         <ControlLabel>Your photo</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
                     <FormControl 
                         type="file"
                         onChange={this.imageUpload}
                         />
-                    {this.state.show ? elem : null}
+                    {this.props.inputState.regForm.imageValidShow ? elem : null}
                 </Col>
             </FormGroup>
         );

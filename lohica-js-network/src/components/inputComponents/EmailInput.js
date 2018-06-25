@@ -2,6 +2,7 @@ import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { validateEmail } from '../../actions/inputAction'
+import {emailRegExp} from './handlers/regExpInputValid';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Email should be valid (example@mail.com)
@@ -11,10 +12,6 @@ class EmailInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show: false
-        }
-
         this.handleValidateInput = this.handleValidateInput.bind(this);
     }
 
@@ -23,29 +20,33 @@ class EmailInput extends React.Component {
         let emailInputVal = e.target.value;  
         let charNum = emailInputVal.length;
 
+        let value = emailInputVal,
+            status = false,
+            message = null,
+            show = false;
+
         // validate email
-        if(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(emailInputVal)) {
-            this.setState({show: false});
+        if(emailRegExp(emailInputVal)) {
             return this.props.dispatch(validateEmail({
-                value:emailInputVal, 
+                value, 
                 status: true,
+                show,
                 message: "success"
             }));
         } else if(charNum > 0) {
-            this.setState({show: true});
             return this.props.dispatch(validateEmail({
-                value:emailInputVal, 
-                status: false,
+                value, 
+                status,
+                show: true,
                 message: "error"
             }));
         }
-        this.setState({show: false});
         return this.props.dispatch(validateEmail({
-            value:emailInputVal, 
-            status: false,
-            message: null
+            value, 
+            status,
+            show,
+            message
         }));
-
     }
 
     render(){
@@ -67,7 +68,7 @@ class EmailInput extends React.Component {
                         placeholder={this.props.placeholder}
                         onChange={this.handleValidateInput}
                         />
-                        {this.state.show ? elem : null}
+                        {this.props.inputState.regForm.emailValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         );

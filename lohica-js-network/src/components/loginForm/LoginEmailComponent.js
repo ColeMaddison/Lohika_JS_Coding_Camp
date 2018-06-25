@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FormGroup, FormControl, Col, ControlLabel, Alert } from 'react-bootstrap';
 import {validateLoginEmail} from '../../actions/inputAction';
+import checkEmail from './handlers/regExpEmail';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Email should be valid (example@mail.com)
@@ -22,27 +23,32 @@ class LoginEmailComponent extends React.Component {
         let emailLoginVal = e.target.value;
         let charNum = emailLoginVal.length;
 
+        let value = emailLoginVal,
+            status = false,
+            message = null,
+            show = false;
+
         // validate email
-        if(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(emailLoginVal)) {
-            this.setState({show: false});
+        if(checkEmail(emailLoginVal)) {
             return this.props.dispatch(validateLoginEmail({
-                value:emailLoginVal, 
+                value, 
                 status: true,
+                show,
                 message: "success"
             }));
         } else if(charNum > 0) {
-            this.setState({show: true});
             return this.props.dispatch(validateLoginEmail({
-                value:emailLoginVal, 
-                status: false,
+                value, 
+                status,
+                show: true,
                 message: "error"
             }));
         }
-        this.setState({show: false});
         return this.props.dispatch(validateLoginEmail({
-            value:emailLoginVal, 
-            status: false,
-            message: null
+            value, 
+            status,
+            show,
+            message
         }));
     }
 
@@ -65,7 +71,7 @@ class LoginEmailComponent extends React.Component {
                         placeholder="Email"
                         onChange={this.handleValidateInput}
                         />
-                        {this.state.show ? elem : null}
+                        {this.props.inputState.loginForm.emailValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         )

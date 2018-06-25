@@ -3,7 +3,9 @@ import { Form, Grid, Row, Button, Well } from 'react-bootstrap';
 import LoginEmailComponent from './LoginEmailComponent';
 import LoginPassComponent from './LoginPassComponent';
 import { connect } from 'react-redux';
+import { loginFormSubmit } from './handlers/loginSubmitHandler';
  
+
 class LoginForm extends React.Component {
     constructor(props){
         super(props);
@@ -11,34 +13,11 @@ class LoginForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e){
-        console.log(this.props.history, this.state);
+    handleSubmit(e) {
         let { emailValid, email, password } = this.props.store.formInput.loginForm;
-        if(emailValid && password){
-
-            fetch('/login', {
-                method: 'POST',
-                body: JSON.stringify({
-                    'email': email,
-                    'password': password
-                }),
-                headers: {'Content-Type': 'application/json'}
-            }).then(mes => mes.json())
-                .then(result => result.userToken ? localStorage.setItem('tkn', result.userToken) : console.log(result.message))
-        } else {
-            localStorage.removeItem('tkn');
-        }
-        let token = localStorage.getItem('tkn');
-        
-        if(token) {
-            fetch('/checkToken', {
-                method: 'POST',
-                body: JSON.stringify({'token': token}),
-                headers: {'Content-Type': 'application/json'}
-            }).then(res => console.log(res))
-        }
+        loginFormSubmit(e, emailValid, email, password);
     }
-    
+
     render(){
         return (
             <Form horizontal>
