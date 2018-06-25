@@ -4,7 +4,8 @@ const express = require('express');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 const bodyParser = require('body-parser');
-const jwtDecode = require('jwt-decode');
+const secretConfig = require('./serverHandlers/config.json');
+const jwt = require('jsonwebtoken');
 
 const auth = require('./serverHandlers/authHandler');
 const ctrl = require('./serverHandlers/controllers');
@@ -40,10 +41,17 @@ app.post(routes.loginRoute, (req, res) => {
 });
 
 app.post(routes.checkTokenRoute, (req, res) => {
-    console.log(req.body.token);
     if(req.body.token){
-        let decoded = jwtDecode(req.body.token);
-        res.json(decoded + '----');
+        jwt.verify(req.body.token, secretConfig.secret, function(err, decoded){
+            // console.log(decoded);
+            if(err){
+                return res.status(500).send({auth: false, message: "Failed to authenticate token!"});
+            }
+            // console.log(decoded);
+            res.status(200).send({auth: true, message: "Successful login"});
+        });
+    } else {
+        res.status(401).send({auth: fasle, message: "No token provided"});
     }
 });
 

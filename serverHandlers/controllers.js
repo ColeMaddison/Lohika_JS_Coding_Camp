@@ -13,7 +13,6 @@ exports.signup = (req, res) => {
     let checkEmail = userData.email;
 
     UserModel.find({email: checkEmail}, (err, data) => {
-        // console.log(userData);
         if(data.length){
             res.end(JSON.stringify({message: "User already exists!", statusCode: 409}));
         } else {
