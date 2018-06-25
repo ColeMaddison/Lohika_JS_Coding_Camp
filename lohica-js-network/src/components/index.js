@@ -5,6 +5,8 @@ import ImageInput from './inputComponents/ImageInput';
 import NameInput from './inputComponents/NameInput'
 import SurnameInput from './inputComponents/SurnameInput';
 import MidnameInput from './inputComponents/MidnameInput';
+import RedirToLoginButton from './inputComponents/RedirToLoginButton';
+import FormComponent from './inputComponents/FormComponent';
 
 export {
     EmailInput,
@@ -13,5 +15,7 @@ export {
     ImageInput,
     NameInput,
     SurnameInput,
-    MidnameInput
+    MidnameInput,
+    RedirToLoginButton,
+    FormComponent
 };

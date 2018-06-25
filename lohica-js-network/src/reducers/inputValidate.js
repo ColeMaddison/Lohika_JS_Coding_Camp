@@ -36,8 +36,9 @@ const initState = {
             showWarning: false,
             show: false,
             password: '',
-            message: ''
-        }
+            message: '',
+        },
+        successReg: false
     },
     loginForm:{
         email: '',
@@ -146,17 +147,12 @@ const inputValidate = (state=initState, action) => {
                     password: ap.value,
                 }
             }
-        case 'REG_TO_LOGIN':
+        case 'SUCCESS_REG':
             return {
                 ...state,
                     regForm:{
                         ...state.regForm,
-                        regToLoginRedirect:{
-                            password: ap.password,
-                            message: ap.message,
-                            show: ap.show,
-                            alertStyle: ap.alertStyle
-                        }
+                        successReg: ap.regStatus
                     }
             }
         case 'REG_VALID_HANDLE':

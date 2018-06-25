@@ -68,9 +68,9 @@ export const setPassword = (value) => {
     }
 }
 
-export const regToLogin = (value) => {
+export const successReg = (value) => {
     return {
-        type: 'REG_TO_LOGIN',
+        type: 'SUCCESS_REG',
         payload: value
     }
 }
