@@ -1,6 +1,6 @@
 import React from 'react';
-import {FormGroup, ControlLabel, Col, FormControl} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormGroup, ControlLabel, Col, FormControl} from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateAge } from '../../actions/inputAction'
 
 class AgeInput extends React.Component {
@@ -11,19 +11,16 @@ class AgeInput extends React.Component {
     }
 
     handleChange(e) {
+        let dispatchObj = {
+            value: '',
+            status: 'error'
+        };
+
         if(e.target.value){
-            return this.props.dispatch(validateAge({
-                value: e.target.value,
-                status: null
-            }));
+            dispatchObj.value = e.target.value;
+            dispatchObj.status = null;
         }
-        // add this later for the submit button validation 
-        else {
-            return this.props.dispatch(validateAge({
-                value:'',
-                status: 'error'
-            }));
-        }
+        return this.props.dispatch(validateAge(dispatchObj));
     }
 
     render() {

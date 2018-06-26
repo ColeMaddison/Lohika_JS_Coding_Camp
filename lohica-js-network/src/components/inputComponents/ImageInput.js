@@ -26,34 +26,25 @@ class ImageInput extends React.Component {
 
     imageUpload (e) {
         let imgData = e.target.files[0];
-        let imageExt = imgData.type;
-        let imageSize = imgData.size;
+        let imageExt = imgData ? imgData.type : '';
+        let imageSize = imgData ? imgData.size : '';
 
-        let status = null;
-        let imageValid = false;
-        let show = false;
+        let dispatchObj = {
+            imgData,
+            status: null,
+            imageValid: true,
+            show: false
+        }
+
         if(!imgData){
-            return this.props.dispatch(validateImage({
-                status,
-                imageValid,
-                show
-            }));
+            dispatchObj.imgData = '';
+            dispatchObj.imageValid = false;
+        } else if(!(this.allowedExts.includes(imageExt)) || !(imageSize>MIN_SIZE || imageSize<MAX_SIZE)){
+            dispatchObj.status = "error";
+            dispatchObj.imageValid = false;
+            dispatchObj.show = true
         }
-        if(!(this.allowedExts.includes(imageExt)) || !(imageSize>MIN_SIZE || imageSize<MAX_SIZE)){
-            return this.props.dispatch(validateImage({
-                status: "error",
-                imageValid,
-                show: true
-            }));
-        } else {
-            return this.props.dispatch(validateImage({
-                imgData,
-                status,
-                imageValid: true,
-                show
-            }));
-        }
-
+        return this.props.dispatch(validateImage(dispatchObj));
     }
 
     render() {

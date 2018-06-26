@@ -2,7 +2,7 @@ import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Col,  Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { validateName } from '../../actions/inputAction';
-import {nameMidSurRegExp} from './handlers/regExpInputValid';
+import {nameRegExp} from './handlers/nameRegExp';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Name should be max 32 letters
@@ -23,9 +23,9 @@ class NameInput extends React.Component {
 
         if(val.length<1){
             return {mes, status, show};
-        } else if(nameMidSurRegExp(val)) {
+        } else if(nameRegExp(val)) {
             return {mes:"success", status:true, show};
-        } else if(!nameMidSurRegExp(val)){
+        } else if(!nameRegExp(val)){
             return {mes:"error", status, show: true};
         }
     }

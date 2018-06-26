@@ -2,7 +2,7 @@ import React from 'react';
 import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import { validateEmail } from '../../actions/inputAction'
-import {emailRegExp} from './handlers/regExpInputValid';
+import{emailRegExp} from './handlers/emailRegExpCheck';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Email should be valid (example@mail.com)
@@ -20,33 +20,23 @@ class EmailInput extends React.Component {
         let emailInputVal = e.target.value;  
         let charNum = emailInputVal.length;
 
-        let value = emailInputVal,
-            status = false,
-            message = null,
-            show = false;
+            let dispatchObj = {
+                value: emailInputVal,
+                status: false,
+                message: null,
+                show: false
+            }
 
         // validate email
         if(emailRegExp(emailInputVal)) {
-            return this.props.dispatch(validateEmail({
-                value, 
-                status: true,
-                show,
-                message: "success"
-            }));
+            dispatchObj.status = true;
+            dispatchObj.message = "success"
         } else if(charNum > 0) {
-            return this.props.dispatch(validateEmail({
-                value, 
-                status,
-                show: true,
-                message: "error"
-            }));
+            dispatchObj.show = true;
+            dispatchObj.message = "error";
         }
-        return this.props.dispatch(validateEmail({
-            value, 
-            status,
-            show,
-            message
-        }));
+
+        return this.props.dispatch(validateEmail(dispatchObj));
     }
 
     render(){
