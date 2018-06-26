@@ -23,33 +23,23 @@ class LoginEmailComponent extends React.Component {
         let emailLoginVal = e.target.value;
         let charNum = emailLoginVal.length;
 
-        let value = emailLoginVal,
-            status = false,
-            message = null,
-            show = false;
+        let dispatchObj = {
+            value: emailLoginVal,
+            status: false,
+            message: null,
+            show: false
+        };
 
         // validate email
         if(checkEmail(emailLoginVal)) {
-            return this.props.dispatch(validateLoginEmail({
-                value, 
-                status: true,
-                show,
-                message: "success"
-            }));
+            dispatchObj.status = true;
+            dispatchObj.message = "success";
         } else if(charNum > 0) {
-            return this.props.dispatch(validateLoginEmail({
-                value, 
-                status,
-                show: true,
-                message: "error"
-            }));
+            dispatchObj.show = true;
+            dispatchObj.message = "error";
         }
-        return this.props.dispatch(validateLoginEmail({
-            value, 
-            status,
-            show,
-            message
-        }));
+
+        return this.props.dispatch(validateLoginEmail(dispatchObj));
     }
 
     render() {
