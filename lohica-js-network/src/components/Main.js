@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import RegistrationForm from './RegForm';
 import LoginForm from './loginForm/LoginForm';
 import HomeComponent from './HomeComponents/HomeComponent'
@@ -11,11 +12,20 @@ class Main extends React.Component{
             <main>
                 <Switch>
                     <PrivateRoute exact path='/' component={HomeComponent}/>
-                    <Route path='/signup' component={RegistrationForm}/>
                     <Route path='/login' component={LoginForm} />
+                    <Route path='/signup' component={RegistrationForm}/>
                 </Switch>
             </main>
         )
     }
 }
-export default Main;
+
+const mapStateToProps = (initState) => {
+    return{
+        store: initState
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(Main));
+
+// export default Main;

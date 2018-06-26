@@ -3,6 +3,7 @@ import { Form, Grid, Row, Button, Well } from 'react-bootstrap';
 import LoginEmailComponent from './LoginEmailComponent';
 import LoginPassComponent from './LoginPassComponent';
 import { connect } from 'react-redux';
+import {logInSuccess} from '../../actions/inputAction';
 import { loginFormSubmit } from './handlers/loginSubmitHandler';
  
 
@@ -15,7 +16,7 @@ class LoginForm extends React.Component {
 
     handleSubmit(e) {
         let { emailValid, email, password } = this.props.store.formInput.loginForm;
-        loginFormSubmit(e, emailValid, email, password);
+        loginFormSubmit(e, emailValid, email, password, this.props.dispatch);
     }
 
     render(){
@@ -47,4 +48,8 @@ const mapStateToProps = (initState) => {
     }
 }
 
-export default connect(mapStateToProps)(LoginForm);
+const  matchDispatchToProps = (dispatch) => {
+    return {logInSuccess, dispatch}
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(LoginForm);

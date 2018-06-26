@@ -46,12 +46,18 @@ const initState = {
         emailValid: false,
         emailValidMessage: null,
         emailValidMessageShow: false
-    }
+    },
+    isAuthenticated: false
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+        case 'LOG_IN_SUCCESS':
+            return {
+                ...state,
+                isAuthenticated : true
+            }
         case 'VALIDATE_NAME':
             return  {
                 ...state,
