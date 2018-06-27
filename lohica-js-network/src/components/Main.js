@@ -4,7 +4,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import RegistrationForm from './RegForm';
 import LoginForm from './loginForm/LoginForm';
 import HomeComponent from './HomeComponents/HomeComponent'
-import PrivateRoute from './PrivateRoute';
 import LogoutComponent from './loginForm/LogoutComponent';
 import RequireAuthComponent from './loginForm/RequireAuthComponent';
 import NotRequireAuthComponent from './loginForm/NotRequireAuthComponent';
@@ -14,7 +13,7 @@ class Main extends React.Component{
         return (
             <main>
                 <Switch>
-                    <PrivateRoute exact path='/' component={RequireAuthComponent(HomeComponent)}/>
+                    <Route exact path='/' component={RequireAuthComponent(HomeComponent)}/>
                     <Route path='/login' component={NotRequireAuthComponent(LoginForm)} />
                     <Route path='/signup' component={NotRequireAuthComponent(RegistrationForm)}/>
                     <Route path='/logout' component={LogoutComponent}/>
