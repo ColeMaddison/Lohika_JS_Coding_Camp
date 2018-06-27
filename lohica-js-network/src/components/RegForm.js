@@ -2,14 +2,7 @@ import React from 'react';
 import {Form, Row, Grid, Button, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 
-import {EmailInput} from './index';
-import {GenderRadio} from './index';
-import {AgeInput} from './index';
-import {ImageInput} from './index';
-import {NameInput} from './index';
-import {SurnameInput} from './index';
-import {MidnameInput} from './index';
- 
+import {EmailInput, GenderRadio, AgeInput, ImageInput, NameInput, SurnameInput, MidnameInput} from './index';
 
 class RegistrationForm extends  React.Component {
 
