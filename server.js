@@ -40,33 +40,22 @@ app.post(routes.loginRoute, (req, res) => {
         .catch(err => console.error(err));
 });
 
-// app.post(routes.checkTokenRoute, (req, res) => {
-//     if(req.body.token){
-//         jwt.verify(req.body.token, secretConfig.secret, function(err, decoded){
-//             if(err){
-//                 return res.status(500).send({auth: false, message: "Failed to authenticate token!"});
-//             }
-//             // console.log(decoded);
-//             res.status(200).send({auth: true, message: "Successful login"});
-//         });
-//     } else {
-//         res.status(401).send({auth: fasle, message: "No token provided"});
-//     }
-// });
-
 app.get(routes.checkTokenRoute, (req, res) => {
     if(req.headers){
         jwt.verify(req.headers.authorization, secretConfig.secret, function(err, decoded){
             if(err){
                 return res.status(500).send({auth: false, message: "Failed to authenticate token!"});
             }
-            // console.log(decoded);
             res.status(200).send({auth: true, decoded, message: "Successful login"});
         });
     } else {
         res.status(401).send({auth: fasle, message: "No token provided"});
     }
 });
+
+app.get('/logout', (req, res) => {
+    res.send({auth: false, message: "You have logged out"});
+})
 
 // get all db data
 app.get(routes.dbData, (req, res) => {

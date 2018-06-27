@@ -1,3 +1,5 @@
+import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from '../actions/logginActions';
+
 const initState = {
     regForm: {
         name: '',
@@ -47,16 +49,27 @@ const initState = {
         emailValidMessage: null,
         emailValidMessageShow: false
     },
-    isAuthenticated: false
+    isAuthenticated: false,
+    authenticatedErrorMessage: ''
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
-        case 'LOG_IN_SUCCESS':
+        case AUTHENTICATED:
             return {
                 ...state,
-                isAuthenticated : true
+                isAuthenticated: true
+            }
+        case UNAUTHENTICATED:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
+        case AUTHENTICATION_ERROR: 
+            return {
+                ...state,
+                authenticatedErrorMessage: action.payload
             }
         case 'VALIDATE_NAME':
             return  {

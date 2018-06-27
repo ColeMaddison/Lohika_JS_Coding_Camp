@@ -2,8 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {FormComponent, RedirToLoginButton} from './index';
 
- 
-
 class RegistrationForm extends  React.Component {
     render() {
         return(

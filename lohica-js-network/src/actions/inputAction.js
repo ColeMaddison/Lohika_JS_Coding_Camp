@@ -1,13 +1,3 @@
-// user login actions
-
-import { userConstants } from '../constants/loginConstants';
-
-
-// ----------------------------------------continue here!!!!!
-
-// user login actions
-
-
 export const validateName = (value) => {
     return {
         type:"VALIDATE_NAME",

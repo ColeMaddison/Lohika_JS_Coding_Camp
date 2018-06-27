@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ColeMaddison/Lohika_JS_Coding_Camp#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
     "create-react-app": "^1.5.2",

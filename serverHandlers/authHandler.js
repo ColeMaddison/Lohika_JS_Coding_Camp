@@ -8,6 +8,7 @@ const UserModel = require('../Schemas/UserSchema');
 
 async function authenticate({email, password}) {
     const user = await UserModel.findOne({ email: email });
+    // console.log('here');
     if(user && bcrypt.compareSync(password, user.password)) {
         const { password, ...restInfo } = user.toObject();
         const token = jwt.sign({sub: user._id}, config.secret, {expiresIn: 86400});

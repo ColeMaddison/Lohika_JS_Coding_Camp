@@ -1,32 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import reduxThunk from 'redux-thunk';
 import './index.css';
 import App from './App';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
 import allReducers from './reducers/rootReducer';
-import { Provider } from 'react-redux';
+import { AUTHENTICATED } from './actions/logginActions'
 
-const loggerMiddleware = createLogger();
 
-const store = createStore (
-    allReducers,
-    applyMiddleware(
-        thunkMiddleware,
-        loggerMiddleware
-    )
-);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+
+const store = createStoreWithMiddleware(allReducers);
+
+const token = localStorage.getItem('tkn');
+
+if(token){
+    store.dispatch({type: AUTHENTICATED});
+}
 
 function render () {
     ReactDOM.render(
         <Provider store = {store}>
-            <BrowserRouter>
+            <Router>
                 <div>
                     <App />
                 </div>
-            </BrowserRouter>
+            </Router>
         </Provider>,
         document.getElementById('root')
     );
