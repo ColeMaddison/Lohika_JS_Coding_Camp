@@ -21,9 +21,9 @@ class LoginPassComponent extends React.Component {
     render() {
         return(
             <FormGroup
-                key={this.props.key}
+                name="loginInput"
+                key="pass"
                 bsSize= "small"
-                controlId ="loginPassId"
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>

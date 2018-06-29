@@ -40,15 +40,14 @@ class LoginEmailComponent extends React.Component {
         }
         console.log(dispatchObj);
 
-        return this.props.dispatch(validateLoginEmail(dispatchObj));
+        this.props.dispatch(validateLoginEmail(dispatchObj));
     }
 
     render() {
         return(
             <FormGroup 
-                key={this.props.key}
+                key="email"
                 bsSize= "small"
-                controlId ="loginEmailId"
                 validationState={this.props.inputState.loginForm.emailValidMessage}
                 >
                 <Col md={4}>

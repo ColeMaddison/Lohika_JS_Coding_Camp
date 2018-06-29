@@ -6,51 +6,51 @@ import { connect } from 'react-redux';
 import { Alert } from 'react-bootstrap';
 import { signInAction } from '../../actions/logginActions';
  
+const errorMes = <Alert bsStyle="warning">
+                    <strong>Warning</strong> Incorrect email or password
+                </Alert>;
 
 class LoginForm extends React.Component {
     constructor(props){
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.errorMessage = this.errorMessage.bind(this);
+        // this.errorMessage = this.errorMessage.bind(this);
     }
 
     handleSubmit(e) {
         let { emailValid, email, password } = this.props.store.formInput.loginForm;
-        // loginFormSubmit(e, emailValid, email, password, this.props.dispatch);
         if(emailValid){
             this.props.signInAction({email, password}, this.props.history);
         }
         console.log(this.props.store);
     }
 
-    errorMessage(e){
-        let errorMes = this.props.store.formInput.authenticatedErrorMessage;
-        if(errorMes){
-            return (
-                <Alert bsStyle="warning">
-                    <strong>Warning</strong> Incorrect email or password
-                </Alert>
-            )
-        }
-    }
+    // errorMessage(e){
+    //     let errorMes = this.props.store.formInput.authenticatedErrorMessage;
+    //     if(errorMes){
+    //         return (
+    //             <Alert bsStyle="warning">
+    //                 <strong>Warning</strong> Incorrect email or password
+    //             </Alert>
+    //         )
+    //     }
+    // }
 
     render(){
         return (
-            <Form horizontal>
-                {/* {this.state.show ? alert : null} */}
+            <Form horizontal key="logiForm">
                 <h3>Login</h3> 
                 <Grid>
                     <Row>
                         <Well>
-                            <LoginEmailComponent key='email' />    
-                            <LoginPassComponent key='pass' />    
+                            <LoginEmailComponent key="email" />    
+                            <LoginPassComponent key="pass" />
                             <Button 
-                                bsStyle="success" 
-                                disabled={false}
+                                bsStyle="success"
                                 onClick={this.handleSubmit}
                                 >Submit</Button>
-                            {this.errorMessage()}
+                            {this.props.store.formInput.authenticatedErrorMessage ? errorMes : null}
                         </Well>
                     </Row>
                 </Grid>
