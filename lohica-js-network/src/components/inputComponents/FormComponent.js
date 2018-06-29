@@ -6,7 +6,6 @@ import { regValidHandle, regValidHideMes, regValidShowMes, successReg } from '..
 import { signupRoute } from '../../routes';
 
 import { EmailInput, GenderRadio, AgeInput, ImageInput, NameInput, SurnameInput, MidnameInput } from '../index';
-import { regSubmit } from './handlers/regSubmitReq';
 
 class formComponent extends React.Component{
     constructor(props){

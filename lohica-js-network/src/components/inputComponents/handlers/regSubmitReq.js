@@ -8,5 +8,3 @@ export const regSubmit = (data) => {
             return data;
         });
 }
-
-console.log(regSubmit());

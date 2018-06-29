@@ -38,7 +38,6 @@ class LoginEmailComponent extends React.Component {
             dispatchObj.show = true;
             dispatchObj.message = "error";
         }
-        console.log(dispatchObj);
 
         this.props.dispatch(validateLoginEmail(dispatchObj));
     }

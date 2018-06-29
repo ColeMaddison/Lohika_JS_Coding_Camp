@@ -2,24 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Well } from 'react-bootstrap';
 
+import MainPanelComponent from './MainPanelComponent';
+
+// import { UserAccountComponent, FriendsComponent, SearchPeopleComponent, NewsFeedComponent, SettingsComponent } from '../index';
+
 class MainComponent extends React.Component {
     render(){
-        console.log(this.props.store);
         return(
-            <Grid>
+            <Grid>  
                 <Row>
-                    <Row>
-                        <Col xs={6} md={4}>
+                    <Col xs={6} md={4}>
+                        <MainPanelComponent />
+                    </Col>
+                    <Col xs={6} md={8}>
                         <Well>
-                            here
+                            <p>Main</p>
                         </Well>
-                        </Col>
-                        <Col xs={6} md={8}>
-                            <Well>
-                                here
-                            </Well>
-                        </Col>
-                    </Row>
+                    </Col>
                 </Row>
             </Grid>
         )

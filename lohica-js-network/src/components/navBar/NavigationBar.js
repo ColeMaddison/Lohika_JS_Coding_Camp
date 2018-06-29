@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { logoutRoute, signupRoute } from '../../routes';
 
-const isAuthLinks = <LinkContainer to='/logout'>
+const isAuthLinks = <LinkContainer to={logoutRoute}>
                         <NavItem eventKey={1}>Logout</NavItem>
                     </LinkContainer>;
 
-const isNotAuthLinks = <LinkContainer to='/signup'>
+const isNotAuthLinks = <LinkContainer to={signupRoute}>
                             <NavItem eventKey={1}>Signup</NavItem>
                         </LinkContainer>
 

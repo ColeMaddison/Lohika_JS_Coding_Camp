@@ -1,13 +1,24 @@
-const loginRoute = '/login';
-const signupRoute = '/signup';
-const checkTokenRoute = '/checkToken';
-const dbData = '/db';
-const dropDb = '/dbdrop';
+const loginRoute = '/login',
+    signupRoute = '/signup',
+    indexRoute = '/',
+    logoutRoute = '/logout',
+    
+    friendsRoute = '/friends',
+    feedRoute = '/feed',
+    searchRoute = '/search',
+    settingsRoute = '/settings',
+    accountRoute = '/account';
+ 
 
 module.exports = {
     loginRoute,
     signupRoute,
-    checkTokenRoute,
-    dbData,
-    dropDb
+    indexRoute,
+    logoutRoute,
+
+    friendsRoute,
+    feedRoute,
+    searchRoute,
+    settingsRoute,
+    accountRoute
 }

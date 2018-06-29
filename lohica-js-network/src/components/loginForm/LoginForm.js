@@ -22,7 +22,6 @@ class LoginForm extends React.Component {
         if(emailValid){
             this.props.signInAction({email, password}, this.props.history);
         }
-        console.log(this.props.store);
     }
 
     render(){
