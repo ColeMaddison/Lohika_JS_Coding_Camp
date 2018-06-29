@@ -15,7 +15,6 @@ class LoginForm extends React.Component {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        // this.errorMessage = this.errorMessage.bind(this);
     }
 
     handleSubmit(e) {
@@ -26,18 +25,9 @@ class LoginForm extends React.Component {
         console.log(this.props.store);
     }
 
-    // errorMessage(e){
-    //     let errorMes = this.props.store.formInput.authenticatedErrorMessage;
-    //     if(errorMes){
-    //         return (
-    //             <Alert bsStyle="warning">
-    //                 <strong>Warning</strong> Incorrect email or password
-    //             </Alert>
-    //         )
-    //     }
-    // }
-
     render(){
+        let { authenticatedErrorMessage } = this.props.store.formInput;
+
         return (
             <Form horizontal key="logiForm">
                 <h3>Login</h3> 
@@ -50,7 +40,7 @@ class LoginForm extends React.Component {
                                 bsStyle="success"
                                 onClick={this.handleSubmit}
                                 >Submit</Button>
-                            {this.props.store.formInput.authenticatedErrorMessage ? errorMes : null}
+                            {authenticatedErrorMessage ? errorMes : null}
                         </Well>
                     </Row>
                 </Grid>

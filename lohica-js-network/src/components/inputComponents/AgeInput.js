@@ -2,6 +2,7 @@ import React from 'react';
 import { FormGroup, ControlLabel, Col, FormControl} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { validateAge } from '../../actions/inputAction'
+import { ageOptions } from './handlers/utils'
 
 class AgeInput extends React.Component {
     constructor(props){
@@ -24,16 +25,15 @@ class AgeInput extends React.Component {
     }
 
     render() {
-        // age options
-        let Options = [];
-        for(let i =1; i<=99; i++){
-            Options.push(`${i}`);
-        }
+        let { ageValid } = this.props.inputState;
+        let { validateAge } = this.props.inputState.regForm;
+        let { id } = this.props;
+
         return (
             <FormGroup 
                 bsSize= "small"
-                controlId={this.props.id}
-                validationState={this.props.inputState.ageValid}
+                controlId={id}
+                validationState={ageValid}
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>
@@ -46,10 +46,10 @@ class AgeInput extends React.Component {
                         componentClass="select" 
                         placeholder="---select age---"
                         onChange={this.handleChange}
-                        value={this.props.inputState.regForm.validateAge}
+                        value={validateAge}
                         >
                             <option>---select age---</option>
-                            {Options.map(num => {
+                            {ageOptions.map(num => {
                                 return <option key={num} value={num}>{num}</option>
                             })} 
                     </FormControl>

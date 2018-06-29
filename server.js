@@ -27,7 +27,7 @@ db.on('open', () => {
 });
 
 // sighn up route with form fields validation
-app.post(routes.signupRoute, upload.single('file'), mdl.validateInputFields, (req, res) => {
+app.post(routes.signupRoute, upload.single('file'), mdl.validateInputData, (req, res) => {
     ctrl.signup(req,res);
 });
 

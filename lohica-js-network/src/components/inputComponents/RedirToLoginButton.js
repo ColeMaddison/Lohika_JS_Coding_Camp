@@ -1,7 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Button, Alert} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
+import { connect } from 'react-redux';
+import { Button, Alert } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 class RedirToLoginButton extends React.Component {
     render() {

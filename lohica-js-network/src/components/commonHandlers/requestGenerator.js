@@ -1,5 +1,5 @@
 // post req obj
-let postGener = (body) => {
+export const postGener = (body) => {
     return {
         method: "POST",
         body: JSON.stringify(body),
@@ -8,7 +8,7 @@ let postGener = (body) => {
 }
 
 // get req obj
-let getGener = () => {
+export const getGener = () => {
     return {
         method: "GET",
         headers: {'Content-Type': 'application/json'}

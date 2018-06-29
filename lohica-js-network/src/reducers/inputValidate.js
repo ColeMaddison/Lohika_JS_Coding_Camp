@@ -1,4 +1,5 @@
 import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from '../actions/logginActions';
+import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_SURNAME, VALIDATE_IMAGE, VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
 
 const initState = {
     regForm: {
@@ -71,7 +72,7 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 authenticatedErrorMessage: action.payload
             }
-        case 'VALIDATE_NAME':
+        case VALIDATE_NAME:
             return  {
                 ...state,
                 regForm: {
@@ -82,7 +83,7 @@ const inputValidate = (state=initState, action) => {
                     nameValidMessageShow: ap.show
                 }
             };
-        case 'VALIDATE_SURNAME':
+        case VALIDATE_SURNAME:
             return  {
                 ...state,
                 regForm: {
@@ -93,7 +94,7 @@ const inputValidate = (state=initState, action) => {
                     surnameValidMessageShow: ap.show
                 }
             };
-        case 'VALIDATE_MIDNAME':
+        case VALIDATE_MIDNAME:
             return  {
                 ...state,
                 regForm: {
@@ -104,7 +105,7 @@ const inputValidate = (state=initState, action) => {
                     midNameValidMessageShow: ap.show
                 }
             };
-        case 'VALIDATE_EMAIL':
+        case VALIDATE_EMAIL:
             return  {
                 ...state,
                 regForm: {
@@ -116,7 +117,7 @@ const inputValidate = (state=initState, action) => {
                 }
             };
 
-        case 'VALIDATE_GENDER':
+        case VALIDATE_GENDER:
             return {
                 ...state,
                 regForm: {
@@ -127,7 +128,7 @@ const inputValidate = (state=initState, action) => {
                 }
             }
 
-        case 'VALIDATE_AGE':
+        case VALIDATE_AGE:
             return {
                 ...state,
                 regForm: {
@@ -136,7 +137,7 @@ const inputValidate = (state=initState, action) => {
                     ageValid: ap.status
                 }
             }
-        case 'VALIDATE_IMAGE':
+        case VALIDATE_IMAGE:
             return {
                 ...state,
                 regForm: {
@@ -147,7 +148,7 @@ const inputValidate = (state=initState, action) => {
                     imageValidShow: ap.show
                 }
             }
-        case 'VALIDATE_LOGIN_EMAIL':
+        case VALIDATE_LOGIN_EMAIL:
             return {
                 ...state,
                 loginForm: {
@@ -158,7 +159,7 @@ const inputValidate = (state=initState, action) => {
                     emailValidMessageShow: ap.show
                 }
             }
-        case 'SET_PASSWORD':
+        case SET_PASSWORD:
             return {
                 ...state,
                 loginForm: {
@@ -166,7 +167,7 @@ const inputValidate = (state=initState, action) => {
                     password: ap.value,
                 }
             }
-        case 'SUCCESS_REG':
+        case SUCCESS_REG:
             return {
                 ...state,
                     regForm:{
@@ -174,7 +175,7 @@ const inputValidate = (state=initState, action) => {
                         successReg: ap.regStatus
                     }
             }
-        case 'REG_VALID_HANDLE':
+        case REG_VALID_HANDLE:
             return {
                 ...state,
                 regForm: {
@@ -188,7 +189,7 @@ const inputValidate = (state=initState, action) => {
                     }
                 }
             }
-        case 'REG_VALID_REMOVE_ERRORMES':
+        case REG_VALID_REMOVE_ERRORMES:
             return {
                 ...state, 
                 regForm: {
@@ -199,7 +200,7 @@ const inputValidate = (state=initState, action) => {
                     }
                 }
             }
-        case 'REG_VALID_SHOW_ERRORMES':
+        case REG_VALID_SHOW_ERRORMES:
             return {
                 ...state,
                  regForm: {

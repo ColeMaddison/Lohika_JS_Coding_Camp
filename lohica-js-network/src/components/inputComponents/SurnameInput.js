@@ -1,8 +1,8 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateSurname } from '../../actions/inputAction'
-import {nameRegExp} from './handlers/nameRegExp';
+import { nameRegExp } from './handlers/nameRegExp';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Surname should be max 32 letters
@@ -46,26 +46,28 @@ class SurnameInput extends React.Component {
     }
 
     render(){
+        let { surnameValidMessageShow, surnameValidMessage, value } = this.props.inputState.regForm;
+        let { id, label, name, placeholder, size } = this.props;
 
         return(
             <FormGroup 
-                bsSize= {this.props.size}
-                controlId ={this.props.id}
-                validationState={ this.props.inputState.regForm.surnameValidMessage }                
+                bsSize= {size}
+                controlId ={id}
+                validationState={surnameValidMessage}                
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>
-                        <ControlLabel>{this.props.label}</ControlLabel>
+                        <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
                 <Col md={4}>
                     <FormControl
-                        name={this.props.name}
-                        value={this.props.inputState.regForm.value}
-                        placeholder={this.props.placeholder}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
                         onChange={this.handleValidateInput}
                     />
-                    {this.props.inputState.regForm.surnameValidMessageShow ? elem : null}
+                    {surnameValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         );

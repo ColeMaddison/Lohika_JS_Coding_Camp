@@ -1,11 +1,12 @@
 import React from 'react';
-import {Form, Row, Grid, Button, Alert, Well} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { Form, Row, Grid, Button, Alert, Well } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-import {regValidHandle, regValidHideMes, regValidShowMes, successReg} from '../../actions/inputAction'
-import {signupRoute} from '../../routes';
+import { regValidHandle, regValidHideMes, regValidShowMes, successReg } from '../../actions/inputAction'
+import { signupRoute } from '../../routes';
 
-import {EmailInput, GenderRadio, AgeInput, ImageInput, NameInput, SurnameInput, MidnameInput} from '../index';
+import { EmailInput, GenderRadio, AgeInput, ImageInput, NameInput, SurnameInput, MidnameInput } from '../index';
+import { regSubmit } from './handlers/regSubmitReq';
 
 class formComponent extends React.Component{
     constructor(props){
@@ -82,11 +83,11 @@ class formComponent extends React.Component{
 
 
     render() { 
-        let regValidStore = this.props.inputState.regForm.regValidateState;
+        let { alertStyle, password, message, show, showWarning } = this.props.inputState.regForm.regValidateState;
 
-        let alert = <Alert bsStyle={regValidStore.alertStyle}>
+        let alert = <Alert bsStyle={alertStyle}>
                     <h3>
-                        {regValidStore.message}<strong>{this.props.inputState.regForm.regValidateState.password}</strong>
+                        {message}<strong>{password}</strong>
                     </h3>
                 </Alert>;
 
@@ -96,14 +97,9 @@ class formComponent extends React.Component{
                     </h4>
                 </Alert>;
 
-        // age options
-        let Options = [];
-        for(let i =1; i<=99; i++){
-            Options.push(`${i}`);
-        }
         return (
             <Form horizontal>
-                {regValidStore.show ? alert : null}
+                {show ? alert : null}
                 <h3>Registration</h3> 
                 <Grid>
                     <Row>
@@ -152,7 +148,7 @@ class formComponent extends React.Component{
                             <ImageInput
                                 id="formControlFile*"
                             />
-                            {regValidStore.showWarning ? alertAllFields : null}
+                            {showWarning ? alertAllFields : null}
                             <Button 
                                 bsStyle="success"
                                 onClick={this.handleSubmit}

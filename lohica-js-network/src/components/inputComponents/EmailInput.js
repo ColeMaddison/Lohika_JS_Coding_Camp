@@ -1,8 +1,8 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateEmail } from '../../actions/inputAction'
-import{emailRegExp} from './handlers/emailRegExpCheck';
+import { emailRegExp } from './handlers/emailRegExpCheck';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Email should be valid (example@mail.com)
@@ -40,25 +40,27 @@ class EmailInput extends React.Component {
     }
 
     render(){
+        let { emailValidMessage, emailValidMessageShow, value } = this.props.inputState.regForm;
+        let { name, id, label, placeholder  } = this.props;
         return(
             <FormGroup 
                 bsSize= "small"
-                controlId ={this.props.id}
-                validationState={this.props.inputState.regForm.emailValidMessage}
+                controlId ={id}
+                validationState={emailValidMessage}
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>
-                        <ControlLabel>{this.props.label}</ControlLabel>
+                        <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
                 <Col md={4}>
                     <FormControl
-                        name={this.props.name}
-                        value={this.props.inputState.regForm.value}
-                        placeholder={this.props.placeholder}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
                         onChange={this.handleValidateInput}
                         />
-                        {this.props.inputState.regForm.emailValidMessageShow ? elem : null}
+                        {emailValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         );

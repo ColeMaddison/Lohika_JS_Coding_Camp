@@ -23,8 +23,7 @@ exports.signup = (req, res) => {
 
             bcrypt.genSalt(10, (err, salt) => {
                 if(err){
-                    console.error(err);
-                    res.end(JSON.stringify({message: "Unknown error occured"}));
+                    res.end(JSON.stringify({message: err}));
                 } 
                 bcrypt.hash(userPass, salt).then(hash => {
                     let user = new UserModel({

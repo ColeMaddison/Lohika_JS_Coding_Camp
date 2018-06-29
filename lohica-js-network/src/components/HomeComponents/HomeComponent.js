@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Grid, Row, Col, Well} from 'react-bootstrap';
+import { Grid, Row, Col, Well } from 'react-bootstrap';
 
 class MainComponent extends React.Component {
     render(){

@@ -1,6 +1,6 @@
 import React from 'react';
-import {FormGroup, ControlLabel, Col, Radio} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormGroup, ControlLabel, Col, Radio } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateGender } from '../../actions/inputAction';
 
 class GenderRadio extends React.Component {
@@ -28,11 +28,14 @@ class GenderRadio extends React.Component {
     }
 
     render() {
+        let { genderValid } = this.props.inputState.regForm;
+        let { id } = this.props;
+ 
         return (
             <FormGroup 
                 bsSize= "small"
-                controlId={this.props.id}
-                validationState={this.props.inputState.regForm.genderValid}
+                controlId={id}
+                validationState={genderValid}
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>

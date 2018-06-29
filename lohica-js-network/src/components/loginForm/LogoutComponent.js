@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {UNAUTHENTICATED, signOutAction} from '../../actions/logginActions';
+import { UNAUTHENTICATED, signOutAction } from '../../actions/logginActions';
+import { indexRoute } from './handlers/routes';
 
 class LogoutComponent extends React.Component {
 
     componentWillMount(){
         console.log(this.props);
         this.props.signOutAction({ type: UNAUTHENTICATED });
-        this.props.history.push('/');
+        this.props.history.push(indexRoute);
     }
 
     render() {

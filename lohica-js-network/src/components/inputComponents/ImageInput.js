@@ -1,6 +1,6 @@
 import React from 'react';
-import {FormGroup, ControlLabel, Col, FormControl, Alert} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormGroup, ControlLabel, Col, FormControl, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateImage } from '../../actions/inputAction';
 
 const MIN_SIZE = 100 * 1000;
@@ -48,11 +48,15 @@ class ImageInput extends React.Component {
     }
 
     render() {
+        let { imageStatus, imageValidShow } = this.props.inputState.regForm;
+        let { id } = this.props;
+
+
         return(
             <FormGroup 
                 bsSize= "small"
-                controlId={this.props.id}
-                validationState={this.props.inputState.regForm.imageStatus}
+                controlId={id}
+                validationState={imageStatus}
                 name="file"
                 >
                 <Col md={4}>
@@ -65,7 +69,7 @@ class ImageInput extends React.Component {
                         type="file"
                         onChange={this.imageUpload}
                         />
-                    {this.props.inputState.regForm.imageValidShow ? elem : null}
+                    {imageValidShow ? elem : null}
                 </Col>
             </FormGroup>
         );

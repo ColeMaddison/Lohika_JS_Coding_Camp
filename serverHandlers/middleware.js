@@ -1,4 +1,5 @@
 'use strict';
+const reConsts = require('./regexpConstants');
 
 const UserModel = require('../Schemas/UserSchema');
 const fs = require('fs');
@@ -10,7 +11,7 @@ const allowedImgExts = [
     "image/png"
 ];
 
-exports.validateInputFields = async (req, res, next) => {
+exports.validateInputData = async (req, res, next) => {
     let userInfo = req.body;
     let checkEmail = userInfo.email;
     let imgPath = req.file.path;
@@ -20,13 +21,13 @@ exports.validateInputFields = async (req, res, next) => {
             sendResponse("User already exists!", 409);
         } else {
             // validation check
-            if(!(/^([a-zA-Z]{1,32})$/.test(userInfo.name))){
+            if(!(reConsts.regExpName.test(userInfo.name))){
                 sendResponse("Name is not valid.", 403);
-            } else if(!(/^([a-zA-Z]{1,32})$/.test(userInfo.surname))){
+            } else if(!(reConsts.regExpName.test(userInfo.surname))){
                 sendResponse("Surname is not valid", 403);
-            } else if(!(/^$|^([a-zA-Z]{1,32})$/.test(userInfo.midname))){
+            } else if(!(reConsts.regExpName.test(userInfo.midname))){
                 sendResponse("Midname is not valid", 403);
-            } else if(!(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(userInfo.email))){
+            } else if(!(reConsts.regExpEmail.test(userInfo.email))){
                 sendResponse("Email is not valid", 403);
             } else if(!userInfo.gender){
                 sendResponse("Gender is not specified", 403);

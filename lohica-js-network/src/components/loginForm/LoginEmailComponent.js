@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FormGroup, FormControl, Col, ControlLabel, Alert } from 'react-bootstrap';
-import {validateLoginEmail} from '../../actions/inputAction';
+import { validateLoginEmail } from '../../actions/inputAction';
 import checkEmail from './handlers/regExpEmail';
 
 const elem = <Alert bsStyle="warning">
@@ -44,11 +44,13 @@ class LoginEmailComponent extends React.Component {
     }
 
     render() {
+        let { emailValidMessage, emailValidMessageShow, email } = this.props.inputState.loginForm;
+
         return(
             <FormGroup 
                 key="email"
                 bsSize= "small"
-                validationState={this.props.inputState.loginForm.emailValidMessage}
+                validationState={emailValidMessage}
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>
@@ -58,11 +60,11 @@ class LoginEmailComponent extends React.Component {
                 <Col md={4}>
                     <FormControl
                         name="email"
-                        value={this.props.inputState.loginForm.email}
+                        value={email}
                         placeholder="Email"
                         onChange={this.handleValidateInput}
                         />
-                        {this.props.inputState.loginForm.emailValidMessageShow ? elem : null}
+                        {emailValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         )

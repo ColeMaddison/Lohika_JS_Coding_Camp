@@ -1,8 +1,8 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Col,  Alert} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateName } from '../../actions/inputAction';
-import {nameRegExp} from './handlers/nameRegExp';
+import { nameRegExp } from './handlers/nameRegExp';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Name should be max 32 letters
@@ -44,26 +44,28 @@ class NameInput extends React.Component {
     }
 
     render(){
-        
+        let { nameValidMessage, nameValidMessageShow, value } = this.props.inputState.regForm;
+        let { id, label, name, placeholder } = this.props;
+
         return(
             <FormGroup 
                 bsSize= "small"
-                controlId ={this.props.id}
-                validationState={ this.props.inputState.regForm.nameValidMessage }                
+                controlId ={id}
+                validationState={ nameValidMessage }                
                 >
                 <Col md={4}>
                     <Col mdOffset={9}>
-                        <ControlLabel>{this.props.label}</ControlLabel>
+                        <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
                 <Col md={4}>
                     <FormControl
-                        name={this.props.name}
-                        value={this.props.inputState.regForm.value}
-                        placeholder={this.props.placeholder}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
                         onChange={this.handleValidateInput}
                     />
-                    { this.props.inputState.regForm.nameValidMessageShow ? elem : null}
+                    { nameValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         );

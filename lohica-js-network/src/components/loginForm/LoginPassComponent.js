@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap';
-import {connect} from 'react-redux';
-import {setPassword} from '../../actions/inputAction'
+import { connect } from 'react-redux';
+import { setPassword } from '../../actions/inputAction'
 
 class LoginPassComponent extends React.Component {
     constructor(props){
@@ -19,6 +19,8 @@ class LoginPassComponent extends React.Component {
     }
 
     render() {
+        let { password } = this.props.inputState.loginForm;
+
         return(
             <FormGroup
                 name="loginInput"
@@ -34,7 +36,7 @@ class LoginPassComponent extends React.Component {
                     <FormControl
                         type="password"
                         name="password"
-                        value={this.props.inputState.loginForm.password}
+                        value={password}
                         placeholder="Password"
                         onChange={this.handleValidateInput}
                         />
