@@ -20,7 +20,8 @@ class LoginPassComponent extends React.Component {
 
     render() {
         return(
-            <FormGroup 
+            <FormGroup
+                key={this.props.key}
                 bsSize= "small"
                 controlId ="loginPassId"
                 >

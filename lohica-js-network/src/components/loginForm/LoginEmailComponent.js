@@ -38,6 +38,7 @@ class LoginEmailComponent extends React.Component {
             dispatchObj.show = true;
             dispatchObj.message = "error";
         }
+        console.log(dispatchObj);
 
         return this.props.dispatch(validateLoginEmail(dispatchObj));
     }
@@ -45,6 +46,7 @@ class LoginEmailComponent extends React.Component {
     render() {
         return(
             <FormGroup 
+                key={this.props.key}
                 bsSize= "small"
                 controlId ="loginEmailId"
                 validationState={this.props.inputState.loginForm.emailValidMessage}

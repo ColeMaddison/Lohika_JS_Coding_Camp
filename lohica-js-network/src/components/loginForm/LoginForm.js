@@ -43,8 +43,8 @@ class LoginForm extends React.Component {
                 <Grid>
                     <Row>
                         <Well>
-                            <LoginEmailComponent />    
-                            <LoginPassComponent />    
+                            <LoginEmailComponent key='email' />    
+                            <LoginPassComponent key='pass' />    
                             <Button 
                                 bsStyle="success" 
                                 disabled={false}
