@@ -1,5 +1,6 @@
-import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from '../actions/logginActions';
+import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from '../actions/loginActions';
 import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_SURNAME, VALIDATE_IMAGE, VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
+import { VALID_TOKEN, INVALID_TOKEN } from '../actions/inputAction';
 
 const initState = {
     regForm: {
@@ -51,12 +52,29 @@ const initState = {
         emailValidMessageShow: false
     },
     isAuthenticated: false,
-    authenticatedErrorMessage: ''
+    authenticatedErrorMessage: '',
+    tokenInfo: {
+        valid: false
+    }
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+        case VALID_TOKEN: 
+            return {
+                ...state,
+                tokenInfo: {
+                    valid: true
+                }
+            }
+        case INVALID_TOKEN: 
+            return {
+                ...state,
+                tokenInfo: {
+                    valid: false
+                }
+            }
         case AUTHENTICATED:
             return {
                 ...state,

@@ -2,6 +2,7 @@ const loginRoute = '/login',
     signupRoute = '/signup',
     indexRoute = '/',
     logoutRoute = '/logout',
+    checkTokenRoute = '/checkToken',
     
     friendsRoute = '/friends',
     feedRoute = '/feed',
@@ -15,6 +16,7 @@ module.exports = {
     signupRoute,
     indexRoute,
     logoutRoute,
+    checkTokenRoute,
 
     friendsRoute,
     feedRoute,

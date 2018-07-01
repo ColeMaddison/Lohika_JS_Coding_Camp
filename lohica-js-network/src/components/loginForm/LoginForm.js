@@ -4,7 +4,7 @@ import LoginEmailComponent from './LoginEmailComponent';
 import LoginPassComponent from './LoginPassComponent';
 import { connect } from 'react-redux';
 import { Alert } from 'react-bootstrap';
-import { signInAction } from '../../actions/logginActions';
+import { signInAction } from '../../actions/loginActions';
  
 const errorMes = <Alert bsStyle="warning">
                     <strong>Warning</strong> Incorrect email or password
@@ -53,9 +53,5 @@ const mapStateToProps = (initState) => {
         store: initState
     }
 }
-
-// const  matchDispatchToProps = (dispatch) => {
-//     return {signInAction, dispatch}
-// }
 
 export default connect(mapStateToProps, {signInAction})(LoginForm);

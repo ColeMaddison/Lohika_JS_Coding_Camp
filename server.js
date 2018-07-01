@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.post(routes.loginRoute, (req, res) => {
-    console.log(req.headers, '1');
+    console.log(req.body);
     auth(req.body)
         .then(user => user ? res.status(200).json({message: "Login Successful", userToken: user.token}) : res.status(400).json({message: "Username or password incorrect!"}))
         .catch(err => console.error(err));
@@ -44,15 +44,15 @@ app.post(routes.loginRoute, (req, res) => {
 app.get(routes.checkTokenRoute, (req, res) => {
     console.log(req.headers);
     if(req.headers){
-        jwt.verify(req.headers.authorization, secretConfig.secret, function(err, decoded){
+        jwt.verify(req.headers.authorization.split(' ')[1], secretConfig.secret, function(err, decoded){
+            console.log(decoded);
             if(err){
                 return res.status(500).send({auth: false, message: "Failed to authenticate token!"});
             }
-
             res.status(200).send({auth: true, decoded, message: "Successful login"});
         });
     } else {
-        res.status(401).send({auth: fasle, message: "No token provided"});
+        res.status(401).send({auth: false, message: "No token provided"});
     }
 });
 
