@@ -28,7 +28,7 @@ class Main extends React.Component{
         return (
             <main>
                 <Switch>
-                    <Route exact path={indexRoute} component={this.HomeCompCall}/>
+                    <Route exact path={indexRoute} component={this.UserAccountComp}/>
                     <Route path={loginRoute} component={this.LoginCompCall} />
                     <Route path={signupRoute} component={this.RegCompCall}/>
                     <Route path={logoutRoute} component={LogoutComponent}/>

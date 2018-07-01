@@ -1,32 +1,43 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginRoute } from './handlers/routes';
-// import { checkTokenRoute } from '../../routes';
-// import { invalidToken, validateToken } from '../../actions/inputAction';
-// import { signOutAction } from '../../actions/loginActions';
+import { checkTokenRoute } from '../../routes';
+import { invalidToken, validateToken } from '../../actions/inputAction';
+import { signOutAction } from '../../actions/loginActions';
 
 export default function (ComposedComponent) {
     class RequireAuthComponent extends React.Component {
         componentWillMount(){
-        //     fetch(checkTokenRoute, {
-        //         method: 'GET',
-        //         headers: {
-        //             'Authorization': `Bearer ${localStorage.getItem('tkn')}`
-        //         }
-        //     })
-        //         .then(res => {
-        //             if(res.status === 200){
-        //                 this.props.dispatch(validateToken());
-        //             } else {
-        //                 this.props.dispatch(invalidToken());                        
-        //             }
-        //         });
+            console.log('here');
+            fetch(checkTokenRoute, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('tkn')}`
+                }
+            })
+                .then(res => {
+                    console.log(res);
+                    if(res.status === 200){
+                        this.props.dispatch(validateToken());
+                    } else {
 
-            if(!this.props.isAuth /* && !this.props.tokenValid */){
-                // this.props.dispatch(signOutAction());
+                        this.props.dispatch(signOutAction());
+                        this.props.dispatch(invalidToken());                        
+                    }
+                });
+
+            if(!this.props.isAuth && !this.props.tokenValid){
                 this.props.history.push(loginRoute);
             }
         }
+
+
+
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! continue HERE
+
+
+
 
         componentWillUpdate(nextProps){
             // fetch(checkTokenRoute, {
@@ -39,12 +50,12 @@ export default function (ComposedComponent) {
             //         if(res.status === 200){
             //             this.props.dispatch(validateToken());
             //         } else {
+            //             this.props.dispatch(signOutAction());
             //             this.props.dispatch(invalidToken());                        
             //         }
             //     });
 
             if(!nextProps.isAuth/* && !this.props.tokenValid*/){
-                // this.props.dispatch(signOutAction());
                 this.props.history.push(loginRoute);
             }
         }        
