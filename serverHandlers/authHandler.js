@@ -10,7 +10,7 @@ async function authenticate({email, password}) {
     const user = await UserModel.findOne({ email: email });
     if(user && bcrypt.compareSync(password, user.password)) {
         const { password, ...restInfo } = user.toObject();
-        const token = jwt.sign({sub: user._id}, config.secret, {expiresIn: 10000});
+        const token = jwt.sign({sub: user._id}, config.secret, {expiresIn: config.expiry});
         return {
             ...restInfo,
             token

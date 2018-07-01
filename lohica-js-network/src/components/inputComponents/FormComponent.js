@@ -3,7 +3,7 @@ import { Form, Row, Grid, Button, Alert, Well } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { regValidHandle, regValidHideMes, regValidShowMes, successReg } from '../../actions/inputAction'
-import { signupRoute } from '../../routes';
+import { regSubmit } from './handlers/regSubmitReq';
 
 import { EmailInput, GenderRadio, AgeInput, ImageInput, NameInput, SurnameInput, MidnameInput } from '../index';
 
@@ -31,10 +31,8 @@ class formComponent extends React.Component{
 
             // beginning of fetch
 
-            fetch(signupRoute,{
-                method: 'POST',
-                body: data
-            }).then((mes) => mes.json())
+            regSubmit(data)
+             .then((mes) => mes.json())
                 .then(data => {
                     // show success or warning alert depending on user got registered or not
                     switch(data.statusCode){

@@ -7,6 +7,13 @@ export const postGener = (body) => {
     }
 }
 
+export const postGenerNoHeaders = (body) => {
+    return {
+        method: "POST",
+        body: body
+    }
+}
+
 // get req obj
 export const getGener = () => {
     return {
