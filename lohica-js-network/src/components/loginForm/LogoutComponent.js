@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { UNAUTHENTICATED, signOutAction } from '../../actions/logginActions';
+import { UNAUTHENTICATED, signOutAction } from '../../actions/loginActions';
 import { indexRoute } from './handlers/routes';
 
 class LogoutComponent extends React.Component {

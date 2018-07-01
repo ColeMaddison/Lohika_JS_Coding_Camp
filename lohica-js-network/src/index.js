@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import allReducers from './reducers/rootReducer';
-import { AUTHENTICATED } from './actions/logginActions'
+import { AUTHENTICATED } from './actions/loginActions'
 
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);

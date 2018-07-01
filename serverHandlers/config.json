@@ -1,3 +1,4 @@
 {
-    "secret": "The Sec_ret of SE3!3#et"
+    "secret": "The Sec_ret of SE3!3#et",
+    "expiry": 86400
 }
