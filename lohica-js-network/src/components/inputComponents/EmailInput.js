@@ -1,7 +1,8 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateEmail } from '../../actions/inputAction'
+import { emailRegExp } from './handlers/emailRegExpCheck';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Email should be valid (example@mail.com)
@@ -11,10 +12,6 @@ class EmailInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show: false
-        }
-
         this.handleValidateInput = this.handleValidateInput.bind(this);
     }
 
@@ -23,51 +20,47 @@ class EmailInput extends React.Component {
         let emailInputVal = e.target.value;  
         let charNum = emailInputVal.length;
 
-        // validate email
-        if(/^[\w]+@[\w]+\.[a-zA-z]{2,}$/i.test(emailInputVal)) {
-            this.setState({show: false});
-            return this.props.dispatch(validateEmail({
-                value:emailInputVal, 
-                status: true,
-                message: "success"
-            }));
-        } else if(charNum > 0) {
-            this.setState({show: true});
-            return this.props.dispatch(validateEmail({
-                value:emailInputVal, 
+            let dispatchObj = {
+                value: emailInputVal,
                 status: false,
-                message: "error"
-            }));
-        }
-        this.setState({show: false});
-        return this.props.dispatch(validateEmail({
-            value:emailInputVal, 
-            status: false,
-            message: null
-        }));
+                message: null,
+                show: false
+            }
 
+        // validate email
+        if(emailRegExp(emailInputVal)) {
+            dispatchObj.status = true;
+            dispatchObj.message = "success"
+        } else if(charNum > 0) {
+            dispatchObj.show = true;
+            dispatchObj.message = "error";
+        }
+
+        return this.props.dispatch(validateEmail(dispatchObj));
     }
 
     render(){
+        let { emailValidMessage, emailValidMessageShow, value } = this.props.inputState.regForm;
+        let { name, id, label, placeholder  } = this.props;
         return(
             <FormGroup 
-                bsSize= {this.props.size}
-                controlId ={this.props.id}
-                validationState={this.props.inputState.regForm.emailValidMessage}
+                bsSize= "small"
+                controlId ={id}
+                validationState={emailValidMessage}
                 >
                 <Col md={4}>
-                    <Col mdOffset={10}>
-                        <ControlLabel>{this.props.label}</ControlLabel>
+                    <Col mdOffset={9}>
+                        <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
                 <Col md={4}>
                     <FormControl
-                        name={this.props.name}
-                        value={this.props.inputState.regForm.value}
-                        placeholder={this.props.placeholder}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
                         onChange={this.handleValidateInput}
                         />
-                        {this.state.show ? elem : null}
+                        {emailValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         );

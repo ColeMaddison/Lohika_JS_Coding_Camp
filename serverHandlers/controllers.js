@@ -13,7 +13,6 @@ exports.signup = (req, res) => {
     let checkEmail = userData.email;
 
     UserModel.find({email: checkEmail}, (err, data) => {
-        console.log(userData);
         if(data.length){
             res.end(JSON.stringify({message: "User already exists!", statusCode: 409}));
         } else {
@@ -22,11 +21,9 @@ exports.signup = (req, res) => {
                 numbers: true
             });
 
-            // make it async to save hash in db, not plain text!!!!!!!!
             bcrypt.genSalt(10, (err, salt) => {
                 if(err){
-                    console.error(err);
-                    res.end(JSON.stringify({message: "Unknown error occured"}));
+                    res.end(JSON.stringify({message: err}));
                 } 
                 bcrypt.hash(userPass, salt).then(hash => {
                     let user = new UserModel({
@@ -61,5 +58,5 @@ exports.getDbData = (req, res) => {
 // only for dev purpose
 exports._dropDb = (req,res) => {
     UserModel.find().remove().exec();
-    res.status(200).json({message: "Data as been remnoved"});
+    res.status(200).json({message: "Data has been remnoved"});
 }

@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import inputValidate from './inputValidate';
 
 const allReducers = combineReducers({

@@ -1,7 +1,8 @@
 import React from 'react';
-import {FormControl, FormGroup, ControlLabel, Col, Alert} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateSurname } from '../../actions/inputAction'
+import { nameRegExp } from './handlers/nameRegExp';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Surname should be max 32 letters
@@ -12,10 +13,6 @@ class SurnameInput extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show: false
-        };
-
         this.dispatchEmitter = this.dispatchEmitter.bind(this);
         this.handleValidateInput = this.handleValidateInput.bind(this);
 
@@ -23,16 +20,16 @@ class SurnameInput extends React.Component {
 
 
     dispatchEmitter = (val) => {
-        let testRe = /^([a-zA-Z]{1,32})$/;
+        let mes = null,
+            show = false,
+            status = false;
+
         if(val.length<1){
-            this.setState({show: false});
-            return {mes:null, status: false};
-        } else if(testRe.test(val)) {
-            this.setState({show: false});
-            return {mes:"success", status:true};
-        } else if(!testRe.test(val)){
-            this.setState({show: true});
-            return {mes:"error", status: false};
+            return {mes, status, show};
+        } else if(nameRegExp(val)) {
+            return {mes:"success", status:true, show};
+        } else if(!nameRegExp(val)){
+            return {mes:"error", status, show: true};
         }
     }
     
@@ -43,31 +40,34 @@ class SurnameInput extends React.Component {
         this.props.dispatch(validateSurname({
             value:inputVal, 
             status: disEm.status,
-            message: disEm.mes
+            message: disEm.mes,
+            show: disEm.show
         }));
     }
 
     render(){
+        let { surnameValidMessageShow, surnameValidMessage, value } = this.props.inputState.regForm;
+        let { id, label, name, placeholder, size } = this.props;
 
         return(
             <FormGroup 
-                bsSize= {this.props.size}
-                controlId ={this.props.id}
-                validationState={ this.props.inputState.regForm.surnameValidMessage }                
+                bsSize= {size}
+                controlId ={id}
+                validationState={surnameValidMessage}                
                 >
                 <Col md={4}>
-                    <Col mdOffset={10}>
-                        <ControlLabel>{this.props.label}</ControlLabel>
+                    <Col mdOffset={9}>
+                        <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
                 <Col md={4}>
                     <FormControl
-                        name={this.props.name}
-                        value={this.props.inputState.regForm.value}
-                        placeholder={this.props.placeholder}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
                         onChange={this.handleValidateInput}
                     />
-                    {this.state.show ? elem : null}
+                    {surnameValidMessageShow ? elem : null}
                 </Col>
             </FormGroup>
         );

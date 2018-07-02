@@ -1,17 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import reduxThunk from 'redux-thunk';
 import './index.css';
 import App from './App';
-import { createStore } from 'redux';
 import allReducers from './reducers/rootReducer';
-import { Provider } from 'react-redux';
+import { AUTHENTICATED } from './actions/loginActions'
 
 
-const store = createStore (allReducers);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+
+const store = createStoreWithMiddleware(allReducers);
+
+const token = localStorage.getItem('tkn');
+
+if(token){
+    store.dispatch({type: AUTHENTICATED});
+}
+
 function render () {
     ReactDOM.render(
         <Provider store = {store}>
-            <App />
+            <Router>
+                <div>
+                    <App />
+                </div>
+            </Router>
         </Provider>,
         document.getElementById('root')
     );

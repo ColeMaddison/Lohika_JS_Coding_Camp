@@ -1,6 +1,6 @@
 import React from 'react';
-import {FormGroup, ControlLabel, Col, Radio} from 'react-bootstrap';
-import {connect} from 'react-redux';
+import { FormGroup, ControlLabel, Col, Radio } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { validateGender } from '../../actions/inputAction';
 
 class GenderRadio extends React.Component {
@@ -10,29 +10,35 @@ class GenderRadio extends React.Component {
     }
 
     radioHandler(e) {
-        if(e.target.value){
-            return this.props.dispatch(validateGender({
-                value:e.target.value,
-                status: null,
-                stat: true
-            }));
-        } else {
-            return this.props.dispatch(validateGender({
-                value:'',
-                status: 'error',
-                stat: false
-            }));
-        }
+        let value = e.target.value;
+
+        let dispatchObj = {
+            value: "",
+            status: "error",
+            stat: false
+        };
+
+        if(value){
+            dispatchObj.value = value;
+            dispatchObj.status = null;
+            dispatchObj.stat = true;
+        } 
+
+        return this.props.dispatch(validateGender(dispatchObj));
     }
 
     render() {
+        let { genderValid } = this.props.inputState.regForm;
+        let { id } = this.props;
+ 
         return (
             <FormGroup 
-                controlId={this.props.id}
-                validationState={this.props.inputState.regForm.genderValid}
+                bsSize= "small"
+                controlId={id}
+                validationState={genderValid}
                 >
                 <Col md={4}>
-                    <Col mdOffset={10}>
+                    <Col mdOffset={9}>
                         <ControlLabel>Gender</ControlLabel>
                     </Col>
                 </Col>
