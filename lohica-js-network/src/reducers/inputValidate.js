@@ -160,6 +160,13 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
+                }
+            }
+        case VALIDATE_IMAGE:
+            return {
+                ...state,
+                regForm: {
+                    ...state.regForm,
                     imageData: ap.imgData,
                     imageStatus: ap.status,
                     imageValid: ap.imageValid,
@@ -209,7 +216,6 @@ const inputValidate = (state=initState, action) => {
             }
         case REG_VALID_REMOVE_ERRORMES:
             return {
-                ...state, 
                 regForm: {
                     ...state.regForm,
                     regValidateState: {
