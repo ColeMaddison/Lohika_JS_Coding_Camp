@@ -4,6 +4,7 @@ import { loginRoute, indexRoute } from '../components/loginForm/handlers/routes'
 export const AUTHENTICATED = 'AUTHENTICATED_USER';
 export const UNAUTHENTICATED = 'UNAUTHENTICATED_USER';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+export const SET_USER_ID = 'SET_USER_ID';
 
 
 export function signInAction({ email, password }, history) {
@@ -11,8 +12,8 @@ export function signInAction({ email, password }, history) {
         await axios.post(loginRoute, { 
             email, password 
         }).then( res => {
-            dispatch({ type: AUTHENTICATED });
             localStorage.setItem('tkn', res.data.userToken);
+            dispatch({ type: AUTHENTICATED });
             history.push(indexRoute);
         })
         .catch(error => {
@@ -30,5 +31,12 @@ export function signOutAction(){
     localStorage.removeItem('tkn');
     return {
         type: UNAUTHENTICATED
+    }
+}
+
+export function setUserId(id){
+    return {
+        type: SET_USER_ID,
+        payload: id
     }
 }

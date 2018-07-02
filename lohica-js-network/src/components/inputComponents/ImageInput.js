@@ -49,7 +49,7 @@ class ImageInput extends React.Component {
 
     render() {
         let { imageStatus, imageValidShow } = this.props.inputState.regForm;
-        let { id } = this.props;
+        let { id, col1, col2, offset } = this.props;
 
 
         return(
@@ -59,12 +59,12 @@ class ImageInput extends React.Component {
                 validationState={imageStatus}
                 name="file"
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>Your photo</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl 
                         type="file"
                         onChange={this.imageUpload}

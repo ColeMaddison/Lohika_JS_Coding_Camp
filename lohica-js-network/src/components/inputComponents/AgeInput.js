@@ -27,7 +27,7 @@ class AgeInput extends React.Component {
     render() {
         let { ageValid } = this.props.inputState;
         let { validateAge } = this.props.inputState.regForm;
-        let { id } = this.props;
+        let { id, col1, col2, offset } = this.props;
 
         return (
             <FormGroup 
@@ -35,12 +35,12 @@ class AgeInput extends React.Component {
                 controlId={id}
                 validationState={ageValid}
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>Age</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl 
                         name='age'
                         componentClass="select" 

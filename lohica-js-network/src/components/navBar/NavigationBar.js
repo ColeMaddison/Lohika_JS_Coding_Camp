@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { logoutRoute, signupRoute } from '../../routes';
+import { logoutRoute, signupRoute, indexRoute } from '../../routes';
 
 const isAuthLinks = <LinkContainer to={logoutRoute}>
                         <NavItem eventKey={1}>Logout</NavItem>
@@ -19,7 +19,7 @@ class NavigationBar extends React.Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="/"><strong>LHK</strong></a>
+                        <a href={indexRoute}><strong>LHK</strong></a>
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Navbar.Collapse>

@@ -12,9 +12,9 @@ class LoginEmailComponent extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show: false
-        }
+        // this.state = {
+        //     show: false
+        // }
 
         this.handleValidateInput = this.handleValidateInput.bind(this);
     }
@@ -41,8 +41,9 @@ class LoginEmailComponent extends React.Component {
 
         this.props.dispatch(validateLoginEmail(dispatchObj));
     }
-
+    
     render() {
+        // console.log(this.props);
         let { emailValidMessage, emailValidMessageShow, email } = this.props.inputState.loginForm;
 
         return(

@@ -40,13 +40,22 @@ app.post(routes.loginRoute, (req, res) => {
         .catch(err => console.error(err));
 });
 
+app.post('/account', (req, res) => {
+    console.log('here');
+    if(req.body){
+        console.log(req.body);
+        res.status(200).json({status: 'ok'});
+    } else {
+        res.status(400).json({status: 'not ok'});
+    }
+});
+
 // route to check the token for validity
 app.get(routes.checkTokenRoute, (req, res) => {
-    console.log(req.headers);
     if(req.headers){
         jwt.verify(req.headers.authorization.split(' ')[1], secretConfig.secret, function(err, decoded){
-            console.log(decoded);
-            if(err){
+            let date = new Date().getTime();
+            if(err || (decoded && date < decoded.exp)){
                 return res.status(500).send({auth: false, message: "Failed to authenticate token!"});
             }
             res.status(200).send({auth: true, decoded, message: "Successful login"});

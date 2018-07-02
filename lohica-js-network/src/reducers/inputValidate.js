@@ -1,4 +1,4 @@
-import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from '../actions/loginActions';
+import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR, SET_USER_ID } from '../actions/loginActions';
 import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_SURNAME, VALIDATE_IMAGE, VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
 import { VALID_TOKEN, INVALID_TOKEN } from '../actions/inputAction';
 
@@ -55,7 +55,8 @@ const initState = {
     authenticatedErrorMessage: '',
     tokenInfo: {
         valid: false
-    }
+    },
+    userId: null
 };
 
 const inputValidate = (state=initState, action) => {
@@ -160,13 +161,6 @@ const inputValidate = (state=initState, action) => {
                 ...state,
                 regForm: {
                     ...state.regForm,
-                }
-            }
-        case VALIDATE_IMAGE:
-            return {
-                ...state,
-                regForm: {
-                    ...state.regForm,
                     imageData: ap.imgData,
                     imageStatus: ap.status,
                     imageValid: ap.imageValid,
@@ -235,6 +229,11 @@ const inputValidate = (state=initState, action) => {
                          show: ap.show
                      } 
                  }
+            }
+        case SET_USER_ID:
+            return {
+                ...state,
+                userId: ap
             }
         default:
             return state;

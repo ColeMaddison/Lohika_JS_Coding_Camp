@@ -45,7 +45,7 @@ class TextInput extends React.Component {
 
     render(){
         let { midNameValidMessage, midNameValidMessageShow, value } = this.props.inputState.regForm;
-        let { size, id, label, name, placeholder } = this.props;
+        let { size, id, label, name, placeholder, col1, col2, offset } = this.props;
 
         return(
             <FormGroup 
@@ -53,12 +53,12 @@ class TextInput extends React.Component {
                 controlId ={id}
                 validationState={ midNameValidMessage }                
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl
                         name={name}
                         value={value}

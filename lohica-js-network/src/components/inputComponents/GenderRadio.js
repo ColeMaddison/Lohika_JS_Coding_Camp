@@ -29,7 +29,7 @@ class GenderRadio extends React.Component {
 
     render() {
         let { genderValid } = this.props.inputState.regForm;
-        let { id } = this.props;
+        let { id, col1, col2, offset } = this.props;
  
         return (
             <FormGroup 
@@ -37,12 +37,12 @@ class GenderRadio extends React.Component {
                 controlId={id}
                 validationState={genderValid}
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>Gender</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <Radio 
                         name='radioGroup' 
                         value='Male' 

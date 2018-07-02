@@ -108,6 +108,9 @@ class formComponent extends React.Component{
                                 label='Name*'
                                 name='name'
                                 placeholder='Enter name'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <SurnameInput
@@ -116,6 +119,9 @@ class formComponent extends React.Component{
                                 label='Surname*'
                                 name='surname'
                                 placeholder='Enter surname'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <MidnameInput
@@ -124,6 +130,9 @@ class formComponent extends React.Component{
                                 label='Middle Name'
                                 name='midName'
                                 placeholder='Enter midname'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <EmailInput
@@ -132,18 +141,30 @@ class formComponent extends React.Component{
                                 label='Email*'
                                 name='email'
                                 placeholder='Enter email'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <GenderRadio
                                 id="formControlGender*"
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <AgeInput
                                 id="formControlAge*" 
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <ImageInput
                                 id="formControlFile*"
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
                             {showWarning ? alertAllFields : null}
                             <Button 

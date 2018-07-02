@@ -41,19 +41,19 @@ class EmailInput extends React.Component {
 
     render(){
         let { emailValidMessage, emailValidMessageShow, value } = this.props.inputState.regForm;
-        let { name, id, label, placeholder  } = this.props;
+        let { name, id, label, placeholder, col1, col2, offset  } = this.props;
         return(
             <FormGroup 
                 bsSize= "small"
                 controlId ={id}
                 validationState={emailValidMessage}
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl
                         name={name}
                         value={value}

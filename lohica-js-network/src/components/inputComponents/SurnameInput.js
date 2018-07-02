@@ -47,7 +47,7 @@ class SurnameInput extends React.Component {
 
     render(){
         let { surnameValidMessageShow, surnameValidMessage, value } = this.props.inputState.regForm;
-        let { id, label, name, placeholder, size } = this.props;
+        let { id, label, name, placeholder, size, col1, col2, offset } = this.props;
 
         return(
             <FormGroup 
@@ -55,12 +55,12 @@ class SurnameInput extends React.Component {
                 controlId ={id}
                 validationState={surnameValidMessage}                
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl
                         name={name}
                         value={value}

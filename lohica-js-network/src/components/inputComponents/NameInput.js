@@ -45,7 +45,7 @@ class NameInput extends React.Component {
 
     render(){
         let { nameValidMessage, nameValidMessageShow, value } = this.props.inputState.regForm;
-        let { id, label, name, placeholder } = this.props;
+        let { id, label, name, placeholder, col1, col2, offset } = this.props;
 
         return(
             <FormGroup 
@@ -53,12 +53,12 @@ class NameInput extends React.Component {
                 controlId ={id}
                 validationState={ nameValidMessage }                
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl
                         name={name}
                         value={value}
