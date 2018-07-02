@@ -8,7 +8,7 @@ import { signOutAction } from '../../actions/loginActions';
 export default function (ComposedComponent) {
     class RequireAuthComponent extends React.Component {
         componentWillMount(){
-            console.log('here');
+            console.log(localStorage.getItem('tkn'));
             fetch(checkTokenRoute, {
                 method: 'GET',
                 headers: {
@@ -20,9 +20,8 @@ export default function (ComposedComponent) {
                     if(res.status === 200){
                         this.props.dispatch(validateToken());
                     } else {
-
-                        this.props.dispatch(signOutAction());
                         this.props.dispatch(invalidToken());                        
+                        // this.props.dispatch(signOutAction());
                     }
                 });
 

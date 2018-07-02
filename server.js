@@ -41,6 +41,7 @@ app.post(routes.loginRoute, (req, res) => {
         .catch(err => console.error(err));
 });
 
+// route to check the token for validity
 app.get(routes.checkTokenRoute, (req, res) => {
     console.log(req.headers);
     if(req.headers){
