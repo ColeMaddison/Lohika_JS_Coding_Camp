@@ -1,6 +1,8 @@
-import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR, SET_USER_ID } from '../actions/loginActions';
-import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_SURNAME, VALIDATE_IMAGE, VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
-import { VALID_TOKEN, INVALID_TOKEN } from '../actions/inputAction';
+import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from '../actions/loginActions';
+import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_SURNAME, VALIDATE_IMAGE, 
+        VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, 
+        REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
+import { SET_USER_ID, SET_USER_DATA } from '../actions/userAccountActions';
 
 const initState = {
     regForm: {
@@ -53,29 +55,42 @@ const initState = {
     },
     isAuthenticated: false,
     authenticatedErrorMessage: '',
-    tokenInfo: {
-        valid: false
-    },
-    userId: null
+    userId: null,
+    userAccount: {
+        modify: false,
+        data: {
+            name: '',
+            surname: '',
+            midName: '',
+            email: '',
+            age: '',
+            gender: '',
+            image: ''
+        }
+    }
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
-        case VALID_TOKEN: 
+
+        case SET_USER_DATA:
             return {
                 ...state,
-                tokenInfo: {
-                    valid: true
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        name: ap.name,
+                        surname: ap.surname,
+                        midName: ap.midName,
+                        email: ap.email,
+                        age: ap.age,
+                        gender: ap.gender,
+                        image: ap.photoLink
+                    }
                 }
             }
-        case INVALID_TOKEN: 
-            return {
-                ...state,
-                tokenInfo: {
-                    valid: false
-                }
-            }
+
         case AUTHENTICATED:
             return {
                 ...state,
@@ -89,7 +104,7 @@ const inputValidate = (state=initState, action) => {
         case AUTHENTICATION_ERROR: 
             return {
                 ...state,
-                authenticatedErrorMessage: action.payload
+                authenticatedErrorMessage: ap
             }
         case VALIDATE_NAME:
             return  {

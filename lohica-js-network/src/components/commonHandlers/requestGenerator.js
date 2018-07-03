@@ -1,15 +1,21 @@
+const contentTypeJson = {
+    'Content-Type': 'application/json'
+};
+const postMethod = 'POST';
+const getMethod = 'GET';
+
 // post req obj
 export const postGener = (body) => {
     return {
-        method: "POST",
+        method: postMethod,
         body: JSON.stringify(body),
-        headers: {'Content-Type': 'application/json'}
+        headers: contentTypeJson
     }
 }
 
 export const postGenerNoHeaders = (body) => {
     return {
-        method: "POST",
+        method: postMethod,
         body: body
     }
 }
@@ -17,7 +23,7 @@ export const postGenerNoHeaders = (body) => {
 // get req obj
 export const getGener = () => {
     return {
-        method: "GET",
-        headers: {'Content-Type': 'application/json'}
+        method: getMethod,
+        headers: contentTypeJson
     }
 }

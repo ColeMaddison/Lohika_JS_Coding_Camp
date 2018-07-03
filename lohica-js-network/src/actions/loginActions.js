@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { loginRoute, indexRoute } from '../components/loginForm/handlers/routes';
+import { postGener } from '../components/commonHandlers/requestGenerator';
 
 export const AUTHENTICATED = 'AUTHENTICATED_USER';
 export const UNAUTHENTICATED = 'UNAUTHENTICATED_USER';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
-export const SET_USER_ID = 'SET_USER_ID';
+export const LOGIN_SUCCESS = 'LOG_IN_SUCCESS';
+
 
 
 export function signInAction({ email, password }, history) {
@@ -34,9 +36,18 @@ export function signOutAction(){
     }
 }
 
-export function setUserId(id){
-    return {
-        type: SET_USER_ID,
-        payload: id
-    }
-}
+// export function loginFormSubmit(ev, emailValid, email, password) {
+//     if(emailValid && password){
+//         return dispatch => {
+//             return fetch(loginRoute, postGener({email, password}))
+//                 .then(mes => mes.json())
+//                 .then(result => result.userToken ? localStorage.setItem('tkn', result.userToken) : localStorage.removeItem('tkn'))
+//                 .then(result => {
+//                     dispatch({type: 'LOG_IN_SUCCESS'})
+//                     window.location.reload(true);
+//                 })
+//         }
+//     } else {
+//         localStorage.removeItem('tkn');
+//     }
+// }

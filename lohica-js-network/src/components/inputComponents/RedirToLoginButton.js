@@ -12,11 +12,11 @@ class RedirToLoginButton extends React.Component {
                         {regValidStore.message}<strong>{this.props.inputState.regForm.regValidateState.password}</strong>
                     </h3>
                 </Alert>;
-
+                                                            //BROKEN IN HERE SOMEWHERE, continue here
         return (
             <div>
                 {regValidStore.show ? alert : null}
-                <LinkContainer to="/login">
+                <LinkContainer to="/login" >                                    
                     <Button bsStyle="success">
                         To login
                     </Button>

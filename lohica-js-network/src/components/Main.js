@@ -25,9 +25,11 @@ class Main extends React.Component{
         this.UserAccountComp = RequireAuthComponent(UserAccountComponent);
     }
     render(){
+        const { isAuthenticated } = this.props.store.formInput;
         return (
             <main>
                 <Switch>
+                    {isAuthenticated ? <Route exact path={indexRoute} component={this.UserAccountComp}/> : <Route exact path={indexRoute} component={this.LoginCompCall}/>}
                     <Route exact path={indexRoute} component={this.UserAccountComp}/>
                     <Route path={loginRoute} component={this.LoginCompCall} />
                     <Route path={signupRoute} component={this.RegCompCall}/>

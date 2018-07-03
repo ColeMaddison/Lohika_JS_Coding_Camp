@@ -25,7 +25,8 @@ class LoginForm extends React.Component {
     }
 
     render(){
-        let { authenticatedErrorMessage } = this.props.store.formInput;
+        // console.log(this.props);
+        let { authenticatedErrorMessage } = this.props.inputState;
 
         return (
             <Form horizontal key="logiForm">
@@ -33,8 +34,8 @@ class LoginForm extends React.Component {
                 <Grid>
                     <Row>
                         <Well>
-                            <LoginEmailComponent key="email" />    
-                            <LoginPassComponent key="pass" />
+                            <LoginEmailComponent />    
+                            <LoginPassComponent />
                             <Button 
                                 bsStyle="success"
                                 onClick={this.handleSubmit}
@@ -50,6 +51,7 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = (initState) => {
     return{
+        inputState: initState.formInput,
         store: initState
     }
 }

@@ -1,9 +1,13 @@
 'use strict';
 const reConsts = require('./regexpConstants');
-
 const UserModel = require('../Schemas/UserSchema');
+
 const fs = require('fs');
-let path = require('path');
+const path = require('path');
+const jwt = require('jsonwebtoken');
+
+const secretConfig = require('./config.json');
+
 const allowedImgExts = [
     "image/jpeg",
     "image/jpg",
@@ -11,6 +15,7 @@ const allowedImgExts = [
     "image/png"
 ];
 
+// validate inputs mdl
 exports.validateInputData = async (req, res, next) => {
     let userInfo = req.body;
     let checkEmail = userInfo.email;
@@ -47,3 +52,21 @@ exports.validateInputData = async (req, res, next) => {
         res.status(400).json({message: message, statusCode});
     }
 };
+
+// validate token mdl
+exports.checkToken = (req, res, next) =>{
+    // console.log(req.headers);
+    if(req.headers) {
+        jwt.verify(req.headers.authorization.split(' ')[1], secretConfig.secret, (err, decoded) => {
+            const date = new Date().getTime();
+            if(err || (decoded && date < decoded.exp)){
+                return res.status(403).send({auth: false, message: "Failed to authenticate token!"});
+            }
+            req.decoded = decoded;
+            next();
+        })
+    } else {
+        res.status(401).send({auth: false, message: "No token provided"});
+    }
+}
+
