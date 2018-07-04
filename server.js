@@ -14,7 +14,7 @@ const mdl = require('./serverHandlers/middleware');
 const routes = require('./routes');
 
 const app = express();
-app.use(express.static('uploads'));
+app.use(express.static(__dirname + '/uploads'));
 
 let mongoose = require('mongoose');
 

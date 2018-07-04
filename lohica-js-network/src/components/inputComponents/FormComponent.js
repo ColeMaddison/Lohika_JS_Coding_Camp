@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { regValidHandle, regValidHideMes, regValidShowMes, successReg } from '../../actions/inputAction'
 import { regSubmit } from './handlers/regSubmitReq';
-// import { regSubmit } from '../../actions/reqActions';
 
 import { EmailInput, GenderRadio, AgeInput, ImageInput, NameInput, SurnameInput, MidnameInput } from '../index';
 
@@ -72,9 +71,6 @@ class formComponent extends React.Component{
                     this.props.dispatch(regValidHideMes({showWarning: false}));                  
                 })
                 .catch(err => console.log(err));
-
-            // this.props.dispatch(regSubmit(data));
-
 
         } else {
             this.props.dispatch(regValidShowMes({showWarning: true, show: false}));

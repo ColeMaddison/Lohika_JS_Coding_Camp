@@ -3,6 +3,9 @@ import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_
         VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, 
         REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
 import { SET_USER_ID, SET_USER_DATA } from '../actions/userAccountActions';
+import { ENABLE_MODIFY_USER_DATA, DISABLE_MODIFY_USER_DATA, SET_USER_DATA_AGE, SET_USER_DATA_EMAIL,
+        SET_USER_DATA_GENDER, SET_USER_DATA_IMAGE, SET_USER_DATA_NAME, SET_USER_DATA_SURNAME, 
+        SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT } from '../actions/modifyUserDataAction';
 
 const initState = {
     regForm: {
@@ -65,7 +68,8 @@ const initState = {
             email: '',
             age: '',
             gender: '',
-            image: ''
+            image: '',
+            imageAsObject: ''
         }
     }
 };
@@ -73,6 +77,24 @@ const initState = {
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+
+        case ENABLE_MODIFY_USER_DATA: 
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    modify: true
+                }
+            }
+
+        case DISABLE_MODIFY_USER_DATA: 
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    modify: false
+                }
+            }
 
         case SET_USER_DATA:
             return {
@@ -87,6 +109,97 @@ const inputValidate = (state=initState, action) => {
                         age: ap.age,
                         gender: ap.gender,
                         image: ap.photoLink
+                    }
+                }
+            }
+
+        case SET_USER_DATA_NAME:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        name: ap
+                    }
+                }
+            }
+
+        case SET_USER_DATA_SURNAME:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        surname: ap
+                    }
+                }
+            }
+
+        case SET_USER_DATA_MIDNAME:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        midName: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_EMAIL:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        email: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_AGE:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        age: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_GENDER:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        gender: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_IMAGE:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        image: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_IMAGE_AS_OBJECT:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        imageAsObject: ap
                     }
                 }
             }

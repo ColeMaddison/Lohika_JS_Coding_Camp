@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Alert } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 
 class RedirToLoginButton extends React.Component {
 
@@ -23,7 +22,7 @@ class RedirToLoginButton extends React.Component {
                         {regValidStore.message}<strong>{this.props.inputState.regForm.regValidateState.password}</strong>
                     </h3>
                 </Alert>;
-                
+
         return (
             <div>
                 {regValidStore.show ? alert : null}

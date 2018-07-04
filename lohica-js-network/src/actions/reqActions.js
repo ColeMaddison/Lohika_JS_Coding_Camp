@@ -1,10 +1,10 @@
 import { signupRoute } from '../routes';
-import { postGenerNoHeaders } from '../components/commonHandlers/requestGenerator';
+import { postRequestNoHeaders } from '../components/commonHandlers/requestGenerator';
 import { regValidHandle, regValidHideMes, regValidShowMes, successReg } from '../actions/inputAction';
 
 export function regSubmit(data){
     return function(dispatch){
-        return fetch(signupRoute, postGenerNoHeaders(data))
+        return fetch(signupRoute, postRequestNoHeaders(data))
             .then(mes => mes.json())
             .then(data => {
                 // show success or warning alert depending on user got registered or not

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstra
 import { connect } from 'react-redux';
 import { validateMidName } from '../../actions/inputAction'
 import { nameRegExp } from './handlers/nameRegExp';
+import { setUserDataMidname } from '../../actions/modifyUserDataAction';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Middle name should be max 32 letters
@@ -41,6 +42,8 @@ class TextInput extends React.Component {
             message: disEm.mes,
             show: disEm.show
         }));
+
+        this.props.dispatch(setUserDataMidname(inputVal));
     }
 
     render(){
@@ -61,7 +64,7 @@ class TextInput extends React.Component {
                 <Col md={col2}>
                     <FormControl
                         name={name}
-                        value={value}
+                        value={value || this.props.value}
                         placeholder={placeholder}
                         onChange={this.handleValidateInput}
                     />

@@ -5,7 +5,7 @@ const postMethod = 'POST';
 const getMethod = 'GET';
 
 // post req obj
-export const postGener = (body) => {
+export const postRequest = (body) => {
     return {
         method: postMethod,
         body: JSON.stringify(body),
@@ -13,7 +13,7 @@ export const postGener = (body) => {
     }
 }
 
-export const postGenerNoHeaders = (body) => {
+export const postRequestNoHeaders = (body) => {
     return {
         method: postMethod,
         body: body
@@ -21,7 +21,7 @@ export const postGenerNoHeaders = (body) => {
 }
 
 // get req obj
-export const getGener = () => {
+export const getRequest = () => {
     return {
         method: getMethod,
         headers: contentTypeJson

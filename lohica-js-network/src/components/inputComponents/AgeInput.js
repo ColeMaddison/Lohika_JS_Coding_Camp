@@ -3,6 +3,7 @@ import { FormGroup, ControlLabel, Col, FormControl} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { validateAge } from '../../actions/inputAction'
 import { ageOptions } from './handlers/utils'
+import { setUserDataAge } from '../../actions/modifyUserDataAction';
 
 class AgeInput extends React.Component {
     constructor(props){
@@ -21,6 +22,9 @@ class AgeInput extends React.Component {
             dispatchObj.value = e.target.value;
             dispatchObj.status = null;
         }
+
+        this.props.dispatch(setUserDataAge(e.target.value));
+
         return this.props.dispatch(validateAge(dispatchObj));
     }
 
@@ -46,7 +50,7 @@ class AgeInput extends React.Component {
                         componentClass="select" 
                         placeholder="---select age---"
                         onChange={this.handleChange}
-                        value={validateAge}
+                        value={validateAge || this.props.value}
                         >
                             <option>---select age---</option>
                             {ageOptions.map(num => {

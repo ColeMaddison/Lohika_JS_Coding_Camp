@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { loginRoute, indexRoute } from '../components/loginForm/handlers/routes';
-import { postGener } from '../components/commonHandlers/requestGenerator';
 
 export const AUTHENTICATED = 'AUTHENTICATED_USER';
 export const UNAUTHENTICATED = 'UNAUTHENTICATED_USER';
@@ -35,19 +34,3 @@ export function signOutAction(){
         type: UNAUTHENTICATED
     }
 }
-
-// export function loginFormSubmit(ev, emailValid, email, password) {
-//     if(emailValid && password){
-//         return dispatch => {
-//             return fetch(loginRoute, postGener({email, password}))
-//                 .then(mes => mes.json())
-//                 .then(result => result.userToken ? localStorage.setItem('tkn', result.userToken) : localStorage.removeItem('tkn'))
-//                 .then(result => {
-//                     dispatch({type: 'LOG_IN_SUCCESS'})
-//                     window.location.reload(true);
-//                 })
-//         }
-//     } else {
-//         localStorage.removeItem('tkn');
-//     }
-// }

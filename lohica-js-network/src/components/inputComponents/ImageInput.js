@@ -2,6 +2,7 @@ import React from 'react';
 import { FormGroup, ControlLabel, Col, FormControl, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { validateImage } from '../../actions/inputAction';
+import { setUserDataImage, setUserDataImageAsObject } from '../../actions/modifyUserDataAction';
 
 const MIN_SIZE = 100 * 1000;
 const MAX_SIZE = 5 * 1000 * 1000;
@@ -12,6 +13,10 @@ const elem = <Alert bsStyle="warning">
 class ImageInput extends React.Component {
     constructor(props){
         super(props);
+
+        // this.state = {
+        //     imgURL: ""
+        // }
 
         this.imageUpload = this.imageUpload.bind(this);
         
@@ -29,6 +34,14 @@ class ImageInput extends React.Component {
         let imageExt = imgData ? imgData.type : '';
         let imageSize = imgData ? imgData.size : '';
 
+        const reader = new FileReader();
+        // let url = reader.readAsDataURL(imgData);
+        reader.onloadend = function (e) {
+            this.props.dispatch(setUserDataImage([reader.result]));
+        }.bind(this);
+        
+        this.props.dispatch(setUserDataImageAsObject(imgData));
+
         let dispatchObj = {
             imgData,
             status: null,
@@ -44,6 +57,9 @@ class ImageInput extends React.Component {
             dispatchObj.imageValid = false;
             dispatchObj.show = true
         }
+
+        
+
         return this.props.dispatch(validateImage(dispatchObj));
     }
 

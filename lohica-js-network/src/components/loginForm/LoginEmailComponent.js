@@ -38,7 +38,6 @@ class LoginEmailComponent extends React.Component {
     }
     
     render() {
-        console.log(this.props);
         let { emailValidMessage, emailValidMessageShow, email } = this.props.inputState;
 
         return(

@@ -3,6 +3,7 @@ import { signOutAction } from './loginActions';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_USER_DATA = 'SET_USER_DATA';
 
+
 export function setUserId (id) {
     return {
         type: SET_USER_ID,

@@ -2,6 +2,7 @@ import React from 'react';
 import { FormGroup, ControlLabel, Col, Radio } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { validateGender } from '../../actions/inputAction';
+import { setUserDataGender } from '../../actions/modifyUserDataAction';
 
 class GenderRadio extends React.Component {
     constructor(props){
@@ -24,12 +25,16 @@ class GenderRadio extends React.Component {
             dispatchObj.stat = true;
         } 
 
+        this.props.dispatch(setUserDataGender(e.target.value));
+
         return this.props.dispatch(validateGender(dispatchObj));
     }
 
     render() {
         let { genderValid } = this.props.inputState.regForm;
         let { id, col1, col2, offset } = this.props;
+
+        const checkValue = this.props.value;
  
         return (
             <FormGroup 
@@ -46,11 +51,13 @@ class GenderRadio extends React.Component {
                     <Radio 
                         name='radioGroup' 
                         value='Male' 
+                        checked={checkValue && checkValue === 'Male' ? true : false}
                         onChange={this.radioHandler}
                         inline>Male</Radio>
                     <Radio 
                         name='radioGroup' 
                         value='Female' 
+                        checked={checkValue && checkValue === 'Female' ? true : false}
                         onChange={this.radioHandler}
                         inline>Female</Radio>
                 </Col>

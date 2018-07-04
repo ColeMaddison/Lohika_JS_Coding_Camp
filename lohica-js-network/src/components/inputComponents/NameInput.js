@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstra
 import { connect } from 'react-redux';
 import { validateName } from '../../actions/inputAction';
 import { nameRegExp } from './handlers/nameRegExp';
+import { setUserDataName } from '../../actions/modifyUserDataAction';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Name should be max 32 letters
@@ -35,12 +36,14 @@ class NameInput extends React.Component {
 
         let disEm = this.dispatchEmitter(inputVal);
 
-            this.props.dispatch(validateName({
+        this.props.dispatch(validateName({
             value:inputVal, 
             status: disEm.status,
             message: disEm.mes,
             show: disEm.show
         }));
+
+        this.props.dispatch(setUserDataName(inputVal));
     }
 
     render(){
@@ -61,7 +64,7 @@ class NameInput extends React.Component {
                 <Col md={col2}>
                     <FormControl
                         name={name}
-                        value={value}
+                        value={this.props.value || value}
                         placeholder={placeholder}
                         onChange={this.handleValidateInput}
                     />
