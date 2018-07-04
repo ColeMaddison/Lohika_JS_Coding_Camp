@@ -4,6 +4,17 @@ import { Button, Alert } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 class RedirToLoginButton extends React.Component {
+
+    constructor(props){
+        super(props);
+
+        this.handleRedirect = this.handleRedirect.bind(this);
+
+    }
+    handleRedirect() {
+        window.location.href = '/login';
+    }
+
     render() {
         let regValidStore = this.props.inputState.regForm.regValidateState;
 
@@ -12,15 +23,16 @@ class RedirToLoginButton extends React.Component {
                         {regValidStore.message}<strong>{this.props.inputState.regForm.regValidateState.password}</strong>
                     </h3>
                 </Alert>;
-                                                            //BROKEN IN HERE SOMEWHERE, continue here
+                
         return (
             <div>
                 {regValidStore.show ? alert : null}
-                <LinkContainer to="/login" >                                    
-                    <Button bsStyle="success">
-                        To login
-                    </Button>
-                </LinkContainer>
+                <Button 
+                    bsStyle="success"
+                    onClick={this.handleRedirect}
+                    >
+                    To login
+                </Button>
             </div>
         )
     }
