@@ -27,3 +27,5 @@ export const getRequest = () => {
         headers: contentTypeJson
     }
 }
+
+// one private method to rule them all

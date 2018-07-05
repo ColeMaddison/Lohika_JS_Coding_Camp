@@ -84,3 +84,28 @@ exports._dropDb = (req,res) => {
     UserModel.find().remove().exec();
     res.status(200).json({message: "Data has been remnoved"});
 }
+
+exports.modifyUserAccount = (req, res) => {
+    if(!req.decoded){
+        res.status(400).json({message: "Not authorized"});
+    } else {
+        const id = req.decoded.sub;
+        const { name, surname, midname, email, gender, age } = req.body;
+
+        UserModel.findByIdAndUpdate(id, {
+            name,
+            surname, 
+            midName: midname,
+            email,
+            gender,
+            age,
+            photoLink: req.file.filename
+        }, (err, model) => {
+            if(err){
+                res.json({message: err});
+            } else {
+                res.json({message: "User successfully updated", model});
+            }
+        });
+    }
+}

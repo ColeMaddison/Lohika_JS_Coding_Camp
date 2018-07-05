@@ -1,3 +1,5 @@
+import { accountRoute } from '../routes';
+
 export const ENABLE_MODIFY_USER_DATA = 'ENABLE_MODIFY_USER_DATA';
 export const DISABLE_MODIFY_USER_DATA = 'DISABLE_MODIFY_USER_DATA';
 
@@ -9,6 +11,9 @@ export const SET_USER_DATA_AGE = 'SET_USER_DATA_AGE';
 export const SET_USER_DATA_GENDER = 'SET_USER_DATA_GENDER';
 export const SET_USER_DATA_IMAGE = 'SET_USER_DATA_IMAGE';
 export const SET_USER_DATA_IMAGE_AS_OBJECT = 'SET_USER_DATA_IMAGE_AS_OBJECT';
+
+export const SET_VALID_FIELDS = 'SET_VALID_FIELDS';
+export const MODIFY_USER_DATA = 'MODIFY_USER_DATA';
 
 export function enableModifyUserData () {
     return {
@@ -75,5 +80,27 @@ export function setUserDataImageAsObject(data) {
     return {
         type: SET_USER_DATA_IMAGE_AS_OBJECT,
         payload: data
+    }
+}
+
+export function setValidFields() {
+    return {
+        type: SET_VALID_FIELDS
+    }
+}
+
+export function modifyUserData(modifyData){
+    const token = localStorage.getItem('tkn');
+
+    return function(dispatch){
+        return fetch(accountRoute, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: modifyData
+        })
+            .then(res => res.json())
+            .then(res => console.log(res));
     }
 }

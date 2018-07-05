@@ -19,10 +19,10 @@ const allowedImgExts = [
 exports.validateInputData = async (req, res, next) => {
     let userInfo = req.body;
     let checkEmail = userInfo.email;
-    let imgPath = req.file.path;
+    let imgData = req.file 
 
     UserModel.find({email: checkEmail}, (err, data) => {
-        if(data.length){
+        if(data.length && !userInfo){
             sendResponse("User already exists!", 409);
         } else {
             // validation check
@@ -38,7 +38,7 @@ exports.validateInputData = async (req, res, next) => {
                 sendResponse("Gender is not specified", 403);
             } else if(!userInfo.age){
                 sendResponse("Age is not specified", 403);
-            } else if(!allowedImgExts.includes(req.file.mimetype) || 1000 > req.file.size > 5000000){
+            } else if(!allowedImgExts.includes(imgData.mimetype) || 1000 > imgData.size > 5000000){
                 sendResponse("File is not valid (unsupported ext. or wrong size)", 403);
             } else {
                 next();
@@ -48,14 +48,13 @@ exports.validateInputData = async (req, res, next) => {
     
 
     let sendResponse = (message, statusCode) => {
-        fs.unlinkSync(path.join(__dirname, '..', imgPath));
+        fs.unlinkSync(path.join(__dirname, '..', imgData.path));
         res.status(400).json({message: message, statusCode});
     }
 };
 
 // validate token mdl
 exports.checkToken = (req, res, next) =>{
-    // console.log(req.headers);
     if(req.headers) {
         jwt.verify(req.headers.authorization.split(' ')[1], secretConfig.secret, (err, decoded) => {
             const date = new Date().getTime();

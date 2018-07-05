@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { accountRoute } from '../../routes';
 import { Form, Row, Col, Button, ButtonGroup, Thumbnail } from 'react-bootstrap';
 import { NameInput, SurnameInput, MidnameInput, EmailInput, GenderRadio, AgeInput, ImageInput } from '../index';
+import { modifyUserData } from '../../actions/modifyUserDataAction';
+import { setValidFields } from '../../actions/modifyUserDataAction';
 
 import { disableModifyUserData } from '../../actions/modifyUserDataAction';
 
@@ -16,7 +20,28 @@ class UserModifyFormComponent extends React.Component {
     }
 
     handleModifySubmit(e) {
-        console.log(this.props);
+        
+        const { nameValid, imageValid, emailValid, ageValid, genderValidStat, surnameValid, midNameValid } = this.props.validatedFields;
+        if(nameValid && imageValid && emailValid && ageValid !== 'error' && genderValidStat && surnameValid && midNameValid){
+            const data = new FormData();
+            const { name, surname, midName, email, gender, age, imageAsObject } = this.props.userData;
+            const { modifyFlag } = this.props
+            data.append('name', name);
+            data.append('surname', surname);
+            data.append('midname', midName);
+            data.append('email', email);
+            data.append('gender', gender);
+            data.append('age', age);
+            data.append('modifyFlag', modifyFlag);
+            data.append('file', imageAsObject);
+    
+            this.props.dispatch(modifyUserData(data));
+            this.props.history.push(accountRoute);
+        }
+    }
+
+    componentDidMount() {
+        this.props.dispatch(setValidFields());
     }
 
     handleCancelModify() {
@@ -29,6 +54,7 @@ class UserModifyFormComponent extends React.Component {
 
     render() {
         const { age, email, gender, image, midName, name, surname } = this.props.userData;
+        console.log(this.props.userData);
         return (
             <Form horizontal>
                 <Row>
@@ -126,7 +152,11 @@ class UserModifyFormComponent extends React.Component {
 const mapStateToProps = (initState) => {
     return {
         userData: initState.formInput.userAccount.data,
-        regData: initState.formInput.regForm
+        regData: initState.formInput.regForm,
+        userId: initState.formInput.userId,
+        modifyFlag: initState.formInput.userAccount.modify,
+        validatedFields: initState.formInput.regForm,
+        redirect: initState
     }
 }
 
@@ -134,4 +164,4 @@ const matchDispatchToProps = (dispatch) => {
     return {disableModifyUserData, dispatch}
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(UserModifyFormComponent);
+export default withRouter(connect(mapStateToProps, matchDispatchToProps)(UserModifyFormComponent));

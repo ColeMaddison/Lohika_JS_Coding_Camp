@@ -79,7 +79,7 @@ class UserInfoComponent extends React.Component{
 const mapStateToProps = (initState) => {
     return {
         userData: initState.formInput.userAccount.data,
-        // store: initState.formInput.userAccount
+        redirect: initState
     }
 }
 
@@ -89,4 +89,3 @@ const matchDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, matchDispatchToProps)(UserInfoComponent);
 
-// export default UserInfoComponent;

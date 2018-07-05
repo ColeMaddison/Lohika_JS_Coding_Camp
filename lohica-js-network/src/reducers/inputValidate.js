@@ -5,7 +5,7 @@ import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_
 import { SET_USER_ID, SET_USER_DATA } from '../actions/userAccountActions';
 import { ENABLE_MODIFY_USER_DATA, DISABLE_MODIFY_USER_DATA, SET_USER_DATA_AGE, SET_USER_DATA_EMAIL,
         SET_USER_DATA_GENDER, SET_USER_DATA_IMAGE, SET_USER_DATA_NAME, SET_USER_DATA_SURNAME, 
-        SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT } from '../actions/modifyUserDataAction';
+        SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT, SET_VALID_FIELDS } from '../actions/modifyUserDataAction';
 
 const initState = {
     regForm: {
@@ -77,6 +77,35 @@ const initState = {
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+
+        case SET_VALID_FIELDS: 
+            return {
+                ...state,
+                regForm: {
+                    ...state.regForm,
+                    nameValid: true,
+                    nameValidMessage: 'success',
+                    nameValidMessageShow: false,
+
+                    surnameValid: true,
+                    surnameValidMessage: 'success',
+                    surnameValidMessageShow: false,
+                    
+                    midNameValid: true,
+                    midNameValidMessage: 'success',
+                    midNameValidMessageShow: false,
+
+                    emailValid: true,
+                    emailValidMessage: 'success',
+                    emailValidMessageShow: false,
+
+                    genderValid: null,
+                    genderValidStat: true,
+
+                    imageValid: true,
+                    imageValidShow: false
+                }
+            }
 
         case ENABLE_MODIFY_USER_DATA: 
             return {

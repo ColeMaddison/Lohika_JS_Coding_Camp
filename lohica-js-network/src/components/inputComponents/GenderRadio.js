@@ -51,13 +51,13 @@ class GenderRadio extends React.Component {
                     <Radio 
                         name='radioGroup' 
                         value='Male' 
-                        checked={checkValue && checkValue === 'Male' ? true : false}
+                        checked={checkValue && checkValue === 'Male'}
                         onChange={this.radioHandler}
                         inline>Male</Radio>
                     <Radio 
                         name='radioGroup' 
                         value='Female' 
-                        checked={checkValue && checkValue === 'Female' ? true : false}
+                        checked={checkValue && checkValue === 'Female'}
                         onChange={this.radioHandler}
                         inline>Female</Radio>
                 </Col>

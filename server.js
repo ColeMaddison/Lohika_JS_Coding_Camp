@@ -49,6 +49,10 @@ app.get(routes.accountRoute, mdl.checkToken, (req, res) => {
     ctrl.userAccount(req, res);
 });
 
+app.put(routes.accountRoute, upload.single('file'), mdl.validateInputData, mdl.checkToken, (req, res) => {
+    ctrl.modifyUserAccount(req, res);
+});
+
 // logout
 app.get(routes.logoutRoute, (req, res) => {
     ctrl.signout(req, res);
