@@ -12,10 +12,6 @@ class LoginEmailComponent extends React.Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show: false
-        }
-
         this.handleValidateInput = this.handleValidateInput.bind(this);
     }
 
@@ -38,13 +34,11 @@ class LoginEmailComponent extends React.Component {
             dispatchObj.show = true;
             dispatchObj.message = "error";
         }
-        console.log(dispatchObj);
-
         this.props.dispatch(validateLoginEmail(dispatchObj));
     }
-
+    
     render() {
-        let { emailValidMessage, emailValidMessageShow, email } = this.props.inputState.loginForm;
+        let { emailValidMessage, emailValidMessageShow, email } = this.props.inputState;
 
         return(
             <FormGroup 
@@ -71,9 +65,10 @@ class LoginEmailComponent extends React.Component {
     }
 }
 
-const mapStateToProps = (initstate) => {
+const mapStateToProps = (initState) => {
     return {
-        inputState: initstate.formInput
+        inputState: initState.formInput.loginForm, 
+        store: initState
     }
 }
 

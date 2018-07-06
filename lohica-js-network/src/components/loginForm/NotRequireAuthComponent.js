@@ -17,6 +17,7 @@ export default function (ComposedComponent) {
         }        
     
         render(){
+            // console.log(this.props);
             return(
                 <ComposedComponent { ...this.props } />
             )
@@ -24,7 +25,7 @@ export default function (ComposedComponent) {
     }
 
     const mapStateToProps = (initState) => {
-        return { isAuth: initState.formInput.isAuthenticated }
+        return { inputState: initState.formInput }
     }
     
     return connect(mapStateToProps)(NotRequireAuthComponent);

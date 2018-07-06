@@ -3,9 +3,9 @@ import { Form, Row, Grid, Button, Alert, Well } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { regValidHandle, regValidHideMes, regValidShowMes, successReg } from '../../actions/inputAction'
+import { regSubmit } from './handlers/regSubmitReq';
 
 import { EmailInput, GenderRadio, AgeInput, ImageInput, NameInput, SurnameInput, MidnameInput } from '../index';
-import { regSubmit } from './handlers/regSubmitReq';
 
 class formComponent extends React.Component{
     constructor(props){
@@ -72,7 +72,6 @@ class formComponent extends React.Component{
                 })
                 .catch(err => console.log(err));
 
-
         } else {
             this.props.dispatch(regValidShowMes({showWarning: true, show: false}));
         }
@@ -108,6 +107,9 @@ class formComponent extends React.Component{
                                 label='Name*'
                                 name='name'
                                 placeholder='Enter name'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <SurnameInput
@@ -116,6 +118,9 @@ class formComponent extends React.Component{
                                 label='Surname*'
                                 name='surname'
                                 placeholder='Enter surname'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <MidnameInput
@@ -124,6 +129,9 @@ class formComponent extends React.Component{
                                 label='Middle Name'
                                 name='midName'
                                 placeholder='Enter midname'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <EmailInput
@@ -132,18 +140,30 @@ class formComponent extends React.Component{
                                 label='Email*'
                                 name='email'
                                 placeholder='Enter email'
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <GenderRadio
                                 id="formControlGender*"
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <AgeInput
                                 id="formControlAge*" 
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
 
                             <ImageInput
                                 id="formControlFile*"
+                                col1={4}
+                                col2={4}
+                                offset={9}
                             />
                             {showWarning ? alertAllFields : null}
                             <Button 

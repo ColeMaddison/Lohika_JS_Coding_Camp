@@ -19,7 +19,8 @@ class LoginPassComponent extends React.Component {
     }
 
     render() {
-        let { password } = this.props.inputState.loginForm;
+        // console.log(this.props);
+        let { password } = this.props.inputState;
 
         return(
             <FormGroup
@@ -46,9 +47,10 @@ class LoginPassComponent extends React.Component {
     }
 }
 
-const mapStateToProps = (initstate) => {
+const mapStateToProps = (initState) => {
     return {
-        inputState: initstate.formInput
+        inputState: initState.formInput.loginForm,
+        store: initState
     }
 }
 

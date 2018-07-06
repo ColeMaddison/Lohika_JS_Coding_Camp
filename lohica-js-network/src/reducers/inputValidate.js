@@ -1,5 +1,11 @@
 import { AUTHENTICATED, UNAUTHENTICATED, AUTHENTICATION_ERROR } from '../actions/loginActions';
-import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_SURNAME, VALIDATE_IMAGE, VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
+import { VALIDATE_NAME, VALIDATE_AGE, VALIDATE_EMAIL, VALIDATE_GENDER, VALIDATE_SURNAME, VALIDATE_IMAGE, 
+        VALIDATE_LOGIN_EMAIL, VALIDATE_MIDNAME, SET_PASSWORD, SUCCESS_REG, REG_VALID_HANDLE, 
+        REG_VALID_REMOVE_ERRORMES, REG_VALID_SHOW_ERRORMES } from '../actions/inputAction';
+import { SET_USER_ID, SET_USER_DATA } from '../actions/userAccountActions';
+import { ENABLE_MODIFY_USER_DATA, DISABLE_MODIFY_USER_DATA, SET_USER_DATA_AGE, SET_USER_DATA_EMAIL,
+        SET_USER_DATA_GENDER, SET_USER_DATA_IMAGE, SET_USER_DATA_NAME, SET_USER_DATA_SURNAME, 
+        SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT, SET_VALID_FIELDS } from '../actions/modifyUserDataAction';
 
 const initState = {
     regForm: {
@@ -51,12 +57,182 @@ const initState = {
         emailValidMessageShow: false
     },
     isAuthenticated: false,
-    authenticatedErrorMessage: ''
+    authenticatedErrorMessage: '',
+    userId: null,
+    userAccount: {
+        modify: false,
+        data: {
+            name: '',
+            surname: '',
+            midName: '',
+            email: '',
+            age: '',
+            gender: '',
+            image: '',
+            imageAsObject: ''
+        }
+    }
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+
+        case SET_VALID_FIELDS: 
+            return {
+                ...state,
+                regForm: {
+                    ...state.regForm,
+                    nameValid: true,
+                    nameValidMessage: 'success',
+                    nameValidMessageShow: false,
+
+                    surnameValid: true,
+                    surnameValidMessage: 'success',
+                    surnameValidMessageShow: false,
+                    
+                    midNameValid: true,
+                    midNameValidMessage: 'success',
+                    midNameValidMessageShow: false,
+
+                    emailValid: true,
+                    emailValidMessage: 'success',
+                    emailValidMessageShow: false,
+
+                    genderValid: null,
+                    genderValidStat: true,
+
+                    imageValid: true,
+                    imageValidShow: false
+                }
+            }
+
+        case ENABLE_MODIFY_USER_DATA: 
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    modify: true
+                }
+            }
+
+        case DISABLE_MODIFY_USER_DATA: 
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    modify: false
+                }
+            }
+
+        case SET_USER_DATA:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        name: ap.name,
+                        surname: ap.surname,
+                        midName: ap.midName,
+                        email: ap.email,
+                        age: ap.age,
+                        gender: ap.gender,
+                        image: ap.photoLink
+                    }
+                }
+            }
+
+        case SET_USER_DATA_NAME:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        name: ap
+                    }
+                }
+            }
+
+        case SET_USER_DATA_SURNAME:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        surname: ap
+                    }
+                }
+            }
+
+        case SET_USER_DATA_MIDNAME:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        midName: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_EMAIL:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        email: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_AGE:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        age: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_GENDER:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        gender: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_IMAGE:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        image: ap
+                    }
+                }
+            }
+        case SET_USER_DATA_IMAGE_AS_OBJECT:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        imageAsObject: ap
+                    }
+                }
+            }
+
         case AUTHENTICATED:
             return {
                 ...state,
@@ -70,7 +246,7 @@ const inputValidate = (state=initState, action) => {
         case AUTHENTICATION_ERROR: 
             return {
                 ...state,
-                authenticatedErrorMessage: action.payload
+                authenticatedErrorMessage: ap
             }
         case VALIDATE_NAME:
             return  {
@@ -191,7 +367,6 @@ const inputValidate = (state=initState, action) => {
             }
         case REG_VALID_REMOVE_ERRORMES:
             return {
-                ...state, 
                 regForm: {
                     ...state.regForm,
                     regValidateState: {
@@ -211,6 +386,11 @@ const inputValidate = (state=initState, action) => {
                          show: ap.show
                      } 
                  }
+            }
+        case SET_USER_ID:
+            return {
+                ...state,
+                userId: ap
             }
         default:
             return state;

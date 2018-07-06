@@ -1,7 +1,6 @@
 import { signupRoute } from '../../../routes';
-import { postGenerNoHeaders } from '../../commonHandlers/requestGenerator';
+import { postRequestNoHeaders } from '../../commonHandlers/requestGenerator';
 
 export const regSubmit = (data) => {
-    console.log('here');
-    return fetch(signupRoute, postGenerNoHeaders(data))
+    return fetch(signupRoute, postRequestNoHeaders(data))
 }

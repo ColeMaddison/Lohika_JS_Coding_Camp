@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ControlLabel, Col, Alert } from 'react-bootstra
 import { connect } from 'react-redux';
 import { validateEmail } from '../../actions/inputAction'
 import { emailRegExp } from './handlers/emailRegExpCheck';
+import { setUserDataEmail } from '../../actions/modifyUserDataAction';
 
 const elem = <Alert bsStyle="warning">
                 <strong>Warning</strong> Email should be valid (example@mail.com)
@@ -36,27 +37,29 @@ class EmailInput extends React.Component {
             dispatchObj.message = "error";
         }
 
+        this.props.dispatch(setUserDataEmail(emailInputVal));
+
         return this.props.dispatch(validateEmail(dispatchObj));
     }
 
     render(){
         let { emailValidMessage, emailValidMessageShow, value } = this.props.inputState.regForm;
-        let { name, id, label, placeholder  } = this.props;
+        let { name, id, label, placeholder, col1, col2, offset  } = this.props;
         return(
             <FormGroup 
                 bsSize= "small"
                 controlId ={id}
                 validationState={emailValidMessage}
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>{label}</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl
                         name={name}
-                        value={value}
+                        value={value || this.props.value}
                         placeholder={placeholder}
                         onChange={this.handleValidateInput}
                         />

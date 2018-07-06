@@ -2,6 +2,7 @@ import React from 'react';
 import { FormGroup, ControlLabel, Col, FormControl, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { validateImage } from '../../actions/inputAction';
+import { setUserDataImage, setUserDataImageAsObject } from '../../actions/modifyUserDataAction';
 
 const MIN_SIZE = 100 * 1000;
 const MAX_SIZE = 5 * 1000 * 1000;
@@ -12,6 +13,10 @@ const elem = <Alert bsStyle="warning">
 class ImageInput extends React.Component {
     constructor(props){
         super(props);
+
+        // this.state = {
+        //     imgURL: ""
+        // }
 
         this.imageUpload = this.imageUpload.bind(this);
         
@@ -24,10 +29,26 @@ class ImageInput extends React.Component {
 
     }
 
+    //continue here on image preload
+
     imageUpload (e) {
         let imgData = e.target.files[0];
         let imageExt = imgData ? imgData.type : '';
         let imageSize = imgData ? imgData.size : '';
+
+        const reader = new FileReader();
+
+        if(imgData){
+            reader.onload = (() => {
+                return e => {
+                    const previewSrc = e.target.result;
+                    console.log(previewSrc);
+                    this.props.dispatch(setUserDataImage({imageVal: previewSrc}));
+                }
+            })(imgData);
+            reader.readAsDataURL(imgData);
+            this.props.dispatch(setUserDataImageAsObject(imgData));
+        }
 
         let dispatchObj = {
             imgData,
@@ -44,12 +65,15 @@ class ImageInput extends React.Component {
             dispatchObj.imageValid = false;
             dispatchObj.show = true
         }
+
+        
+
         return this.props.dispatch(validateImage(dispatchObj));
     }
 
     render() {
         let { imageStatus, imageValidShow } = this.props.inputState.regForm;
-        let { id } = this.props;
+        let { id, col1, col2, offset } = this.props;
 
 
         return(
@@ -59,12 +83,12 @@ class ImageInput extends React.Component {
                 validationState={imageStatus}
                 name="file"
                 >
-                <Col md={4}>
-                    <Col mdOffset={9}>
+                <Col md={col1}>
+                    <Col mdOffset={offset}>
                         <ControlLabel>Your photo</ControlLabel>
                     </Col>
                 </Col>
-                <Col md={4}>
+                <Col md={col2}>
                     <FormControl 
                         type="file"
                         onChange={this.imageUpload}

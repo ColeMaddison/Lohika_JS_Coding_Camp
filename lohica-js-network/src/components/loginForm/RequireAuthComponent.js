@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginRoute } from './handlers/routes';
+import { fetchUserData } from '../../actions/userAccountActions';
 
 export default function (ComposedComponent) {
     class RequireAuthComponent extends React.Component {
         componentWillMount(){
-            if(!this.props.isAuth){
-                this.props.history.push(loginRoute);
-            }
+            this.props.dispatch(fetchUserData(localStorage.getItem('tkn')));
         }
 
         componentWillUpdate(nextProps){
@@ -24,9 +23,13 @@ export default function (ComposedComponent) {
     }
 
     const mapStateToProps = (initState) => {
-        return { isAuth: initState.formInput.isAuthenticated }
+        return { 
+            isAuth: initState.formInput.isAuthenticated,
+            store: initState,
+            userId: initState.formInput.userId
+        }
     }
-    
+
     return connect(mapStateToProps)(RequireAuthComponent);
 }
 

@@ -1,23 +1,31 @@
+const contentTypeJson = {
+    'Content-Type': 'application/json'
+};
+const postMethod = 'POST';
+const getMethod = 'GET';
+
 // post req obj
-export const postGener = (body) => {
+export const postRequest = (body) => {
     return {
-        method: "POST",
+        method: postMethod,
         body: JSON.stringify(body),
-        headers: {'Content-Type': 'application/json'}
+        headers: contentTypeJson
     }
 }
 
-export const postGenerNoHeaders = (body) => {
+export const postRequestNoHeaders = (body) => {
     return {
-        method: "POST",
+        method: postMethod,
         body: body
     }
 }
 
 // get req obj
-export const getGener = () => {
+export const getRequest = () => {
     return {
-        method: "GET",
-        headers: {'Content-Type': 'application/json'}
+        method: getMethod,
+        headers: contentTypeJson
     }
 }
+
+// one private method to rule them all

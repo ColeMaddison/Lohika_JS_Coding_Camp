@@ -13,7 +13,20 @@ export const REG_VALID_HANDLE = 'REG_VALID_HANDLE';
 export const REG_VALID_REMOVE_ERRORMES = 'REG_VALID_REMOVE_ERRORMES';
 export const REG_VALID_SHOW_ERRORMES = 'REG_VALID_SHOW_ERRORMES';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const VALID_TOKEN = 'VALID_TOKEN';
+export const INVALID_TOKEN = 'VALID_TOKEN';
 
+export const validateToken = () => {
+    return {
+        type: VALID_TOKEN
+    }
+};
+
+export const invalidToken = () => {
+    return {
+        type: INVALID_TOKEN
+    }
+}
 
 export const validateName = (value) => {
     return {

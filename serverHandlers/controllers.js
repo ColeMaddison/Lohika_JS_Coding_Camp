@@ -26,6 +26,7 @@ exports.signup = (req, res) => {
                     res.end(JSON.stringify({message: err}));
                 } 
                 bcrypt.hash(userPass, salt).then(hash => {
+                    const { filename } = req.file;
                     let user = new UserModel({
                         name: userData.name,
                         password: hash,
@@ -34,7 +35,7 @@ exports.signup = (req, res) => {
                         email: userData.email,
                         gender: userData.gender,
                         age: parseInt(userData.age),
-                        photoLink: path.join(__dirname, req.file.path) 
+                        photoLink: filename
                     });
                 
                     user.save(err => {
@@ -45,6 +46,29 @@ exports.signup = (req, res) => {
             });
         }
     })
+}
+
+exports.signout = (req, res) => {
+    res.send({auth: false, message: "You have logged out"});
+}
+
+exports.userAccount = (req, res) => {
+    if(req.decoded){
+        const id = req.decoded.sub;
+        UserModel.findById(id, (err, userData) => {
+            if(err){
+                return res.status(400).json({message: 'User not found'});
+            } else {
+                return res.status(200).json({userData, message: 'User found'});
+            }
+        })
+    } else {
+        res.status(400).json({status: 'not ok'});
+    }
+}
+
+exports.pageNotFound = (req, res) => {
+    res.status(404).end({message: "Page does not exist!"});
 }
 
 // just get data from db to check
@@ -59,4 +83,33 @@ exports.getDbData = (req, res) => {
 exports._dropDb = (req,res) => {
     UserModel.find().remove().exec();
     res.status(200).json({message: "Data has been remnoved"});
+}
+
+exports.modifyUserAccount = (req, res) => {
+    if(!req.decoded){
+        res.status(400).json({message: "Not authorized"});
+    } else {
+        const id = req.decoded.sub;
+        const { name, surname, midname, email, gender, age } = req.body;
+
+        if(req.file) {
+            UserModel.findByIdAndUpdate(id, {name, surname, midName: midname, email, gender, age, photoLink: req.file.filename }, 
+                (err, model) => {
+                    if(err){
+                        res.json({message: err});
+                    } else {
+                        res.json({message: "User successfully updated", model});
+                    }
+                });
+        } else {
+            UserModel.findByIdAndUpdate(id, { name, surname, midName: midname, email, gender, age }, 
+                (err, model) => {
+                    if(err){
+                        res.json({message: err});
+                    } else {
+                        res.json({message: "User successfully updated", model});
+                    }
+            });
+        }
+    }
 }

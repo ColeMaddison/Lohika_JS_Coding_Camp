@@ -6,6 +6,7 @@ const upload = multer({dest: 'uploads/'});
 const bodyParser = require('body-parser');
 const secretConfig = require('./serverHandlers/config.json');
 const jwt = require('jsonwebtoken');
+const UserModel = require('./Schemas/UserSchema');
 
 const auth = require('./serverHandlers/authHandler');
 const ctrl = require('./serverHandlers/controllers');
@@ -13,6 +14,7 @@ const mdl = require('./serverHandlers/middleware');
 const routes = require('./routes');
 
 const app = express();
+app.use(express.static(__dirname + '/uploads'));
 
 let mongoose = require('mongoose');
 
@@ -21,6 +23,7 @@ mongoose.connect('mongodb://localhost/lhk');
 
 let db = mongoose.connection;
 
+// check db connection
 db.on('error', console.error.bind(console, 'We have a db error:'));
 db.on('open', () => {
     console.log('Connection established!');
@@ -34,27 +37,25 @@ app.post(routes.signupRoute, upload.single('file'), mdl.validateInputData, (req,
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+// login
 app.post(routes.loginRoute, (req, res) => {
     auth(req.body)
         .then(user => user ? res.status(200).json({message: "Login Successful", userToken: user.token}) : res.status(400).json({message: "Username or password incorrect!"}))
         .catch(err => console.error(err));
 });
 
-app.get(routes.checkTokenRoute, (req, res) => {
-    if(req.headers){
-        jwt.verify(req.headers.authorization, secretConfig.secret, function(err, decoded){
-            if(err){
-                return res.status(500).send({auth: false, message: "Failed to authenticate token!"});
-            }
-            res.status(200).send({auth: true, decoded, message: "Successful login"});
-        });
-    } else {
-        res.status(401).send({auth: fasle, message: "No token provided"});
-    }
+// account display user data
+app.get(routes.accountRoute, mdl.checkToken, (req, res) => {
+    ctrl.userAccount(req, res);
 });
 
-app.get('/logout', (req, res) => {
-    res.send({auth: false, message: "You have logged out"});
+app.put(routes.accountRoute, upload.single('file'), mdl.validateInputData, mdl.checkToken, (req, res) => {
+    ctrl.modifyUserAccount(req, res);
+});
+
+// logout
+app.get(routes.logoutRoute, (req, res) => {
+    ctrl.signout(req, res);
 })
 
 // get all db data
@@ -62,12 +63,14 @@ app.get(routes.dbData, (req, res) => {
     ctrl.getDbData(req, res);
 });
 
+// drop db data
 app.get(routes.dropDb, (req, res) =>{
     ctrl._dropDb(req,res);
 });
 
-app.get('/*', (req, res) => {
-    res.status(404).end({message: "Page does not exist!"});
+// '/*' default route
+app.get(routes.anyRoute, (req, res) => {
+    ctrl.pageNotFound(req,res);
 });
 
 // make sure nothing is on port PORT, because will be fetching data via react through that port
@@ -76,3 +79,4 @@ let PORT = process.env.PORT || 3334;
 app.listen(PORT, () =>{
     console.log(`Server is up and running on port: ${PORT}`);
 });
+

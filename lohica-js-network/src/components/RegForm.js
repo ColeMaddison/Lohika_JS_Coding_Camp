@@ -4,6 +4,7 @@ import {FormComponent, RedirToLoginButton} from './index';
 
 class RegistrationForm extends  React.Component {
     render() {
+        // console.log(this.props);
         return(
             <div>
                 {this.props.inputState.regForm.successReg ? <RedirToLoginButton /> : <FormComponent/>}
