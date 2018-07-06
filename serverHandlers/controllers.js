@@ -92,20 +92,24 @@ exports.modifyUserAccount = (req, res) => {
         const id = req.decoded.sub;
         const { name, surname, midname, email, gender, age } = req.body;
 
-        UserModel.findByIdAndUpdate(id, {
-            name,
-            surname, 
-            midName: midname,
-            email,
-            gender,
-            age,
-            photoLink: req.file.filename
-        }, (err, model) => {
-            if(err){
-                res.json({message: err});
-            } else {
-                res.json({message: "User successfully updated", model});
-            }
-        });
+        if(req.file) {
+            UserModel.findByIdAndUpdate(id, {name, surname, midName: midname, email, gender, age, photoLink: req.file.filename }, 
+                (err, model) => {
+                    if(err){
+                        res.json({message: err});
+                    } else {
+                        res.json({message: "User successfully updated", model});
+                    }
+                });
+        } else {
+            UserModel.findByIdAndUpdate(id, { name, surname, midName: midname, email, gender, age }, 
+                (err, model) => {
+                    if(err){
+                        res.json({message: err});
+                    } else {
+                        res.json({message: "User successfully updated", model});
+                    }
+            });
+        }
     }
 }

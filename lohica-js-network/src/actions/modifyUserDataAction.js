@@ -91,6 +91,7 @@ export function setValidFields() {
 
 export function modifyUserData(modifyData){
     const token = localStorage.getItem('tkn');
+    console.log(modifyData);
 
     return function(dispatch){
         return fetch(accountRoute, {

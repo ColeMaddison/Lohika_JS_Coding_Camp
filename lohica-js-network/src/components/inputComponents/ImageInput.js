@@ -37,23 +37,18 @@ class ImageInput extends React.Component {
         let imageSize = imgData ? imgData.size : '';
 
         const reader = new FileReader();
-        
-        reader.onloadend = function(){
-            // const previewSrc = reader.result;
-            // if(imgData){
-            //     reader.readAsDataURL(imgData)
-            // }
-    
-            this.props.dispatch(setUserDataImage(reader.result));
-        };
 
-
-        // reader.onloadend = function (e) {
-        //     this.props.dispatch(setUserDataImage([reader.result]));
-        // }.bind(this);
-        // console.log([reader.result]);
-        
-        this.props.dispatch(setUserDataImageAsObject(imgData));
+        if(imgData){
+            reader.onload = (() => {
+                return e => {
+                    const previewSrc = e.target.result;
+                    console.log(previewSrc);
+                    this.props.dispatch(setUserDataImage({imageVal: previewSrc}));
+                }
+            })(imgData);
+            reader.readAsDataURL(imgData);
+            this.props.dispatch(setUserDataImageAsObject(imgData));
+        }
 
         let dispatchObj = {
             imgData,

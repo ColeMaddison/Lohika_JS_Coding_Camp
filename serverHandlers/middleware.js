@@ -38,7 +38,7 @@ exports.validateInputData = async (req, res, next) => {
                 sendResponse("Gender is not specified", 403);
             } else if(!userInfo.age){
                 sendResponse("Age is not specified", 403);
-            } else if(!allowedImgExts.includes(imgData.mimetype) || 1000 > imgData.size > 5000000){
+            } else if(imgData && (!allowedImgExts.includes(imgData.mimetype) || 1000 > imgData.size > 5000000)){
                 sendResponse("File is not valid (unsupported ext. or wrong size)", 403);
             } else {
                 next();
