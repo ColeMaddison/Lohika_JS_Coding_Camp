@@ -6,6 +6,7 @@ import { SET_USER_ID, SET_USER_DATA } from '../actions/userAccountActions';
 import { ENABLE_MODIFY_USER_DATA, DISABLE_MODIFY_USER_DATA, SET_USER_DATA_AGE, SET_USER_DATA_EMAIL,
         SET_USER_DATA_GENDER, SET_USER_DATA_IMAGE, SET_USER_DATA_NAME, SET_USER_DATA_SURNAME, 
         SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT, SET_VALID_FIELDS } from '../actions/modifyUserDataAction';
+import { SEARCH_RESULT } from '../actions/searchActions';
 
 const initState = {
     regForm: {
@@ -71,12 +72,20 @@ const initState = {
             image: '',
             imageAsObject: ''
         }
-    }
+    },
+    searchResult: []
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+
+        case SEARCH_RESULT: 
+        console.log(ap);
+            return {
+                ...state,
+                searchResult: ap
+            }
 
         case SET_VALID_FIELDS: 
             return {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col, Well} from 'react-bootstrap';
-import MainPanelComponent from '../HomeComponents/MainPanelComponent'
-// import { friendsRoute, accountRoute, feedRoute, searchRoute, settingsRoute } from '../../routes';
+import MainPanelComponent from '../HomeComponents/MainPanelComponent';
 
 class FriendsComponent extends React.Component {
     render() {

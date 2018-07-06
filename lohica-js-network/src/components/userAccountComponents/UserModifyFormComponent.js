@@ -24,7 +24,7 @@ class UserModifyFormComponent extends React.Component {
         const { nameValid, imageValid, emailValid, ageValid, genderValidStat, surnameValid, midNameValid } = this.props.validatedFields;
         if(nameValid && imageValid && emailValid && ageValid !== 'error' && genderValidStat && surnameValid && midNameValid){
             const data = new FormData();
-            const { name, surname, midName, email, gender, age, imageAsObject, image } = this.props.userData;
+            const { name, surname, midName, email, gender, age, imageAsObject } = this.props.userData;
             console.log(imageAsObject);
             const { modifyFlag } = this.props
             data.append('name', name);

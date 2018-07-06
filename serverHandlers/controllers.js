@@ -2,7 +2,7 @@
 
 const UserModel = require('../Schemas/UserSchema');
 const generator = require('generate-password');
-const path = require('path');
+const url = require('url');
 const bcrypt = require('bcrypt');
 
 // manage sign up form data
@@ -112,4 +112,19 @@ exports.modifyUserAccount = (req, res) => {
             });
         }
     }
+}
+
+exports.searchUser = (req, res) => {
+    const urlParts = url.parse(req.url);
+    const queryParam = urlParts.query.split('=')[1];
+
+    UserModel.find().or([{name: queryParam} , {surname: queryParam}, {midName: queryParam}])
+        .then(users => {
+            if(users.length){
+                res.json({found: true, users})
+            } else {
+                res.json({found: false});
+            }
+        })
+        .catch(err => console.error(err));
 }

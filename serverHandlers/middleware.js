@@ -55,6 +55,7 @@ exports.validateInputData = async (req, res, next) => {
 
 // validate token mdl
 exports.checkToken = (req, res, next) =>{
+    // console.log(req.headers);
     if(req.headers) {
         jwt.verify(req.headers.authorization.split(' ')[1], secretConfig.secret, (err, decoded) => {
             const date = new Date().getTime();
