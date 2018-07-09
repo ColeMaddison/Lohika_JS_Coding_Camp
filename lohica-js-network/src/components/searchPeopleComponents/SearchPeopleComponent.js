@@ -6,17 +6,9 @@ import SearchResultComponent from './SearchResultComponent';
 import NoResultComponent from './NoResultComponent';
 
 class SearchPeopleComponent extends React.Component{
-    constructor(props){
-        super(props);
-        
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-        console.log(e.target.value);
-    }
 
     render() {
+        const { searchResult } = this.props.store.formInput;
         return (
             <Grid>  
                 <Row>
@@ -30,10 +22,11 @@ class SearchPeopleComponent extends React.Component{
                                     <SearchInputComponent />
                                 </Col>
                                 <Col md={12}>
-                                    <NoResultComponent />
-                                    <SearchResultComponent />
-                                    <SearchResultComponent />
-                                    <SearchResultComponent />
+                                    {'users' in searchResult ? 
+                                        searchResult.users.map((user, i) => <SearchResultComponent userInfo={user} key={i} />)
+                                        :
+                                        <NoResultComponent />
+                                    }
                                 </Col>
                             </Row>
                         </Well>

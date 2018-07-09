@@ -2,9 +2,9 @@
 
 const mongoose = require('mongoose');
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-let UserSchema = new Schema({
+const UserSchema = new Schema({
     name: {type: String, required: true},
     password: {type: String, required: true}, //hash
     surname: {type: String, required: true},
@@ -13,6 +13,7 @@ let UserSchema = new Schema({
     gender: {type: String, required: true},
     age: {type: Number, required: true},
     photoLink: {type: String, required: true},
+    friends: [{type: String}]
 });
 
 

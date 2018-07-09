@@ -6,7 +6,10 @@ const loginRoute = '/login',
     logoutRoute = '/logout',
     accountRoute = '/account',
     anyRoute = '/*',
-    searchRoute = '/search';
+    searchRoute = '/search',
+    getFriendsRoute = '/getFriends',
+    addFriendRoute = '/addFriend',
+    removeFriendRoute = '/removeFriend';
 
 module.exports = {
     loginRoute,
@@ -17,5 +20,8 @@ module.exports = {
     logoutRoute,
     accountRoute,
     anyRoute,
-    searchRoute
+    searchRoute,
+    getFriendsRoute,
+    addFriendRoute,
+    removeFriendRoute
 }

@@ -1,29 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Form, FormControl, ListGroup } from 'react-bootstrap';
-import { searchUsers } from '../../actions/searchActions';
+import { searchUsers, emptySearchResult } from '../../actions/searchActions';
 
 class SearchInputComponent extends React.Component{
     constructor(props){
         super(props);
         
         this.handleChange = this.handleChange.bind(this);
+        this.onKeyPress = this.onKeyPress.bind(this);
     }
-
-    // CONTINUE HERE
-
 
     // also validate the queue with the name regex!!!!
     handleChange(e) {
+        const { userId } = this.props;
         const searchQueue = e.target.value;
-        this.props.dispatch(searchUsers(searchQueue));
-        console.log(this.props);
+        if(searchQueue){
+            this.props.dispatch(searchUsers(searchQueue, userId));
+        } else {
+            this.props.dispatch(emptySearchResult());
+        }
     }
 
+    // prevent input from submit
+    onKeyPress(e){
+        if(e.which === 13){
+            e.preventDefault();
+        }
+    }
+    
     render() {
         return (
             <ListGroup>
-                <Form>
+                <Form onKeyPress={this.onKeyPress}>
                     <FormControl
                         type="text"
                         placeholder="Search people"
@@ -38,7 +47,8 @@ class SearchInputComponent extends React.Component{
 
 const mapStateToProps = (initState) => {
     return {
-        searchData: initState.formInput.searchResult
+        searchData: initState.formInput.searchResult,
+        userId: initState.formInput.userId
     }
 }
 
@@ -47,5 +57,3 @@ const matchDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(SearchInputComponent);
-
-// export default SearchInputComponent;

@@ -1,5 +1,6 @@
 'use strict';
 
+const mongoose = require('mongoose');
 const UserModel = require('../Schemas/UserSchema');
 const generator = require('generate-password');
 const url = require('url');
@@ -118,13 +119,51 @@ exports.searchUser = (req, res) => {
     const urlParts = url.parse(req.url);
     const queryParam = urlParts.query.split('=')[1];
 
-    UserModel.find().or([{name: queryParam} , {surname: queryParam}, {midName: queryParam}])
+    UserModel.find().or([
+        {name: {"$regex": `^${queryParam}`, $options: 'i'}} , 
+        {surname: {"$regex": `^${queryParam}`, $options: 'i'}}, 
+        {midName: {"$regex": `^${queryParam}`, $options: 'i'}}
+    ])
         .then(users => {
-            if(users.length){
-                res.json({found: true, users})
-            } else {
-                res.json({found: false});
-            }
+            res.json({users});
         })
         .catch(err => console.error(err));
 }
+
+// do that when inplementing friends list
+// exports.getFriends = (req, res) => {
+//     res.json({message: 'success'});
+// }
+
+exports.addFriend = (req, res) => {
+    const userId = req.decoded.sub;
+    const friendId = req.body.id;
+    UserModel.findByIdAndUpdate({
+        _id: userId
+    },{
+        $push: {friends: friendId}
+    }, (err, data) => {
+        if(err){
+            res.json({success: false, message: err});
+        } else {
+            res.json({success: true, message: 'success'});
+        }
+    });
+}
+
+    exports.removeFriend = (req, res) => {
+        const userId = req.decoded.sub;
+        const friendId = req.body.id;
+        UserModel.findByIdAndUpdate({
+            _id: userId
+        },
+        {
+            $pull: {"friends": friendId}
+        }, (err, data) => {
+            if(err){
+                res.json({success: false, message: err});
+            } else {
+                res.json({success: true, message: 'success'});
+            }
+        });
+    }
