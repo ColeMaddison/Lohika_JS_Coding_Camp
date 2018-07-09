@@ -146,7 +146,18 @@ exports.addFriend = (req, res) => {
         if(err){
             res.json({success: false, message: err});
         } else {
-            res.json({success: true, message: 'success'});
+            // res.json({success: true, message: 'success'});
+            UserModel.findByIdAndUpdate({
+                _id: friendId
+            }, {
+                $push: {friends: userId}
+            }, (err, data) => {
+                if(err){
+                    res.json({success: false, message: err});
+                } else {
+                    res.json({success: true, message: 'success'});
+                }
+            });
         }
     });
 }
@@ -163,7 +174,18 @@ exports.addFriend = (req, res) => {
             if(err){
                 res.json({success: false, message: err});
             } else {
-                res.json({success: true, message: 'success'});
+                // res.json({success: true, message: 'success'});
+                UserModel.findByIdAndUpdate({
+                    _id: friendId
+                }, {
+                    $pull: {friends: userId}
+                }, (err, data) => {
+                    if(err) {
+                        res.json({success: false, message: err});
+                    } else {
+                        res.json({success: true, message: 'success'});
+                    }
+                });
             }
         });
     }

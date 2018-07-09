@@ -10,7 +10,6 @@ class SearchResultComponent extends React.Component{
         const { gender, name, surname, age, photoLink, _id } = this.props.userInfo;
         const { friends } = this.props.userState.userAccount.data;
         const friendStatus = friends.includes(_id);
-        // console.log(friendStatus);
         return (
             <ListGroup>
                 <ListGroupItem>
