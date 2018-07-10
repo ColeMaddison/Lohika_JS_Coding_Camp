@@ -10,7 +10,7 @@ class UserInfoComponent extends React.Component{
         this.handleModifyButton = this.handleModifyButton.bind(this);
     }
 
-    handleModifyButton(e) {
+    handleModifyButton() {
         this.props.dispatch(enableModifyUserData());
     }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col, Well} from 'react-bootstrap';
 import MainPanelComponent from '../HomeComponents/MainPanelComponent'
 
-class MyAccountComponent extends React.Component{
+class ViewUserAccountComponent extends React.Component{
     render() {
         return (
             <Grid>  
@@ -21,4 +21,4 @@ class MyAccountComponent extends React.Component{
     }
 }
 
-export default MyAccountComponent;
+export default ViewUserAccountComponent;

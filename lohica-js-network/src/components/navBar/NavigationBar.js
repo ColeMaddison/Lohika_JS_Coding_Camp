@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -15,6 +16,7 @@ const isNotAuthLinks = <LinkContainer to={signupRoute}>
 class NavigationBar extends React.Component {
 
     render() {
+        console.log(this.props);
         return (
             <Navbar>
                 <Navbar.Header>
@@ -39,4 +41,4 @@ const mapStateToProps = (initState) => {
     }
 }
 
-export default connect(mapStateToProps)(NavigationBar);
+export default withRouter(connect(mapStateToProps)(NavigationBar));

@@ -29,7 +29,6 @@ class RemoveFriendButtonComponent extends React.Component{
         const { friendId } = this.props;
         this.props.dispatch(removeFromFriendsDb(friendId)); 
         this.setState({remove: false, show: false});
-        console.log(this.state);
     }
 
     render() {
@@ -63,5 +62,3 @@ const matchDispatchToProps = (dispatch) => {
 }
 
 export default connect(matchDispatchToProps)(RemoveFriendButtonComponent);
-
-// export default RemoveFriendButtonComponent;

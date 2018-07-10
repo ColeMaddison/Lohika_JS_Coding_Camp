@@ -30,6 +30,9 @@ class Main extends React.Component{
             <main>
                 <Switch>
                     {isAuthenticated ? <Route exact path={indexRoute} component={this.UserAccountComp}/> : <Route exact path={indexRoute} component={this.LoginCompCall}/>}
+                    {isAuthenticated ? <Route exact path={loginRoute} component={this.UserAccountComp}/> : <Route exact path={loginRoute} component={this.LoginCompCall}/>}
+                    {isAuthenticated ? <Route exact path={signupRoute} component={this.UserAccountComp}/> : <Route exact path={signupRoute} component={this.RegCompCall}/>}
+
                     <Route exact path={indexRoute} component={this.UserAccountComp}/>
                     <Route path={loginRoute} component={this.LoginCompCall} />
                     <Route path={signupRoute} component={this.RegCompCall}/>
