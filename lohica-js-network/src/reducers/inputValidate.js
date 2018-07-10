@@ -6,6 +6,8 @@ import { SET_USER_ID, SET_USER_DATA } from '../actions/userAccountActions';
 import { ENABLE_MODIFY_USER_DATA, DISABLE_MODIFY_USER_DATA, SET_USER_DATA_AGE, SET_USER_DATA_EMAIL,
         SET_USER_DATA_GENDER, SET_USER_DATA_IMAGE, SET_USER_DATA_NAME, SET_USER_DATA_SURNAME, 
         SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT, SET_VALID_FIELDS } from '../actions/modifyUserDataAction';
+import { SEARCH_RESULT, SEARCH_RESULT_EMPTY } from '../actions/searchActions';
+import { FRIENDS_ADD, FRIENDS_REMOVE } from '../actions/friendsActions'
 
 const initState = {
     regForm: {
@@ -69,14 +71,52 @@ const initState = {
             age: '',
             gender: '',
             image: '',
-            imageAsObject: ''
+            imageAsObject: '',
+            friends: []
         }
-    }
+    },
+    searchResult: []
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+
+        case FRIENDS_ADD: 
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        friends: [...state.userAccount.data.friends, ap]
+                    }
+                }
+            }
+
+        case FRIENDS_REMOVE:
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        friends: state.userAccount.data.friends.filter(friend => friend !== ap)
+                    }
+                }
+            }
+
+        case SEARCH_RESULT: 
+            return {
+                ...state,
+                searchResult: ap
+            }
+
+        case SEARCH_RESULT_EMPTY: 
+            return {
+                ...state,
+                searchResult: []
+            }
 
         case SET_VALID_FIELDS: 
             return {
@@ -131,13 +171,15 @@ const inputValidate = (state=initState, action) => {
                 userAccount: {
                     ...state.userAccount,
                     data: {
+                        ...state.userAccount.data,
                         name: ap.name,
                         surname: ap.surname,
                         midName: ap.midName,
                         email: ap.email,
                         age: ap.age,
                         gender: ap.gender,
-                        image: ap.photoLink
+                        image: ap.photoLink,
+                        friends: ap.friends
                     }
                 }
             }
