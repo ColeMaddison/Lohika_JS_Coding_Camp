@@ -7,6 +7,7 @@ const loginRoute = '/login',
     friendsRoute = '/friends',
     addFriendRoute = '/addFriend',
     removeFriendRoute = '/removeFriend',
+    getFriendsRoute = '/getFriends',
 
     feedRoute = '/feed',
     searchRoute = '/search',
@@ -24,6 +25,7 @@ module.exports = {
     friendsRoute,
     addFriendRoute,
     removeFriendRoute,
+    getFriendsRoute,
 
     feedRoute,
     searchRoute,

@@ -130,10 +130,30 @@ exports.searchUser = (req, res) => {
         .catch(err => console.error(err));
 }
 
-// do that when inplementing friends list
-// exports.getFriends = (req, res) => {
-//     res.json({message: 'success'});
-// }
+// get user friends info
+exports.getFriends = (req, res) => {
+    const userId = req.decoded.sub;
+    UserModel.findById(userId,
+        'friends',
+        (err, data) =>{
+            if(err){
+                res.json({success: false, message: err});
+            } else {
+                UserModel
+                    .find({} , {'password': 0})
+                    .where('_id')
+                    .in(data.friends)
+                    .exec((err, users) => {
+                        if(err){
+                            res.json({success: false, message: err});
+                        } else {
+                            res.json({success: true, message: users});
+                        }
+                    })
+            }
+        }
+    );
+}
 
 // add friends for both when only one is placing request
 exports.addFriend = (req, res) => {

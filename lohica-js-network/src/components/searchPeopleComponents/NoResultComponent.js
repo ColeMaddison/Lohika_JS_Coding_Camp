@@ -6,7 +6,7 @@ class NoResultComponent extends React.Component{
         return(
             <ListGroup>
                 <ListGroupItem>
-                    <div className="search-no-result">
+                    <div>
                         <h5>No result.</h5>
                     </div>
                 </ListGroupItem>

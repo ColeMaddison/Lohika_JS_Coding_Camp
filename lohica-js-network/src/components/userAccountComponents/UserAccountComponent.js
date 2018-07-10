@@ -11,10 +11,10 @@ class UserAccountComponent extends React.Component{
         const { modify } = this.props.store.formInput.userAccount;
         return (
             <Grid>
-                <Col md={4}>
+                <Col xs={6} md={4}>
                     <MainPanelComponent />
                 </Col>
-                <Col md={8}>
+                <Col xs={6} md={8}>
                     <Well>
                         {modify ? <UserModifyFormComponent /> : <UserInfoComponent />}
                     </Well>

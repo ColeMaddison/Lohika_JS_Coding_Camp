@@ -7,7 +7,7 @@ import { ENABLE_MODIFY_USER_DATA, DISABLE_MODIFY_USER_DATA, SET_USER_DATA_AGE, S
         SET_USER_DATA_GENDER, SET_USER_DATA_IMAGE, SET_USER_DATA_NAME, SET_USER_DATA_SURNAME, 
         SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT, SET_VALID_FIELDS } from '../actions/modifyUserDataAction';
 import { SEARCH_RESULT, SEARCH_RESULT_EMPTY } from '../actions/searchActions';
-import { FRIENDS_ADD, FRIENDS_REMOVE } from '../actions/friendsActions'
+import { FRIENDS_ADD, FRIENDS_REMOVE, FRIENDS_INFO_ADD } from '../actions/friendsActions'
 
 const initState = {
     regForm: {
@@ -72,7 +72,8 @@ const initState = {
             gender: '',
             image: '',
             imageAsObject: '',
-            friends: []
+            friends: [],
+            friendsInfo: []
         }
     },
     searchResult: []
@@ -94,6 +95,18 @@ const inputValidate = (state=initState, action) => {
                 }
             }
 
+        case FRIENDS_INFO_ADD: 
+            return {
+                ...state,
+                userAccount: {
+                    ...state.userAccount,
+                    data: {
+                        ...state.userAccount.data,
+                        friendsInfo: ap
+                    }
+                }
+            }
+
         case FRIENDS_REMOVE:
             return {
                 ...state,
@@ -101,7 +114,8 @@ const inputValidate = (state=initState, action) => {
                     ...state.userAccount,
                     data: {
                         ...state.userAccount.data,
-                        friends: state.userAccount.data.friends.filter(friend => friend !== ap)
+                        friends: state.userAccount.data.friends.filter(friend => friend !== ap),
+                        friendsInfo: state.userAccount.data.friendsInfo.filter(friend => friend._id !== ap)
                     }
                 }
             }
