@@ -135,6 +135,7 @@ exports.searchUser = (req, res) => {
 //     res.json({message: 'success'});
 // }
 
+// add friends for both when only one is placing request
 exports.addFriend = (req, res) => {
     const userId = req.decoded.sub;
     const friendId = req.body.id;
@@ -146,7 +147,6 @@ exports.addFriend = (req, res) => {
         if(err){
             res.json({success: false, message: err});
         } else {
-            // res.json({success: true, message: 'success'});
             UserModel.findByIdAndUpdate({
                 _id: friendId
             }, {
@@ -174,7 +174,6 @@ exports.addFriend = (req, res) => {
             if(err){
                 res.json({success: false, message: err});
             } else {
-                // res.json({success: true, message: 'success'});
                 UserModel.findByIdAndUpdate({
                     _id: friendId
                 }, {
