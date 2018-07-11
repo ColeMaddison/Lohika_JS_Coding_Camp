@@ -1,5 +1,4 @@
 import React from 'react';
-import './style.css';
 
 const style = {
     backgroundColor: "#F8F8F8",
@@ -25,8 +24,7 @@ class FooterComponent extends React.Component {
         return (
             <div style={phantom}>
                 <div style={style}>
-                    <p>Some Footer
-                    </p>
+                    <p>Some Footer</p>
                 </div>
             </div>
 

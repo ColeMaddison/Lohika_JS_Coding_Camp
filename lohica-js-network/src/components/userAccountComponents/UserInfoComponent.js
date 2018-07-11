@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Row, Panel, Button, Image, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { enableModifyUserData } from '../../actions/modifyUserDataAction';
+import RemoveFriendButtonComponent from '../friendsComponents/RemoveFriendButtonComponent'
 
 class UserInfoComponent extends React.Component{
     constructor(props){
@@ -16,45 +17,46 @@ class UserInfoComponent extends React.Component{
 
 
     render(){
+        const friendData = this.props.friendData;
         const { name, surname, midName, email, age, gender, image } = this.props.userData;
         return(
             <Row>
                 <Col md={12} >
                     <Panel>
                         <Panel.Heading>
-                            <Panel.Title componentClass="h2">{name} {surname}</Panel.Title>
+                            <Panel.Title componentClass="h2">{friendData ? `${friendData.name} ${friendData.surname}` : `${name} ${surname}`}</Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>
                             <Row>
                                 <Col md={4}>
-                                    <Image src={`/${image}`} rounded responsive />
+                                    <Image src={friendData ? `/${friendData.photoLink}` : `/${image}`} rounded responsive />
                                 </Col>
                                 <Col md={8}>
                                     <Table>
                                         <tbody>
                                             <tr>
                                                 <td>Name:</td>
-                                                <td><strong>{name}</strong></td>
+                                                <td><strong>{friendData ? `${friendData.name}` : `${name}`}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>Surname:</td>
-                                                <td><strong>{surname}</strong></td>
+                                                <td><strong>{friendData ? `${friendData.surname}` : `${surname}`}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>Midname:</td>
-                                                <td><strong>{midName}</strong></td>
+                                                <td><strong>{friendData ? `${friendData.midName}` : `${midName}`}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>Email:</td>
-                                                <td><strong>{email}</strong></td>
+                                                <td><strong>{friendData ? `${friendData.email}` : `${email}`}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>Age:</td>
-                                                <td><strong>{age}</strong></td>
+                                                <td><strong>{friendData ? `${friendData.age}` : `${age}`}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>Gender:</td>
-                                                <td><strong>{gender}</strong></td>
+                                                <td><strong>{friendData ? `${friendData.gender}` : `${gender}`}</strong></td>
                                             </tr>
                                         </tbody>
                                     </Table>
@@ -62,12 +64,20 @@ class UserInfoComponent extends React.Component{
                             </Row>
                         </Panel.Body>
                         <Panel.Footer>
+
+                            {friendData ? 
+                            <RemoveFriendButtonComponent
+                                fromFriends={true}
+                                friendId={friendData._id}
+                            />
+                            :
                             <Button
                                 bsStyle="success"
                                 onClick={this.handleModifyButton}
                                 >
                                 Modify
                             </Button>
+                            }
                         </Panel.Footer>
                     </Panel>
                 </Col>

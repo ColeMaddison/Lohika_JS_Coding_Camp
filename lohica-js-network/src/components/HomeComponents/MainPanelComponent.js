@@ -2,7 +2,6 @@ import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Well, ButtonGroup, Button } from 'react-bootstrap';
 import { friendsRoute, accountRoute, feedRoute, searchRoute, settingsRoute } from '../../routes';
-// import { UserAccountComponent, FriendsComponent, SearchPeopleComponent, NewsFeedComponent, SettingsComponent } from '../index';
 
 class MainPanelComponent extends React.Component {
     render(){

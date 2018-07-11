@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { removeFromFriendsDb } from '../../actions/friendsActions';
+import { friendsRoute } from '../../routes';
 
 class RemoveFriendButtonComponent extends React.Component{
     constructor(props){
@@ -26,9 +28,12 @@ class RemoveFriendButtonComponent extends React.Component{
     }
 
     removeFromFriendsHandler() {
-        const { friendId } = this.props;
+        const { friendId, fromFriends } = this.props;
         this.props.dispatch(removeFromFriendsDb(friendId)); 
         this.setState({remove: false, show: false});
+        if(fromFriends){
+            this.props.history.push(friendsRoute);
+        };
     }
 
     render() {
@@ -61,4 +66,4 @@ const matchDispatchToProps = (dispatch) => {
     return {removeFromFriendsDb, dispatch}
 }
 
-export default connect(matchDispatchToProps)(RemoveFriendButtonComponent);
+export default withRouter(connect(matchDispatchToProps)(RemoveFriendButtonComponent));

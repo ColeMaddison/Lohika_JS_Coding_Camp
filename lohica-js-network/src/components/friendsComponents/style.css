@@ -5,6 +5,11 @@
     grid-template-areas: 
     "a b c";
 }
+
+.friendCell:hover{
+    background-color: #eaeaea;
+}
+
 .user-image-container{
     grid-area: a;
     align-self: center;
@@ -43,4 +48,12 @@
 .user-add-friends-button{
     grid-area: c;
     align-self: center;
+}
+
+.user-account-link{
+    color: inherit;
+}
+
+.user-account-link:link{
+    text-decoration: none;
 }
