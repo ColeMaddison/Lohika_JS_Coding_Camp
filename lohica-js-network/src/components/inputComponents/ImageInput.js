@@ -14,10 +14,6 @@ class ImageInput extends React.Component {
     constructor(props){
         super(props);
 
-        // this.state = {
-        //     imgURL: ""
-        // }
-
         this.imageUpload = this.imageUpload.bind(this);
         
         this.allowedExts = [
@@ -28,8 +24,6 @@ class ImageInput extends React.Component {
         ];
 
     }
-
-    //continue here on image preload
 
     imageUpload (e) {
         let imgData = e.target.files[0];
@@ -42,7 +36,6 @@ class ImageInput extends React.Component {
             reader.onload = (() => {
                 return e => {
                     const previewSrc = e.target.result;
-                    console.log(previewSrc);
                     this.props.dispatch(setUserDataImage({imageVal: previewSrc}));
                 }
             })(imgData);

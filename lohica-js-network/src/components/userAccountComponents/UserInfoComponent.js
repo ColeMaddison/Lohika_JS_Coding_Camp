@@ -20,7 +20,7 @@ class UserInfoComponent extends React.Component{
         return(
             <Row>
                 <Col md={12} >
-                    <Panel bsStyle='info'>
+                    <Panel>
                         <Panel.Heading>
                             <Panel.Title componentClass="h2">{name} {surname}</Panel.Title>
                         </Panel.Heading>
