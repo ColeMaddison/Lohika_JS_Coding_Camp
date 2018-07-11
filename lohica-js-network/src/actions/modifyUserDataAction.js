@@ -1,4 +1,5 @@
 import { accountRoute } from '../routes';
+import { putRequestWithTokenNoContentType } from '../components/commonHandlers/requestGenerator'
 
 export const ENABLE_MODIFY_USER_DATA = 'ENABLE_MODIFY_USER_DATA';
 export const DISABLE_MODIFY_USER_DATA = 'DISABLE_MODIFY_USER_DATA';
@@ -91,17 +92,15 @@ export function setValidFields() {
 
 export function modifyUserData(modifyData){
     const token = localStorage.getItem('tkn');
-    console.log(modifyData);
 
     return function(dispatch){
-        return fetch(accountRoute, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: modifyData
-        })
+        return fetch(
+            accountRoute, 
+            putRequestWithTokenNoContentType(token, modifyData)
+            )
             .then(res => res.json())
-            .then(res => console.log(res));
+            .then(res => {
+                dispatch(disableModifyUserData())
+            });
     }
 }

@@ -1,5 +1,6 @@
 import { accountRoute } from '../routes'
 import { signOutAction } from './loginActions';
+import { getRequestWithToken } from '../components/commonHandlers/requestGenerator'
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -20,12 +21,10 @@ export function setUserData(data){
 
 export function fetchUserData(token) {
     return function(dispatch){
-        return fetch(accountRoute, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        return fetch(
+            accountRoute, 
+            getRequestWithToken(token)
+        )
         .then(res => {
             if (res.status === 400 || res.status === 403){
                 return dispatch(signOutAction());

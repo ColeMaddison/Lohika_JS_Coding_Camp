@@ -39,5 +39,3 @@ const mapStateToProps = (initState) => {
 }
     
 export default connect(mapStateToProps)(SearchResultComponent);
-
-// export default SearchResultComponent;

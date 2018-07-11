@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { indexRoute } from '../../routes';
 import { Form, Row, Col, Button, ButtonGroup, Thumbnail } from 'react-bootstrap';
 import { NameInput, SurnameInput, MidnameInput, EmailInput, GenderRadio, AgeInput, ImageInput } from '../index';
 import { modifyUserData } from '../../actions/modifyUserDataAction';
@@ -25,7 +24,6 @@ class UserModifyFormComponent extends React.Component {
         if(nameValid && imageValid && emailValid && ageValid !== 'error' && genderValidStat && surnameValid && midNameValid){
             const data = new FormData();
             const { name, surname, midName, email, gender, age, imageAsObject } = this.props.userData;
-            console.log(imageAsObject);
             const { modifyFlag } = this.props
             data.append('name', name);
             data.append('surname', surname);
@@ -37,8 +35,6 @@ class UserModifyFormComponent extends React.Component {
             data.append('file', imageAsObject);
     
             this.props.dispatch(modifyUserData(data));
-            window.location.reload();
-            this.props.history.push(indexRoute);
         }
     }
 
@@ -56,7 +52,6 @@ class UserModifyFormComponent extends React.Component {
 
     render() {
         const { age, email, gender, image, midName, name, surname } = this.props.userData;
-        console.log(this.props.userData);
         return (
             <Form horizontal>
                 <Row>

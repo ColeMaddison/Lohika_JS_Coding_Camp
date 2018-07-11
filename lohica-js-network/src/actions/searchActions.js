@@ -1,4 +1,5 @@
 import { searchRoute } from '../routes';
+import { getRequestWithTokenNoContentType } from '../components/commonHandlers/requestGenerator'
 export const SEARCH_RESULT = 'SEARCH_RESULT';
 export const SEARCH_RESULT_EMPTY = 'SEARCH_RESULT_EMPTY';
 
@@ -19,12 +20,10 @@ export function searchUsers (queueString, userId) {
     const token = localStorage.getItem('tkn');
     
     return function(dispatch){
-        return fetch(`${searchRoute}?q=${queueString}`,{
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        return fetch(
+            `${searchRoute}?q=${queueString}`,
+            getRequestWithTokenNoContentType(token)
+        )
             .then(result => result.json())
             .then(result => {
                 if(result.users){

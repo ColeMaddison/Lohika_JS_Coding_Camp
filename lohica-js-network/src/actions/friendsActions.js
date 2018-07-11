@@ -1,4 +1,5 @@
 import { addFriendRoute, removeFriendRoute, getFriendsRoute } from '../routes';
+import { postRequestWithToken, deleteRequestWithToken, getRequestWithToken } from '../components/commonHandlers/requestGenerator'
 
 export const FRIENDS_ADD = 'FRIENDS_ADD';
 export const FRIENDS_INFO_ADD = 'FRIENDS_INFO_ADD';
@@ -33,14 +34,10 @@ export function addFriendsInfoToStore(friendsArr){
 // add friend in db and call add friend to store function
 export function addToFriendsDb(id){
     return function (dispatch){
-        return fetch(addFriendRoute, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({id: id})
-        })
+        return fetch(
+        addFriendRoute, 
+        postRequestWithToken(token, id)
+        )
         .then(result => result.json())
         .then(result => {
             if(result.success){
@@ -53,14 +50,10 @@ export function addToFriendsDb(id){
 // remove friend if from db and call remove if from user store function
 export function removeFromFriendsDb(id){
     return function(dispatch){
-        return fetch(removeFriendRoute, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({id: id})
-        })
+        return fetch(
+        removeFriendRoute, 
+        deleteRequestWithToken(token, id)
+        )
         .then(result => result.json())
         .then(result => {
             if(result.success){
@@ -73,13 +66,9 @@ export function removeFromFriendsDb(id){
 // get user friends info 
 export function getUserFriendsInfo(id){
     return function(dispatch){
-        return fetch(getFriendsRoute, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
+        return fetch(getFriendsRoute, 
+        getRequestWithToken(token)
+        )
         .then(result => result.json())
         .then(result => {
             if(result.success){

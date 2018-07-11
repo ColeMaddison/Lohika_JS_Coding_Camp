@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -12,15 +13,19 @@ const isNotAuthLinks = <LinkContainer to={signupRoute}>
                             <NavItem eventKey={1}>Signup</NavItem>
                         </LinkContainer>
 
+const indexLink = <LinkContainer to={indexRoute}>
+                            <NavItem eventKey={1}>LHK</NavItem>
+                        </LinkContainer>
+
 class NavigationBar extends React.Component {
 
     render() {
         return (
             <Navbar>
                 <Navbar.Header>
-                    <Navbar.Brand>
-                        <a href={indexRoute}><strong>LHK</strong></a>
-                    </Navbar.Brand>
+                    <Nav>
+                        {indexLink}
+                    </Nav>
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
@@ -39,4 +44,4 @@ const mapStateToProps = (initState) => {
     }
 }
 
-export default connect(mapStateToProps)(NavigationBar);
+export default withRouter(connect(mapStateToProps)(NavigationBar));

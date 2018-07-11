@@ -4,8 +4,14 @@ import MainPanelComponent from '../HomeComponents/MainPanelComponent'
 import SearchInputComponent from './SearchInputComponent'; 
 import SearchResultComponent from './SearchResultComponent';
 import NoResultComponent from './NoResultComponent';
+import { emptySearchResult } from '../../actions/searchActions';
 
 class SearchPeopleComponent extends React.Component{
+
+    // reset search result list after going to another page
+    componentWillUnmount() {
+        this.props.dispatch(emptySearchResult());
+    }
 
     render() {
         const { searchResult } = this.props.store.formInput;
