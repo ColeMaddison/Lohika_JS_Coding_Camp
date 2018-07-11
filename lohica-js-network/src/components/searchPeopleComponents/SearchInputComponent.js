@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Form, FormControl, ListGroup } from 'react-bootstrap';
 import { searchUsers, emptySearchResult } from '../../actions/searchActions';
+import { enterButtonCode } from '../commonHandlers/constants';
 
 class SearchInputComponent extends React.Component{
     constructor(props){
@@ -24,7 +25,7 @@ class SearchInputComponent extends React.Component{
 
     // prevent input from submit
     onKeyPress(e){
-        if(e.which === 13){
+        if(e.which === enterButtonCode){
             e.preventDefault();
         }
     }

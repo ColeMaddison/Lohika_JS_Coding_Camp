@@ -56,7 +56,7 @@ app.get(routes.searchRoute, mdl.checkToken, (req, res) => {
     ctrl.searchUser(req, res);
 });
 
-// get all friends -- do that when implementing friends list
+// get all friends
 app.get(routes.getFriendsRoute, mdl.checkToken, (req, res) => {
     ctrl.getFriends(req, res);
 });
