@@ -4,9 +4,6 @@ const express = require('express');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 const bodyParser = require('body-parser');
-const secretConfig = require('./serverHandlers/config.json');
-const jwt = require('jsonwebtoken');
-const UserModel = require('./Schemas/UserSchema');
 
 const auth = require('./serverHandlers/authHandler');
 const ctrl = require('./serverHandlers/controllers');
@@ -49,8 +46,29 @@ app.get(routes.accountRoute, mdl.checkToken, (req, res) => {
     ctrl.userAccount(req, res);
 });
 
+// modify user account data
 app.put(routes.accountRoute, upload.single('file'), mdl.validateInputData, mdl.checkToken, (req, res) => {
     ctrl.modifyUserAccount(req, res);
+});
+
+// search people
+app.get(routes.searchRoute, mdl.checkToken, (req, res) => {
+    ctrl.searchUser(req, res);
+});
+
+// get all friends -- do that when implementing friends list
+app.get(routes.getFriendsRoute, mdl.checkToken, (req, res) => {
+    ctrl.getFriends(req, res);
+});
+
+// add friends
+app.post(routes.addFriendRoute, mdl.checkToken, (req, res) => {
+    ctrl.addFriend(req, res);
+});
+
+// remove user from friends list
+app.delete(routes.removeFriendRoute, mdl.checkToken, (req, res) => {
+    ctrl.removeFriend(req, res)
 });
 
 // logout

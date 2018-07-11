@@ -1,8 +1,9 @@
 'use strict';
 
+const mongoose = require('mongoose');
 const UserModel = require('../Schemas/UserSchema');
 const generator = require('generate-password');
-const path = require('path');
+const url = require('url');
 const bcrypt = require('bcrypt');
 
 // manage sign up form data
@@ -113,3 +114,97 @@ exports.modifyUserAccount = (req, res) => {
         }
     }
 }
+
+exports.searchUser = (req, res) => {
+    const urlParts = url.parse(req.url);
+    const queryParam = urlParts.query.split('=')[1];
+
+    UserModel.find().or([
+        {name: {"$regex": `^${queryParam}`, $options: 'i'}} , 
+        {surname: {"$regex": `^${queryParam}`, $options: 'i'}}, 
+        {midName: {"$regex": `^${queryParam}`, $options: 'i'}}
+    ])
+        .then(users => {
+            res.json({users});
+        })
+        .catch(err => console.error(err));
+}
+
+// get user friends info
+exports.getFriends = (req, res) => {
+    const userId = req.decoded.sub;
+    UserModel.findById(userId,
+        'friends',
+        (err, data) =>{
+            if(err){
+                res.json({success: false, message: err});
+            } else {
+                UserModel
+                    .find({} , {'password': 0})
+                    .where('_id')
+                    .in(data.friends)
+                    .exec((err, users) => {
+                        if(err){
+                            res.json({success: false, message: err});
+                        } else {
+                            res.json({success: true, message: users});
+                        }
+                    })
+            }
+        }
+    );
+}
+
+// add friends for both when only one is placing request
+exports.addFriend = (req, res) => {
+    const userId = req.decoded.sub;
+    const friendId = req.body.id;
+    UserModel.findByIdAndUpdate({
+        _id: userId
+    },{
+        $push: {friends: friendId}
+    }, (err, data) => {
+        if(err){
+            res.json({success: false, message: err});
+        } else {
+            UserModel.findByIdAndUpdate({
+                _id: friendId
+            }, {
+                $push: {friends: userId}
+            }, (err, data) => {
+                if(err){
+                    res.json({success: false, message: err});
+                } else {
+                    res.json({success: true, message: 'success'});
+                }
+            });
+        }
+    });
+}
+
+    exports.removeFriend = (req, res) => {
+        const userId = req.decoded.sub;
+        const friendId = req.body.id;
+        UserModel.findByIdAndUpdate({
+            _id: userId
+        },
+        {
+            $pull: {"friends": friendId}
+        }, (err, data) => {
+            if(err){
+                res.json({success: false, message: err});
+            } else {
+                UserModel.findByIdAndUpdate({
+                    _id: friendId
+                }, {
+                    $pull: {friends: userId}
+                }, (err, data) => {
+                    if(err) {
+                        res.json({success: false, message: err});
+                    } else {
+                        res.json({success: true, message: 'success'});
+                    }
+                });
+            }
+        });
+    }

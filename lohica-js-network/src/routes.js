@@ -5,6 +5,10 @@ const loginRoute = '/login',
     checkTokenRoute = '/checkToken',
     
     friendsRoute = '/friends',
+    addFriendRoute = '/addFriend',
+    removeFriendRoute = '/removeFriend',
+    getFriendsRoute = '/getFriends',
+
     feedRoute = '/feed',
     searchRoute = '/search',
     settingsRoute = '/settings',
@@ -19,6 +23,10 @@ module.exports = {
     checkTokenRoute,
 
     friendsRoute,
+    addFriendRoute,
+    removeFriendRoute,
+    getFriendsRoute,
+
     feedRoute,
     searchRoute,
     settingsRoute,

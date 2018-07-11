@@ -35,10 +35,10 @@ export function fetchUserData(token) {
         })
         .then(res => {
             if(res.userData){
-                const { _id, name, age, email, midName, surname, gender, photoLink } = res.userData;
+                const { _id, name, age, email, midName, surname, gender, photoLink, friends } = res.userData;
                 dispatch(setUserId(_id));
                 dispatch(setUserData({
-                    name, age, email, gender, midName, surname, photoLink
+                    name, age, email, gender, midName, surname, photoLink, friends
                 }));
             }
         })
