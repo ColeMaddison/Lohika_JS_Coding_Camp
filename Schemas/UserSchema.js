@@ -13,7 +13,8 @@ const UserSchema = new Schema({
     gender: {type: String, required: true},
     age: {type: Number, required: true},
     photoLink: {type: String, required: true},
-    friends: [{type: String}]
+    friends: [{type: String}],
+    news: {type: Array, default: []}
 });
 
 

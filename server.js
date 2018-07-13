@@ -31,6 +31,10 @@ app.post(routes.signupRoute, upload.single('file'), mdl.validateInputData, (req,
     ctrl.signup(req,res);
 });
 
+app.post(routes.newsFeedRoute, upload.single('file'), mdl.checkToken, (req, res) => {
+    ctrl.addNews(req, res);
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -71,14 +75,23 @@ app.delete(routes.removeFriendRoute, mdl.checkToken, (req, res) => {
     ctrl.removeFriend(req, res)
 });
 
+app.get(routes.feedListRoute, mdl.checkToken, (req, res) => {
+    ctrl.getNews(req, res);
+});
+
 // logout
-app.get(routes.logoutRoute, (req, res) => {
+app.get(routes.logoutRoute, mdl.checkToken, (req, res) => {
     ctrl.signout(req, res);
 })
 
 // get all db data
 app.get(routes.dbData, (req, res) => {
     ctrl.getDbData(req, res);
+});
+
+// get all posts data
+app.get(routes.postsData, (req, res) => {
+    ctrl.getPosts(req, res);
 });
 
 // drop db data

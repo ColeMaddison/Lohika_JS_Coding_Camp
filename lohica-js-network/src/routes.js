@@ -10,6 +10,7 @@ const loginRoute = '/login',
     getFriendsRoute = '/getFriends',
 
     feedRoute = '/feed',
+    feedListRoute = '/feedList',
     searchRoute = '/search',
     settingsRoute = '/settings',
     accountRoute = '/account';
@@ -28,6 +29,7 @@ module.exports = {
     getFriendsRoute,
 
     feedRoute,
+    feedListRoute,
     searchRoute,
     settingsRoute,
     accountRoute

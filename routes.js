@@ -2,6 +2,7 @@ const loginRoute = '/login',
     signupRoute = '/signup',
     checkTokenRoute = '/checkToken',
     dbData = '/db',
+    postsData = '/posts'
     dropDb = '/dbdrop',
     logoutRoute = '/logout',
     accountRoute = '/account',
@@ -9,7 +10,9 @@ const loginRoute = '/login',
     searchRoute = '/search',
     getFriendsRoute = '/getFriends',
     addFriendRoute = '/addFriend',
-    removeFriendRoute = '/removeFriend';
+    removeFriendRoute = '/removeFriend',
+    newsFeedRoute = '/feed',
+    feedListRoute = '/feedList';
 
 module.exports = {
     loginRoute,
@@ -23,5 +26,8 @@ module.exports = {
     searchRoute,
     getFriendsRoute,
     addFriendRoute,
-    removeFriendRoute
+    removeFriendRoute,
+    newsFeedRoute,
+    postsData,
+    feedListRoute
 }

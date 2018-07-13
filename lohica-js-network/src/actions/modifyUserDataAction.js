@@ -92,7 +92,6 @@ export function setValidFields() {
 
 export function modifyUserData(modifyData){
     const token = localStorage.getItem('tkn');
-
     return function(dispatch){
         return fetch(
             accountRoute, 
@@ -100,6 +99,7 @@ export function modifyUserData(modifyData){
             )
             .then(res => res.json())
             .then(res => {
+                dispatch(setUserDataImage(res.model.photoLink));
                 dispatch(disableModifyUserData())
             });
     }

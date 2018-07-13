@@ -8,6 +8,8 @@ import { ENABLE_MODIFY_USER_DATA, DISABLE_MODIFY_USER_DATA, SET_USER_DATA_AGE, S
         SET_USER_DATA_MIDNAME, SET_USER_DATA_IMAGE_AS_OBJECT, SET_VALID_FIELDS } from '../actions/modifyUserDataAction';
 import { SEARCH_RESULT, SEARCH_RESULT_EMPTY } from '../actions/searchActions';
 import { FRIENDS_ADD, FRIENDS_REMOVE, FRIENDS_INFO_ADD } from '../actions/friendsActions'
+import { NEWS_FEED_ADD_MESSAGE, NEWS_FEED_ADD_IMAGE, NEWS_FEED_CLEAR_POST_INFO,
+        NEWS_FEED_ADD_POST_INFO_STORE, NEWS_FEED_POPULATE_STORE, NEWS_FEED_CLEAR_STORE } from '../actions/newsFeedAcions';
 
 const initState = {
     regForm: {
@@ -76,12 +78,91 @@ const initState = {
             friendsInfo: []
         }
     },
-    searchResult: []
+    searchResult: [],
+    newsFeed: {
+        allNews: [],
+        addOneNews: {
+            userId: '',
+            // newsId: '',
+            userName: '',
+            userSurname: '',
+            // dateCreated: '',
+            image: '',
+            text: ''
+        },
+        resetFeedForm: false
+    }
 };
 
 const inputValidate = (state=initState, action) => {
     let ap = action.payload;
     switch(action.type){
+
+        case NEWS_FEED_POPULATE_STORE: 
+            return {
+                ...state,
+                newsFeed: {
+                    ...state.newsFeed,
+                    allNews: ap
+                }
+            }
+        case NEWS_FEED_CLEAR_STORE: 
+            return {
+                ...state,
+                newsFeed: {
+                    ...state.newsFeed,
+                    allNews: []
+                }
+            }
+
+        case NEWS_FEED_ADD_MESSAGE: 
+            return {
+                ...state,
+                newsFeed: {
+                    ...state.newsFeed,
+                    addOneNews: {
+                        ...state.newsFeed.addOneNews,
+                        text: ap
+                    }
+                }
+            }
+        
+        case NEWS_FEED_ADD_IMAGE: 
+        return {
+            ...state,
+            newsFeed: {
+                ...state.newsFeed,
+                addOneNews: {
+                    ...state.newsFeed.addOneNews,
+                    image: ap
+                }
+            }
+        }
+
+        case NEWS_FEED_ADD_POST_INFO_STORE:
+            return {
+                ...state,
+                newsFeed: {
+                    ...state.newsFeed,
+                    allNews:[ap, ...state.newsFeed.allNews]
+                }
+            }
+
+        case NEWS_FEED_CLEAR_POST_INFO:
+            return {
+                ...state,
+                newsFeed: {
+                    ...state.newsFeed,
+                    addOneNews: {
+                        userId: '',
+                        userName: '',
+                        userSurname: '',
+                        image: '',
+                        text: ''
+
+                    }
+                }
+            }
 
         case FRIENDS_ADD: 
             return {

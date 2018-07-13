@@ -24,7 +24,7 @@ class FooterComponent extends React.Component {
         return (
             <div style={phantom}>
                 <div style={style}>
-                    <p>Some Footer</p>
+                    <p>Footer</p>
                 </div>
             </div>
 

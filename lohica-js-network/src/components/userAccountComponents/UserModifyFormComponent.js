@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { indexRoute } from '../../routes';
 import { Form, Row, Col, Button, ButtonGroup, Thumbnail } from 'react-bootstrap';
 import { NameInput, SurnameInput, MidnameInput, EmailInput, GenderRadio, AgeInput, ImageInput } from '../index';
 import { modifyUserData } from '../../actions/modifyUserDataAction';
@@ -33,9 +34,10 @@ class UserModifyFormComponent extends React.Component {
             data.append('age', age);
             data.append('modifyFlag', modifyFlag);
             data.append('file', imageAsObject);
-    
+                
             this.props.dispatch(modifyUserData(data));
         }
+        this.props.history.push(indexRoute);
     }
 
     componentDidMount() {
@@ -57,7 +59,7 @@ class UserModifyFormComponent extends React.Component {
                 <Row>
                     <Col md={12}>
                         <Col md={5}>
-                            <Thumbnail className="textcenter" src={typeof image === 'object' ? image.imageVal: `/${image}`} />
+                            <Thumbnail className="textcenter" src={typeof image === 'object' ? image.imageVal : `/${image}`} />
                             <ImageInput 
                                 id="formControlFile"
                                 col1={2}

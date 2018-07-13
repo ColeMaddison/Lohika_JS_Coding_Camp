@@ -1,7 +1,7 @@
 'use strict';
 
-const mongoose = require('mongoose');
 const UserModel = require('../Schemas/UserSchema');
+const FeedPostModel = require('../Schemas/FeedPostSchema');
 const generator = require('generate-password');
 const url = require('url');
 const bcrypt = require('bcrypt');
@@ -75,6 +75,14 @@ exports.pageNotFound = (req, res) => {
 // just get data from db to check
 exports.getDbData = (req, res) => {
     UserModel.find(function (err, data) {
+        if (err) return console.error(err);
+        res.status(200).json(data);
+    })
+}
+
+// just get data from db to check
+exports.getPosts = (req, res) => {
+    FeedPostModel.find(function (err, data) {
         if (err) return console.error(err);
         res.status(200).json(data);
     })
@@ -182,29 +190,127 @@ exports.addFriend = (req, res) => {
     });
 }
 
-    exports.removeFriend = (req, res) => {
-        const userId = req.decoded.sub;
-        const friendId = req.body.id;
-        UserModel.findByIdAndUpdate({
-            _id: userId
-        },
-        {
-            $pull: {"friends": friendId}
-        }, (err, data) => {
+exports.removeFriend = (req, res) => {
+    const userId = req.decoded.sub;
+    const friendId = req.body.id;
+    UserModel.findByIdAndUpdate({
+        _id: userId
+    },
+    {
+        $pull: {"friends": friendId}
+    }, (err, data) => {
+        if(err){
+            res.json({success: false, message: err});
+        } else {
+            UserModel.findByIdAndUpdate({
+                _id: friendId
+            }, {
+                $pull: {friends: userId}
+            }, (err, data) => {
+                if(err) {
+                    res.json({success: false, message: err});
+                } else {
+                    res.json({success: true, message: 'success'});
+                }
+            });
+        }
+    });
+}
+
+
+exports.addNews = (req, res) => {
+    const { userId, name, surname, userImage, text } = req.body;
+    const reqFile = req.file;
+    const filename = reqFile ? reqFile.filename : '';
+
+    const date = new Date();
+
+    const news = new FeedPostModel({
+        userId,
+        userName: name,
+        userSurname: surname,
+        image: filename,
+        userImage,
+        date,
+        text
+    });
+
+    news.save((err, data) => {
+        if(err){
+            res.json({err});
+        } else {
+            const newsId = data._id.toString();
+            UserModel.findByIdAndUpdate({
+                _id: userId
+            },
+            {
+                $push: {
+                    news: {
+                        $each: [newsId],
+                        $position: 0
+                    }
+                }
+            }, (err, userData) => {
+                if(err){
+                    res.json(err);
+                } else {
+                    res.status(200).json({success: true, message: 'post saved', data});
+                }
+            });
+        }
+    });
+}
+
+exports.getNews = (req, res) => {
+    const userId = req.decoded.sub;
+
+    UserModel.findById(userId, {'friends': 1, 'news': 1}, (err, newsIds) => {
             if(err){
-                res.json({success: false, message: err});
+                res.json({success: false, err});
             } else {
-                UserModel.findByIdAndUpdate({
-                    _id: friendId
-                }, {
-                    $pull: {friends: userId}
-                }, (err, data) => {
-                    if(err) {
-                        res.json({success: false, message: err});
+                let totalNews = [];
+                FeedPostModel.find({}).where('_id').in(newsIds.news).exec((err, news) => {
+                        if(err){
+                            res.json({success: false, err})
+                        } else {
+                            totalNews.push(...news);
+                        }
+                    });
+                UserModel.find({}, {'news': 1, '_id': 0}).where('_id').in(newsIds.friends).exec((err, friendNewsIds) => {
+                    if(err){
+                        res.json({success: false, err})
                     } else {
-                        res.json({success: true, message: 'success'});
+                        
+                        const friendsNewsIdsArray = [];
+                        for(let i = 0; i<friendNewsIds.length; i++){
+                            friendsNewsIdsArray.push(...friendNewsIds[i].news);
+                        }
+                        FeedPostModel.find({}).where('_id').in(friendsNewsIdsArray).exec((err, friendsNews) => {
+                            if(err){
+                                res.json({success: false, err})
+                            } else {
+                                if(friendsNews.length){
+                                    totalNews.push(...friendsNews);
+                                }
+                                res.json({success: true, totalNews});
+                            }
+                        });
                     }
                 });
             }
-        });
-    }
+        }
+    );
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,6 +19,7 @@ class UserInfoComponent extends React.Component{
     render(){
         const friendData = this.props.friendData;
         const { name, surname, midName, email, age, gender, image } = this.props.userData;
+        
         return(
             <Row>
                 <Col md={12} >

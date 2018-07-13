@@ -42,6 +42,8 @@ export function addToFriendsDb(id){
         .then(result => {
             if(result.success){
                 dispatch(addToFriendsStore(id));
+            } else {
+                console.log(result);
             }
         })
     }

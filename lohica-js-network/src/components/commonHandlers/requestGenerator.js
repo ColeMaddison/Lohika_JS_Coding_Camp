@@ -72,6 +72,16 @@ export const postRequestWithToken = (token, id) => {
     }
 } 
 
+export const postRequestWithTokenNoHeaders = (token, id) => {
+    return {
+        method: postMethod,
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: id
+    }
+} 
+
 export const deleteRequestWithToken = (token, id) => {
     return {
         method: deleteMethod,
